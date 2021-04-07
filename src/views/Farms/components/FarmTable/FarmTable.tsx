@@ -64,7 +64,7 @@ const FarmTable: React.FC<ITableProps> = (props) => {
   // console.log("data, column", data, columns);
 
   const { rows } = useTable(columns, data, { sortable: true, sortColumn: 'farm' })
-
+  console.log(rows);
   const scrollToTop = (): void => {
     tableWrapperEl.current.scrollIntoView({
       behavior: 'smooth',

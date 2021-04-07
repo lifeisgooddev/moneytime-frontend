@@ -230,6 +230,12 @@ const Farms: React.FC = () => {
         multiplier: farm.multiplier,
       },
       details: farm,
+      depositFee: { 
+        value: farm.depositFee
+      },
+      withdrawFee: {
+        value: farm.withdrawFee
+      }
     }
 
     return row

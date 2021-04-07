@@ -35,7 +35,6 @@ const Container = styled.div`
 `
 
 const Multiplier: React.FunctionComponent<MultiplierProps> = ({ multiplier }) => {
-  console.log("multiplier", multiplier);
   const displayMultipler = multiplier ? multiplier.toLowerCase() : '-'
   const TranslateString = useI18n()
 

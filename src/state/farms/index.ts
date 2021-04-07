@@ -38,7 +38,7 @@ export const { setFarmsPublicData, setFarmUserData } = farmsSlice.actions
 
 // Thunks
 export const fetchFarmsPublicDataAsync = () => async (dispatch) => {
-  const farms = await fetchFarms()
+  const farms = await fetchFarms();
   dispatch(setFarmsPublicData(farms))
 }
 export const fetchFarmUserDataAsync = (account) => async (dispatch) => {
@@ -46,7 +46,7 @@ export const fetchFarmUserDataAsync = (account) => async (dispatch) => {
   const userFarmTokenBalances = await fetchFarmUserTokenBalances(account)
   const userStakedBalances = await fetchFarmUserStakedBalances(account)
   const userFarmEarnings = await fetchFarmUserEarnings(account)
-
+  console.log("here user");
   const arrayOfUserDataObjects = userFarmAllowances.map((farmAllowance, index) => {
     return {
       index,
@@ -56,7 +56,7 @@ export const fetchFarmUserDataAsync = (account) => async (dispatch) => {
       earnings: userFarmEarnings[index],
     }
   })
-
+  console.log(arrayOfUserDataObjects);
   dispatch(setFarmUserData({ arrayOfUserDataObjects }))
 }
 

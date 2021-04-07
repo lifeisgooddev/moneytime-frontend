@@ -1,6 +1,6 @@
 import { AbiItem } from 'web3-utils'
 import poolsConfig from 'config/constants/pools'
-import masterChefABI from 'config/abi/masterchef.json'
+import masterChefABI from 'config/abi/MasterChefTime.json'
 import sousChefABI from 'config/abi/sousChef.json'
 import erc20ABI from 'config/abi/erc20.json'
 import multicall from 'utils/multicall'
@@ -90,7 +90,7 @@ export const fetchUserPendingRewards = async (account) => {
   )
 
   // Cake / Cake pool
-  const pendingReward = await masterChefContract.methods.pendingCake('0', account).call()
+  const pendingReward = await masterChefContract.methods.pendingTime('0', account).call()
 
   return { ...pendingRewards, 0: new BigNumber(pendingReward).toJSON() }
 }

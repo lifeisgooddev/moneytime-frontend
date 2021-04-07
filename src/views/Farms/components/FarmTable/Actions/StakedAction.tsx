@@ -33,8 +33,7 @@ const Staked: React.FunctionComponent<FarmWithStakedValue> = ({ pid, lpSymbol, l
   const web3 = useWeb3()
 
   const isApproved = account && allowance && allowance.isGreaterThan(0)
-
-  console.log('isApproved = ', isApproved, account, allowance.toString())
+  // console.log('isApproved = ', isApproved, account, allowance.toString())
   const lpAddress = lpAddresses[process.env.REACT_APP_CHAIN_ID]
   const liquidityUrlPathParts = getLiquidityUrlPathParts({
     quoteTokenAddress: quoteToken.address,

@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js'
 import erc20ABI from 'config/abi/erc20.json'
-import masterchefABI from 'config/abi/masterchef.json'
+import masterchefABI from 'config/abi/MasterChefTime.json'
 import multicall from 'utils/multicall'
 import farmsConfig from 'config/constants/farms'
 import { getAddress, getMasterChefAddress } from 'utils/addressHelpers'
@@ -61,7 +61,7 @@ export const fetchFarmUserEarnings = async (account: string) => {
   const calls = farmsConfig.map((farm) => {
     return {
       address: masterChefAdress,
-      name: 'pendingCake',
+      name: 'pendingTime',
       params: [farm.pid, account],
     }
   })

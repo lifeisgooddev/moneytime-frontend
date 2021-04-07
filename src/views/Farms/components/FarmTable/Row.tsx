@@ -7,6 +7,7 @@ import useI18n from 'hooks/useI18n'
 import Apr, { AprProps } from './Apr'
 import Farm, { FarmProps } from './Farm'
 import Earned, { EarnedProps } from './Earned'
+import Fee, { FeeProps } from './Fee'
 import Details from './Details'
 import Multiplier, { MultiplierProps } from './Multiplier'
 import Liquidity, { LiquidityProps } from './Liquidity'
@@ -19,13 +20,17 @@ export interface RowProps {
   farm: FarmProps
   earned: EarnedProps
   multiplier: MultiplierProps
-  liquidity: LiquidityProps
-  details: FarmWithStakedValue
+  liquidity: LiquidityProps,
+  details: FarmWithStakedValue,
+  depositFee: FeeProps,
+  withdrawFee: FeeProps
 }
 
 const cells = {
   apr: Apr,
   farm: Farm,
+  depositFee: Fee,
+  withdrawFee: Fee,
   earned: Earned,
   details: Details,
   multiplier: Multiplier,
@@ -145,6 +150,11 @@ const Row: React.FunctionComponent<RowProps> = (props) => {
             <AprMobileCell>
               <CellLayout label={TranslateString(736, 'APR')}>
                 <Apr {...props.apr} hideButton />
+              </CellLayout>
+            </AprMobileCell>
+            <AprMobileCell>
+              <CellLayout label={TranslateString(800, 'Deposit Fee')}>
+                {details.depositFee} 
               </CellLayout>
             </AprMobileCell>
           </tr>
