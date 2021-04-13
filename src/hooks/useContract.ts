@@ -10,7 +10,8 @@ import {
   getIfoContract,
   getLotteryContract,
   getLotteryTicketContract,
-  getMasterchefContract,
+  getMasterchefTimeContract,
+  getMasterchefMoneyContract,
   getPointCenterIfoContract,
   getSouschefContract,
   getClaimRefundContract,
@@ -60,12 +61,22 @@ export const useLotteryTicket = () => {
   return useMemo(() => getLotteryTicketContract(web3), [web3])
 }
 
-export const useMasterchef = () => {
+export const useMasterchefTime = () => {
   const web3 = useWeb3()
-  return useMemo(() => getMasterchefContract(web3), [web3])
+  return useMemo(() => getMasterchefTimeContract(web3), [web3])
+}
+
+export const useMasterchefMoney = () => {
+  const web3 = useWeb3()
+  return useMemo(() => getMasterchefMoneyContract(web3), [web3])
 }
 
 export const useSousChef = (id) => {
+  const web3 = useWeb3()
+  return useMemo(() => getSouschefContract(id, web3), [id, web3])
+}
+
+export const useMasterChefMoney = (id) => {
   const web3 = useWeb3()
   return useMemo(() => getSouschefContract(id, web3), [id, web3])
 }

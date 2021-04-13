@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import BigNumber from 'bignumber.js'
 import { useWeb3React } from '@web3-react/core'
 import multicall from 'utils/multicall'
-import { getMasterChefAddress } from 'utils/addressHelpers'
+import { getMasterChefTimeAddress } from 'utils/addressHelpers'
 import masterChefABI from 'config/abi/MasterChefTime.json'
 import { farmsConfig } from 'config/constants'
 import { FarmConfig } from 'config/constants/types'
@@ -20,7 +20,7 @@ const useFarmsWithBalance = () => {
   useEffect(() => {
     const fetchBalances = async () => {
       const calls = farmsConfig.map((farm) => ({
-        address: getMasterChefAddress(),
+        address: getMasterChefTimeAddress(),
         name: 'pendingTime',
         params: [farm.pid, account],
       }))

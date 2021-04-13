@@ -37,11 +37,11 @@ const Farm: React.FC = () => {
       <Hero>
         <div>
           <Heading as="h1" size="xxl" mb="16px">
-            {TranslateString(738, 'Syrup Pool')}
+            {TranslateString(738, 'Staking Pools')}
           </Heading>
           <ul>
-            <li>{TranslateString(580, 'Stake CAKE to earn new tokens.')}</li>
-            <li>{TranslateString(486, 'You can unstake at any time.')}</li>
+            <li>{TranslateString(580, 'Stake Time to earn Money tokens.')}</li>
+            {/* <li>{TranslateString(486, 'You can unstake at any time.')}</li> */}
             <li>{TranslateString(406, 'Rewards are calculated per block.')}</li>
           </ul>
         </div>
@@ -53,14 +53,13 @@ const Farm: React.FC = () => {
         <Route exact path={`${path}`}>
           <>
             {stackedOnly
-              ? orderBy(stackedOnlyPools, ['sortOrder']).map((pool) => <PoolCard key={pool.sousId} pool={pool} />)
-              : orderBy(openPools, ['sortOrder']).map((pool) => <PoolCard key={pool.sousId} pool={pool} />)}
-            <Coming />
+              ? orderBy(stackedOnlyPools, ['sortOrder']).map((pool) => <PoolCard key={pool.pId} pool={pool} />)
+              : orderBy(openPools, ['sortOrder']).map((pool) => <PoolCard key={pool.pId} pool={pool} />)}
           </>
         </Route>
         <Route path={`${path}/history`}>
           {orderBy(finishedPools, ['sortOrder']).map((pool) => (
-            <PoolCard key={pool.sousId} pool={pool} />
+            <PoolCard key={pool.pId} pool={pool} />
           ))}
         </Route>
       </FlexLayout>

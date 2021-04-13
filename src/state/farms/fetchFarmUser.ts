@@ -3,10 +3,10 @@ import erc20ABI from 'config/abi/erc20.json'
 import masterchefABI from 'config/abi/MasterChefTime.json'
 import multicall from 'utils/multicall'
 import farmsConfig from 'config/constants/farms'
-import { getAddress, getMasterChefAddress } from 'utils/addressHelpers'
+import { getAddress, getMasterChefTimeAddress } from 'utils/addressHelpers'
 
 export const fetchFarmUserAllowances = async (account: string) => {
-  const masterChefAdress = getMasterChefAddress()
+  const masterChefAdress = getMasterChefTimeAddress()
 
   const calls = farmsConfig.map((farm) => {
     const lpContractAddress = getAddress(farm.lpAddresses)
@@ -38,7 +38,7 @@ export const fetchFarmUserTokenBalances = async (account: string) => {
 }
 
 export const fetchFarmUserStakedBalances = async (account: string) => {
-  const masterChefAdress = getMasterChefAddress()
+  const masterChefAdress = getMasterChefTimeAddress()
 
   const calls = farmsConfig.map((farm) => {
     return {
@@ -56,7 +56,7 @@ export const fetchFarmUserStakedBalances = async (account: string) => {
 }
 
 export const fetchFarmUserEarnings = async (account: string) => {
-  const masterChefAdress = getMasterChefAddress()
+  const masterChefAdress = getMasterChefTimeAddress()
 
   const calls = farmsConfig.map((farm) => {
     return {

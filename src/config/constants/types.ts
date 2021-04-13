@@ -46,7 +46,22 @@ export interface FarmConfig {
   lpSymbol: string
   lpAddresses: Address
   token: Token
-  quoteToken: Token
+  quoteToken?: Token
+  multiplier?: string
+  isCommunity?: boolean
+  dual?: {
+    rewardPerBlock: number
+    earnLabel: string
+    endBlock: number
+  }
+}
+
+export interface TimepoolConfig {
+  pid: number
+  lpSymbol: string
+  lpAddresses: Address
+  token: Token
+  quoteToken?: Token
   multiplier?: string
   isCommunity?: boolean
   dual?: {
@@ -57,7 +72,8 @@ export interface FarmConfig {
 }
 
 export interface PoolConfig {
-  sousId: number
+  uuid: number
+  pId: number
   earningToken: Token
   stakingToken: Token
   stakingLimit?: number
@@ -67,6 +83,21 @@ export interface PoolConfig {
   sortOrder?: number
   harvest?: boolean
   isFinished?: boolean
+}
+
+export interface MoneypoolConfig {
+  pid: number
+  lpSymbol: string
+  lpAddresses: Address
+  token: Token
+  quoteToken?: Token
+  multiplier?: string
+  isCommunity?: boolean
+  dual?: {
+    rewardPerBlock: number
+    earnLabel: string
+    endBlock: number
+  }
 }
 
 export type Images = {

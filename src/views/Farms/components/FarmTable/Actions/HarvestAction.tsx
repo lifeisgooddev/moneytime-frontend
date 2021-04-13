@@ -4,7 +4,7 @@ import { Button } from '@pancakeswap-libs/uikit'
 import BigNumber from 'bignumber.js'
 import { FarmWithStakedValue } from 'views/Farms/components/FarmCard/FarmCard'
 import { getBalanceNumber } from 'utils/formatBalance'
-import { useHarvest } from 'hooks/useHarvest'
+import { useHarvestTime } from 'hooks/useHarvest'
 import useI18n from 'hooks/useI18n'
 import { usePriceMoneyBusd } from 'state/hooks'
 import { useCountUp } from 'react-countup'
@@ -26,7 +26,7 @@ const HarvestAction: React.FunctionComponent<FarmWithStakedValue> = ({ pid, user
   }
 
   const [pendingTx, setPendingTx] = useState(false)
-  const { onReward } = useHarvest(pid)
+  const { onReward } = useHarvestTime(pid)
   const TranslateString = useI18n()
 
   const { countUp, update } = useCountUp({

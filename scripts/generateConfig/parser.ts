@@ -30,7 +30,7 @@ export const getIfos = (data) => {
 export const getPools = (data) => {
   const pools: PoolConfig = data.map((pool) => {
     return {
-      sousId: pool.sous_id,
+      pId: pool.sous_id,
       tokenName: pool?.token?.name,
       stakingTokenName: pool?.quote_token?.name,
       stakingLimit: pool?.staking_limit,

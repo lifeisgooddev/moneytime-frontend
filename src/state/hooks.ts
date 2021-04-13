@@ -9,6 +9,8 @@ import { getWeb3NoAccount } from 'utils/web3'
 import useRefresh from 'hooks/useRefresh'
 import {
   fetchFarmsPublicDataAsync,
+  fetchTimepoolsPublicDataAsync,
+  fetchMoneypoolsPublicDataAsync,
   fetchPoolsPublicDataAsync,
   fetchPoolsUserDataAsync,
   push as pushToast,
@@ -16,7 +18,7 @@ import {
   clear as clearToast,
   setBlock,
 } from './actions'
-import { State, Farm, Pool, Block, ProfileState, TeamsState, AchievementState, PriceState } from './types'
+import { State, Farm, Timepool, Moneypool, Pool, Block, ProfileState, TeamsState, AchievementState, PriceState } from './types'
 import { fetchProfile } from './profile'
 import { fetchTeam, fetchTeams } from './teams'
 import { fetchAchievements } from './achievements'
@@ -27,7 +29,9 @@ export const useFetchPublicData = () => {
   const { slowRefresh } = useRefresh()
   useEffect(() => {
     dispatch(fetchFarmsPublicDataAsync())
+    dispatch(fetchTimepoolsPublicDataAsync())
     dispatch(fetchPoolsPublicDataAsync())
+    dispatch(fetchMoneypoolsPublicDataAsync())
   }, [dispatch, slowRefresh])
 
   useEffect(() => {
@@ -68,6 +72,61 @@ export const useFarmUser = (pid) => {
   }
 }
 
+// Time pool
+
+export const useTimepools = (): Timepool[] => {
+  const timepools = useSelector((state: State) => state.timepools.data)
+  return timepools
+}
+
+export const useTimepoolFromPid = (pid): Timepool => {
+  const timepool = useSelector((state: State) => state.timepools.data.find((f) => f.pid === pid))
+  return timepool
+}
+
+export const useTimepoolFromSymbol = (lpSymbol: string): Timepool => {
+  const timepool = useSelector((state: State) => state.timepools.data.find((f) => f.lpSymbol === lpSymbol))
+  return timepool
+}
+
+export const useTimepoolUser = (pid) => {
+  const timepool = useTimepoolFromPid(pid)
+  return {
+    allowance: timepool.userData ? new BigNumber(timepool.userData.allowance) : new BigNumber(0),
+    tokenBalance: timepool.userData ? new BigNumber(timepool.userData.tokenBalance) : new BigNumber(0),
+    stakedBalance: timepool.userData ? new BigNumber(timepool.userData.stakedBalance) : new BigNumber(0),
+    earnings: timepool.userData ? new BigNumber(timepool.userData.earnings) : new BigNumber(0),
+  }
+}
+
+// Money pool
+
+export const useMoneypools = (): Moneypool[] => {
+  const moneypools = useSelector((state: State) => state.moneypools.data)
+  return moneypools
+}
+
+export const useMoneypoolFromPid = (pid): Moneypool => {
+  const moneypool = useSelector((state: State) => state.moneypools.data.find((f) => f.pid === pid))
+  return moneypool
+}
+
+export const useMoneypoolFromSymbol = (lpSymbol: string): Moneypool => {
+  const moneypool = useSelector((state: State) => state.moneypools.data.find((f) => f.lpSymbol === lpSymbol))
+  return moneypool
+}
+
+export const useMoneypoolUser = (pid) => {
+  const moneypool = useMoneypoolFromPid(pid)
+  return {
+    allowance: moneypool.userData ? new BigNumber(moneypool.userData.allowance) : new BigNumber(0),
+    tokenBalance: moneypool.userData ? new BigNumber(moneypool.userData.tokenBalance) : new BigNumber(0),
+    stakedBalance: moneypool.userData ? new BigNumber(moneypool.userData.stakedBalance) : new BigNumber(0),
+    earnings: moneypool.userData ? new BigNumber(moneypool.userData.earnings) : new BigNumber(0),
+  }
+}
+
+
 // Pools
 
 export const usePools = (account): Pool[] => {
@@ -83,8 +142,8 @@ export const usePools = (account): Pool[] => {
   return pools
 }
 
-export const usePoolFromPid = (sousId): Pool => {
-  const pool = useSelector((state: State) => state.pools.data.find((p) => p.sousId === sousId))
+export const usePoolFromPid = (pId): Pool => {
+  const pool = useSelector((state: State) => state.pools.data.find((p) => p.pId === pId))
   return pool
 }
 

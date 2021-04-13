@@ -6,22 +6,65 @@ import {
   updateUserStakedBalance,
   updateUserBalance,
   updateUserPendingReward,
+  fetchTimepoolUserDataAsync,
+  fetchMoneypoolUserDataAsync
 } from 'state/actions'
 import { unstake, sousUnstake, sousEmegencyUnstake } from 'utils/callHelpers'
-import { useMasterchef, useSousChef } from './useContract'
+import { getMasterChefMoneyAddress } from 'utils/addressHelpers'
+import { useMasterchefTime, useMasterchefMoney, useSousChef } from './useContract'
 
-const useUnstake = (pid: number) => {
+export const useUnstakeTime = (pid: number) => {
   const dispatch = useDispatch()
   const { account } = useWeb3React()
-  const masterChefContract = useMasterchef()
+  const masterChefTimeContract = useMasterchefTime()
 
   const handleUnstake = useCallback(
     async (amount: string) => {
-      const txHash = await unstake(masterChefContract, pid, amount, account)
+      const txHash = await unstake(masterChefTimeContract, pid, amount, account)
       dispatch(fetchFarmUserDataAsync(account))
       console.info(txHash)
     },
-    [account, dispatch, masterChefContract, pid],
+    [account, dispatch, masterChefTimeContract, pid],
+  )
+
+  return { onUnstake: handleUnstake }
+}
+
+export const useUnstakeMoney = (pid: number, token: string) => {
+  const dispatch = useDispatch()
+  const { account } = useWeb3React()
+  const masterChefMoneyContract = useMasterchefMoney()
+
+  const handleUnstake = useCallback(
+    async (amount: string) => {
+      const txHash = await unstake(masterChefMoneyContract, pid, amount, account)
+      if(token === "TIME")
+        dispatch(fetchTimepoolUserDataAsync(account))
+      else
+        dispatch(fetchMoneypoolUserDataAsync(account))
+      console.info(txHash)
+    },
+    [account, dispatch, masterChefMoneyContract, pid, token],
+  )
+
+  return { onUnstake: handleUnstake }
+}
+
+export const useUnstake = (pId: number, masterchefAddress: string, uuid) => {
+  const dispatch = useDispatch()
+  const { account } = useWeb3React()
+  const masterChefTimeContract = useMasterchefTime()
+  const masterChefMoneyContract = useMasterchefMoney()
+  const masterChefContract = masterchefAddress === getMasterChefMoneyAddress() ? masterChefMoneyContract : masterChefTimeContract
+
+  const handleUnstake = useCallback(
+    async (amount: string) => {
+      await unstake(masterChefContract, pId, amount, account)
+      dispatch(updateUserStakedBalance(uuid, account))
+      dispatch(updateUserBalance(uuid, account))
+      dispatch(updateUserPendingReward(uuid, account))
+    },
+    [account, dispatch, masterChefContract, pId, uuid],
   )
 
   return { onUnstake: handleUnstake }
@@ -29,17 +72,17 @@ const useUnstake = (pid: number) => {
 
 const SYRUPIDS = [5, 6, 3, 1, 22, 23, 78]
 
-export const useSousUnstake = (sousId) => {
+export const useSousUnstake = (pId) => {
   const dispatch = useDispatch()
   const { account } = useWeb3React()
-  const masterChefContract = useMasterchef()
-  const sousChefContract = useSousChef(sousId)
-  const isOldSyrup = SYRUPIDS.includes(sousId)
+  const masterChefTimeContract = useMasterchefTime()
+  const sousChefContract = useSousChef(pId)
+  const isOldSyrup = SYRUPIDS.includes(pId)
 
   const handleUnstake = useCallback(
     async (amount: string, decimals: number) => {
-      if (sousId === 0) {
-        const txHash = await unstake(masterChefContract, 0, amount, account)
+      if (pId === 0) {
+        const txHash = await unstake(masterChefTimeContract, 0, amount, account)
         console.info(txHash)
       } else if (isOldSyrup) {
         const txHash = await sousEmegencyUnstake(sousChefContract, amount, account)
@@ -48,14 +91,13 @@ export const useSousUnstake = (sousId) => {
         const txHash = await sousUnstake(sousChefContract, amount, decimals, account)
         console.info(txHash)
       }
-      dispatch(updateUserStakedBalance(sousId, account))
-      dispatch(updateUserBalance(sousId, account))
-      dispatch(updateUserPendingReward(sousId, account))
+      dispatch(updateUserStakedBalance(pId, account))
+      dispatch(updateUserBalance(pId, account))
+      dispatch(updateUserPendingReward(pId, account))
     },
-    [account, dispatch, isOldSyrup, masterChefContract, sousChefContract, sousId],
+    [account, dispatch, isOldSyrup, masterChefTimeContract, sousChefContract, pId],
   )
 
   return { onUnstake: handleUnstake }
 }
 
-export default useUnstake

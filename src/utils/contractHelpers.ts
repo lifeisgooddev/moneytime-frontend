@@ -14,7 +14,8 @@ import {
   getCakeAddress,
   getLotteryAddress,
   getLotteryTicketAddress,
-  getMasterChefAddress,
+  getMasterChefTimeAddress,
+  getMasterChefMoneyAddress,
   getPointCenterIfoAddress,
   getClaimRefundAddress,
 } from 'utils/addressHelpers'
@@ -31,7 +32,8 @@ import ifoAbi from 'config/abi/ifo.json'
 import pointCenterIfo from 'config/abi/pointCenterIfo.json'
 import lotteryAbi from 'config/abi/lottery.json'
 import lotteryTicketAbi from 'config/abi/lotteryNft.json'
-import masterChef from 'config/abi/MasterChefTime.json'
+import masterChefTime from 'config/abi/MasterChefTime.json'
+import masterChefMoney from 'config/abi/MasterChefMoney.json'
 import sousChef from 'config/abi/sousChef.json'
 import sousChefBnb from 'config/abi/sousChefBnb.json'
 import claimRefundAbi from 'config/abi/claimRefund.json'
@@ -51,7 +53,7 @@ export const getIfoContract = (address: string, web3?: Web3) => {
   return getContract(ifoAbi, address, web3)
 }
 export const getSouschefContract = (id: number, web3?: Web3) => {
-  const config = poolsConfig.find((pool) => pool.sousId === id)
+  const config = poolsConfig.find((pool) => pool.pId === id)
   const abi = config.poolCategory === PoolCategory.BINANCE ? sousChefBnb : sousChef
   return getContract(abi, getAddress(config.contractAddress), web3)
 }
@@ -79,8 +81,11 @@ export const getLotteryContract = (web3?: Web3) => {
 export const getLotteryTicketContract = (web3?: Web3) => {
   return getContract(lotteryTicketAbi, getLotteryTicketAddress(), web3)
 }
-export const getMasterchefContract = (web3?: Web3) => {
-  return getContract(masterChef, getMasterChefAddress(), web3)
+export const getMasterchefTimeContract = (web3?: Web3) => {
+  return getContract(masterChefTime, getMasterChefTimeAddress(), web3)
+}
+export const getMasterchefMoneyContract = (web3?: Web3) => {
+  return getContract(masterChefMoney, getMasterChefMoneyAddress(), web3)
 }
 export const getClaimRefundContract = (web3?: Web3) => {
   return getContract(claimRefundAbi, getClaimRefundAddress(), web3)

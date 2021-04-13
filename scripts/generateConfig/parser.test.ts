@@ -78,7 +78,7 @@ describe('Parser', () => {
   it('Pool - Return the correct value', () => {
     const outPut = [
       {
-        sousId: '5ffd7e80361bff0009cc8198',
+        pId: '5ffd7e80361bff0009cc8198',
         tokenName: undefined,
         stakingTokenName: undefined,
         stakingLimit: undefined,

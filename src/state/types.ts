@@ -1,6 +1,6 @@
 import { Toast } from '@pancakeswap-libs/uikit'
 import BigNumber from 'bignumber.js'
-import { CampaignType, FarmConfig, Nft, PoolConfig, Team } from 'config/constants/types'
+import { CampaignType, FarmConfig, TimepoolConfig, Nft, PoolConfig, Team, MoneypoolConfig } from 'config/constants/types'
 
 export type TranslatableText =
   | string
@@ -28,9 +28,26 @@ export interface Farm extends FarmConfig {
   withdrawFee?: string
 }
 
+export interface Timepool extends TimepoolConfig {
+  tokenAmount?: BigNumber
+  quoteTokenAmount?: BigNumber
+  lpTotalInQuoteToken?: BigNumber
+  tokenPriceVsQuote?: BigNumber
+  poolWeight?: BigNumber
+  userData?: {
+    allowance: BigNumber
+    tokenBalance: BigNumber
+    stakedBalance: BigNumber
+    earnings: BigNumber
+  },
+  depositFee?: string, 
+  withdrawFee?: string
+}
+
 export interface Pool extends PoolConfig {
   totalStaked?: BigNumber
   startBlock?: number
+  multiplier?: BigNumber
   endBlock?: number
   userData?: {
     allowance: BigNumber
@@ -38,6 +55,22 @@ export interface Pool extends PoolConfig {
     stakedBalance: BigNumber
     pendingReward: BigNumber
   }
+}
+
+export interface Moneypool extends MoneypoolConfig {
+  tokenAmount?: BigNumber
+  quoteTokenAmount?: BigNumber
+  lpTotalInQuoteToken?: BigNumber
+  tokenPriceVsQuote?: BigNumber
+  poolWeight?: BigNumber
+  userData?: {
+    allowance: BigNumber
+    tokenBalance: BigNumber
+    stakedBalance: BigNumber
+    earnings: BigNumber
+  },
+  depositFee?: string, 
+  withdrawFee?: string
 }
 
 export interface Profile {
@@ -63,8 +96,16 @@ export interface FarmsState {
   data: Farm[]
 }
 
+export interface TimepoolsState {
+  data: Timepool[]
+}
+
 export interface PoolsState {
   data: Pool[]
+}
+
+export interface MoneypoolsState {
+  data: Moneypool[]
 }
 
 export interface ProfileState {
@@ -133,6 +174,8 @@ export interface Block {
 
 export interface State {
   farms: FarmsState
+  timepools: TimepoolsState
+  moneypools: MoneypoolsState
   toasts: ToastsState
   prices: PriceState
   pools: PoolsState

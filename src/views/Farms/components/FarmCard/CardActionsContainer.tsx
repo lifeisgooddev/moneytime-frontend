@@ -8,7 +8,7 @@ import { Farm } from 'state/types'
 import { useFarmFromSymbol, useFarmUser } from 'state/hooks'
 import useI18n from 'hooks/useI18n'
 import useWeb3 from 'hooks/useWeb3'
-import { useApprove } from 'hooks/useApprove'
+import { useApproveTime } from 'hooks/useApprove'
 import UnlockButton from 'components/UnlockButton'
 import StakeAction from './StakeAction'
 import HarvestAction from './HarvestAction'
@@ -39,7 +39,7 @@ const CardActions: React.FC<FarmCardActionsProps> = ({ farm, account, addLiquidi
 
   const lpContract = getBep20Contract(lpAddress, web3)
 
-  const { onApprove } = useApprove(lpContract)
+  const { onApprove } = useApproveTime(lpContract)
 
   const handleApprove = useCallback(async () => {
     try {

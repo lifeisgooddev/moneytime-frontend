@@ -3,8 +3,8 @@ import styled from 'styled-components'
 import BigNumber from 'bignumber.js'
 import { Button, Flex, Heading, IconButton, AddIcon, MinusIcon, useModal } from '@pancakeswap-libs/uikit'
 import useI18n from 'hooks/useI18n'
-import useStake from 'hooks/useStake'
-import useUnstake from 'hooks/useUnstake'
+import {useStakeTime} from 'hooks/useStake'
+import {useUnstakeTime} from 'hooks/useUnstake'
 import { getBalanceNumber } from 'utils/formatBalance'
 import DepositModal from '../DepositModal'
 import WithdrawModal from '../WithdrawModal'
@@ -32,8 +32,8 @@ const StakeAction: React.FC<FarmCardActionsProps> = ({
   addLiquidityUrl,
 }) => {
   const TranslateString = useI18n()
-  const { onStake } = useStake(pid)
-  const { onUnstake } = useUnstake(pid)
+  const { onStake } = useStakeTime(pid)
+  const { onUnstake } = useUnstakeTime(pid)
 
   const rawStakedBalance = getBalanceNumber(stakedBalance)
   const displayBalance = rawStakedBalance.toLocaleString()

@@ -6,13 +6,13 @@ import { useWeb3React } from '@web3-react/core'
 import { useFarmUser } from 'state/hooks'
 import { FarmWithStakedValue } from 'views/Farms/components/FarmCard/FarmCard'
 import useI18n from 'hooks/useI18n'
-import { useApprove } from 'hooks/useApprove'
+import { useApproveTime } from 'hooks/useApprove'
 import { getBep20Contract } from 'utils/contractHelpers'
 import { BASE_ADD_LIQUIDITY_URL } from 'config'
 import getLiquidityUrlPathParts from 'utils/getLiquidityUrlPathParts'
 import { getBalanceNumber } from 'utils/formatBalance'
-import useStake from 'hooks/useStake'
-import useUnstake from 'hooks/useUnstake'
+import {useStakeTime} from 'hooks/useStake'
+import {useUnstakeTime} from 'hooks/useUnstake'
 import useWeb3 from 'hooks/useWeb3'
 
 import DepositModal from '../../DepositModal'
@@ -28,12 +28,11 @@ const Staked: React.FunctionComponent<FarmWithStakedValue> = ({ pid, lpSymbol, l
   const { account } = useWeb3React()
   const [requestedApproval, setRequestedApproval] = useState(false)
   const { allowance, tokenBalance, stakedBalance } = useFarmUser(pid)
-  const { onStake } = useStake(pid)
-  const { onUnstake } = useUnstake(pid)
+  const { onStake } = useStakeTime(pid)
+  const { onUnstake } = useUnstakeTime(pid)
   const web3 = useWeb3()
 
   const isApproved = account && allowance && allowance.isGreaterThan(0)
-  // console.log('isApproved = ', isApproved, account, allowance.toString())
   const lpAddress = lpAddresses[process.env.REACT_APP_CHAIN_ID]
   const liquidityUrlPathParts = getLiquidityUrlPathParts({
     quoteTokenAddress: quoteToken.address,
@@ -50,7 +49,7 @@ const Staked: React.FunctionComponent<FarmWithStakedValue> = ({ pid, lpSymbol, l
 
   const lpContract = getBep20Contract(lpAddress, web3)
 
-  const { onApprove } = useApprove(lpContract)
+  const { onApprove } = useApproveTime(lpContract)
 
   const handleApprove = useCallback(async () => {
     try {

@@ -19,12 +19,17 @@ const config: MenuEntry[] = [
   {
     label: 'Time Pools',
     icon: 'PoolIcon',
+    href: '/timepools',
+  },
+  {
+    label: 'Staking Pools',
+    icon: 'PoolIcon',
     href: '/pools',
   },
   {
     label: 'Money Pointer',
     icon: 'TicketIcon',
-    href: '/lottery',
+    href: '/moneypools',
   },
   {
     label: 'Docs',
