@@ -45,7 +45,7 @@ const HarvestAction: React.FunctionComponent<FarmWithStakedValue> = ({ pid, user
   return (
     <ActionContainer>
       <ActionTitles>
-        <Title>CAKE </Title>
+        <Title>MONEY </Title>
         <Subtle>{TranslateString(999, 'EARNED')}</Subtle>
       </ActionTitles>
       <ActionContent>
@@ -53,7 +53,7 @@ const HarvestAction: React.FunctionComponent<FarmWithStakedValue> = ({ pid, user
           <Earned>{displayBalance}</Earned>
           <Staked>~{countUp}USD</Staked>
         </div>
-        <Button
+        {/* <Button
           disabled={!earnings || pendingTx || !account}
           onClick={async () => {
             setPendingTx(true)
@@ -63,7 +63,7 @@ const HarvestAction: React.FunctionComponent<FarmWithStakedValue> = ({ pid, user
           ml="4px"
         >
           {TranslateString(562, 'Harvest')}
-        </Button>
+        </Button> */}
       </ActionContent>
     </ActionContainer>
   )

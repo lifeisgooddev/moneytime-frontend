@@ -116,7 +116,7 @@ const Farms: React.FC = () => {
   const farmsLP = useTimepools()
   const moneyPrice = usePriceMoneyBusd()
   const [query, setQuery] = useState('')
-  const [viewMode, setViewMode] = useState(ViewMode.TABLE)
+  const [viewMode, setViewMode] = useState(ViewMode.CARD)
   const { account } = useWeb3React()
   const [sortOption, setSortOption] = useState('hot')
   const prices = useGetApiPrices()
@@ -300,7 +300,7 @@ const Farms: React.FC = () => {
           {TranslateString(999, 'Farms')}
         </Heading>
         <Heading size="lg" color="text">
-          {TranslateString(999, 'Stake Liquidity Pool (LP) tokens to earn.')}
+          {TranslateString(999, 'Stake TIME tokens to earn MONEY token')}
         </Heading>
       </Header>
       <Page>

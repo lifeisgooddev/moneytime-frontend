@@ -164,6 +164,7 @@ const Farms: React.FC = () => {
 
         const quoteTokenPriceUsd = prices[farm.quoteToken.symbol.toLowerCase()]
         const totalLiquidity = new BigNumber(farm.lpTotalInQuoteToken).times(quoteTokenPriceUsd)
+        console.log(farm.poolWeight, moneyPrice, totalLiquidity);
         const apy = getFarmApy(farm.poolWeight, moneyPrice, totalLiquidity)
 
         return { ...farm, apy, liquidity: totalLiquidity }
