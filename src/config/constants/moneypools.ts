@@ -3,10 +3,10 @@ import { MoneypoolConfig } from './types'
 
 const moneypools: MoneypoolConfig[] = [
   {
-    pid: 22,
+    pid: 16,
     lpSymbol: 'MONEY',
     lpAddresses: {
-      97: '0x03784d395AE03e5c8578E116038Ba12ccE169D1b',
+      97: '0x4868BE84Ba40206f95c97E43342611d414F4f35E',
       56: '',
     },
     token: tokens.money,

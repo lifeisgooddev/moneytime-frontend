@@ -3,60 +3,60 @@ import { TimepoolConfig } from './types'
 
 const timepools: TimepoolConfig[] = [
   {
-    pid: 23,
+    pid: 0,
     lpSymbol: 'TIME',
     lpAddresses: {
-      97: '0x3660Db1B306a94C26C6bCF7303F7CB794b0861fe',
+      97: '0x5a9783656E473907E49e85Bf936c3e1f04c3921A',
       56: '',
     },
     token: tokens.time,
     quoteToken: tokens.time
   },
   {
-    pid: 24,
+    pid: 1,
     lpSymbol: 'TIME',
     lpAddresses: {
-      97: '0x3660Db1B306a94C26C6bCF7303F7CB794b0861fe',
+      97: '0x5a9783656E473907E49e85Bf936c3e1f04c3921A',
       56: '',
     },
     token: tokens.time,
     quoteToken: tokens.time
   },
   {
-    pid: 25,
+    pid: 2,
     lpSymbol: 'TIME',
     lpAddresses: {
-      97: '0x3660Db1B306a94C26C6bCF7303F7CB794b0861fe',
+      97: '0x5a9783656E473907E49e85Bf936c3e1f04c3921A',
       56: '',
     },
     token: tokens.time,
     quoteToken: tokens.time
   },
   {
-    pid: 26,
+    pid: 3,
     lpSymbol: 'TIME',
     lpAddresses: {
-      97: '0x3660Db1B306a94C26C6bCF7303F7CB794b0861fe',
+      97: '0x5a9783656E473907E49e85Bf936c3e1f04c3921A',
       56: '',
     },
     token: tokens.time,
     quoteToken: tokens.time
   },
   {
-    pid: 27,
+    pid: 4,
     lpSymbol: 'TIME',
     lpAddresses: {
-      97: '0x3660Db1B306a94C26C6bCF7303F7CB794b0861fe',
+      97: '0x5a9783656E473907E49e85Bf936c3e1f04c3921A',
       56: '',
     },
     token: tokens.time,
     quoteToken: tokens.time
   },
   {
-    pid: 28,
+    pid: 5,
     lpSymbol: 'TIME',
     lpAddresses: {
-      97: '0x3660Db1B306a94C26C6bCF7303F7CB794b0861fe',
+      97: '0x5a9783656E473907E49e85Bf936c3e1f04c3921A',
       56: '',
     },
     token: tokens.time,

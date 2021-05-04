@@ -10,7 +10,7 @@ import CardValue from './CardValue'
 import CardBusdValue from './CardBusdValue'
 
 const Block = styled.div`
-  margin-bottom: 24px;
+  // margin-bottom: 24px;
 }
 `
 
@@ -34,7 +34,7 @@ const CakeHarvestBalance = () => {
   return (
     <Block>
       <CardValue value={earningsSum} lineHeight="1.5" />
-      <CardBusdValue value={earningsBusd} />
+      {/* <CardBusdValue value={earningsBusd} /> */}
     </Block>
   )
 }

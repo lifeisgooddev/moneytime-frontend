@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react'
 import styled from 'styled-components'
-import { Heading, Card, CardBody, Button } from '@pancakeswap-libs/uikit'
+import { Heading, Card, CardBody, Button,BaseLayout } from '@pancakeswap-libs/uikit'
 import { useWeb3React } from '@web3-react/core'
 import useI18n from 'hooks/useI18n'
 import { useAllHarvest } from 'hooks/useHarvest'
@@ -10,29 +10,56 @@ import CakeHarvestBalance from './CakeHarvestBalance'
 import CakeWalletBalance from './CakeWalletBalance'
 
 const StyledFarmStakingCard = styled(Card)`
-  background-image: url('/images/cake-bg.svg');
+  background-color: rgb(254,251,214,0.95);
   background-repeat: no-repeat;
   background-position: top right;
-  min-height: 376px;
+  padding-left:30px;
+  padding-right:30px;
+  // min-height: 376px;
 `
 
 const Block = styled.div`
   margin-bottom: 16px;
+  grid-column: span 3;
 `
 
 const CardImage = styled.img`
-  margin-bottom: 16px;
+  padding-left : 40px;
+  padding-right : 40px;
 `
 
 const Label = styled.div`
   color: ${({ theme }) => theme.colors.textSubtle};
-  font-size: 14px;
+  font-size: 20px;
 `
 
 const Actions = styled.div`
   margin-top: 24px;
 `
 
+const CardDiv = styled(BaseLayout)`
+
+  text-align : left;
+
+  & > div {
+    grid-column: span 6;
+  }
+  & > img {
+    grid-column: span 6;
+  }
+
+  ${({ theme }) => theme.mediaQueries.sm} {
+    & > div {
+      grid-column: span 6;
+    }
+  }
+
+  ${({ theme }) => theme.mediaQueries.lg} {
+    & > div {
+      grid-column: span 6;
+    }
+  }
+`
 const FarmedStakingCard = () => {
   const [pendingTx, setPendingTx] = useState(false)
   const { account } = useWeb3React()
@@ -56,36 +83,40 @@ const FarmedStakingCard = () => {
   return (
     <StyledFarmStakingCard>
       <CardBody>
-        <Heading size="xl" mb="24px">
-          {TranslateString(542, 'Farms & Staking')}
+        <Heading size="xxl" mb="24px">
+          {TranslateString(542, 'Dashboard')}
         </Heading>
-        <CardImage src="/images/cake.svg" alt="cake logo" width={64} height={64} />
-        <Block>
-          <Label>{TranslateString(544, 'CAKE to Harvest')}:</Label>
-          <CakeHarvestBalance />
-        </Block>
-        <Block>
-          <Label>{TranslateString(546, 'CAKE in Wallet')}:</Label>
-          <CakeWalletBalance />
-        </Block>
-        <Actions>
-          {account ? (
-            <Button
-              id="harvest-all"
-              disabled={balancesWithValue.length <= 0 || pendingTx}
-              onClick={harvestAllFarms}
-              width="100%"
-            >
-              {pendingTx
-                ? TranslateString(548, 'Collecting CAKE')
-                : TranslateString(532, `Harvest all (${balancesWithValue.length})`, {
-                    count: balancesWithValue.length,
-                  })}
-            </Button>
-          ) : (
-            <UnlockButton width="100%" />
-          )}
-        </Actions>
+        <CardDiv>
+          <CardImage src="/images/moneycoin.svg" alt="cake logo" />
+          <div>
+            <Block>
+              <CakeHarvestBalance />
+              <Label>{TranslateString(544, 'MONEY to Harvest')}:</Label>
+            </Block>
+            <Block>
+              <CakeWalletBalance />
+              <Label>{TranslateString(546, 'MONEY in Wallet')}:</Label>
+            </Block>
+            <Actions>
+              {account ? (
+                <Button
+                  id="harvest-all"
+                  disabled={balancesWithValue.length <= 0 || pendingTx}
+                  onClick={harvestAllFarms}
+                  width="100%"
+                >
+                  {pendingTx
+                    ? TranslateString(548, 'Collecting CAKE')
+                    : TranslateString(532, `Harvest all (${balancesWithValue.length})`, {
+                        count: balancesWithValue.length,
+                      })}
+                </Button>
+              ) : (
+                <UnlockButton width="100%" />
+              )}
+            </Actions>
+          </div>
+        </CardDiv>
       </CardBody>
     </StyledFarmStakingCard>
   )

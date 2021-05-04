@@ -3,10 +3,10 @@ import { FarmConfig } from './types'
 
 const farms: FarmConfig[] = [
   {
-    pid: 21,
+    pid: 0,
     lpSymbol: 'MONEY-BUSD LP',
     lpAddresses: {
-      97: '0xedd32457fc1b8b3799ee1662ed1963e900957779',
+      97: '0x52f004b523e0342d26e505368e7c3d64e8a875a8',
       56: '',
     },
     token: tokens.money,
@@ -16,7 +16,7 @@ const farms: FarmConfig[] = [
     pid: 1,
     lpSymbol: 'MONEY-WBNB LP',
     lpAddresses: {
-      97: '0xd6f47418183e5fad3c6a6ee8ea7920607bec4b7d',
+      97: '0x48057bbd8b78c17fe95f53ead6c67aad831baa92',
       56: '',
     },
     token: tokens.money,

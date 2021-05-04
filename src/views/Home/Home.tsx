@@ -23,11 +23,12 @@ const Hero = styled.div`
   margin-bottom: 32px;
   padding-top: 116px;
   text-align: center;
-
+  margin-left : -60px;
   ${({ theme }) => theme.mediaQueries.lg} {
-    background-image: url('/images/pan-bg2.svg'), url('/images/pan-bg.svg');
-    background-position: left center, right center;
-    height: 165px;
+    background-image: url('/images/moneytimehero.svg'), url('/images/satanbossmoney.svg');
+    background-position: left, right top;
+    background-sizes: 100%, 50%;
+    height: 449px;
     padding-top: 0;
   }
 `
@@ -36,7 +37,7 @@ const Cards = styled(BaseLayout)`
   align-items: stretch;
   justify-content: stretch;
   margin-bottom: 32px;
-
+  margin-top: -180px;
   & > div {
     grid-column: span 6;
     width: 100%;
@@ -56,24 +57,29 @@ const Cards = styled(BaseLayout)`
 `
 
 const CTACards = styled(BaseLayout)`
-  align-items: start;
+
+  text-align : right;
   margin-bottom: 32px;
 
   & > div {
-    grid-column: span 6;
+    grid-column: span 12;
   }
 
   ${({ theme }) => theme.mediaQueries.sm} {
     & > div {
-      grid-column: span 8;
+      grid-column: span 12;
     }
   }
 
   ${({ theme }) => theme.mediaQueries.lg} {
     & > div {
-      grid-column: span 4;
+      grid-column: span 12;
     }
   }
+`
+const CardImage = styled.img`
+  margin-bottom: 16px;
+  float : right;
 `
 
 const Home: React.FC = () => {
@@ -82,10 +88,8 @@ const Home: React.FC = () => {
   return (
     <Page>
       <Hero>
-        <Heading as="h1" size="xl" mb="24px" color="secondary">
-          {TranslateString(576, 'PancakeSwap')}
-        </Heading>
-        <Text>{TranslateString(578, 'The #1 AMM and yield farm on Binance Smart Chain.')}</Text>
+        {/* <CardImage src="/images/moneytimelogo.svg" alt="cake logo" /> */}
+        {/* <CardImage src="/images/satanbossmoney.svg" alt="cake logo" /> */}
       </Hero>
       <div>
         <Cards>
@@ -93,14 +97,8 @@ const Home: React.FC = () => {
           <LotteryCard />
         </Cards>
         <CTACards>
-          <EarnAPYCard />
-          <EarnAssetCard />
-          <WinCard />
-        </CTACards>
-        <Cards>
-          <CakeStats />
           <TotalValueLockedCard />
-        </Cards>
+        </CTACards>
       </div>
     </Page>
   )

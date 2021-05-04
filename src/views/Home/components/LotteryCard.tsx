@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react'
 import styled from 'styled-components'
-import { Heading, Card, CardBody, Button, useModal } from '@pancakeswap-libs/uikit'
+import { Heading, Card, CardBody, Button, useModal, BaseLayout } from '@pancakeswap-libs/uikit'
 import { useWeb3React } from '@web3-react/core'
 import { getCakeAddress } from 'utils/addressHelpers'
 import { getBalanceNumber } from 'utils/formatBalance'
@@ -18,9 +18,10 @@ import LotteryJackpot from './LotteryJackpot'
 import UnlockButton from '../../../components/UnlockButton'
 
 const StyledLotteryCard = styled(Card)`
-  background-image: url('/images/ticket-bg.svg');
+  background-color: rgb(254,251,214,0.95);
   background-repeat: no-repeat;
   background-position: top right;
+  padding-left:30px;
   min-height: 376px;
 `
 
@@ -29,12 +30,13 @@ const Block = styled.div`
 `
 
 const CardImage = styled.img`
-  margin-bottom: 16px;
+  padding-left : 60px;
+  padding-right : 60px;
 `
 
 const Label = styled.div`
   color: ${({ theme }) => theme.colors.textSubtle};
-  font-size: 14px;
+  font-size: 20px;
 `
 
 const Actions = styled.div`
@@ -42,6 +44,29 @@ const Actions = styled.div`
   margin-top: 24px;
   button {
     flex: 1 0 50%;
+  }
+`
+const CardDiv = styled(BaseLayout)`
+
+  text-align : left;
+
+  & > div {
+    grid-column: span 6;
+  }
+  & > img {
+    grid-column: span 6;
+  }
+
+  ${({ theme }) => theme.mediaQueries.sm} {
+    & > div {
+      grid-column: span 6;
+    }
+  }
+
+  ${({ theme }) => theme.mediaQueries.lg} {
+    & > div {
+      grid-column: span 6;
+    }
   }
 `
 
@@ -70,55 +95,30 @@ const FarmedStakingCard = () => {
     }
   }, [onMultiClaim, setRequestedClaim])
 
-  const renderLotteryTicketButtonBuyOrApprove = () => {
-    if (!allowance.toNumber()) {
-      return (
-        <Button width="100%" disabled={requestedApproval} onClick={handleApprove}>
-          {TranslateString(494, 'Approve CAKE')}
-        </Button>
-      )
-    }
-    return (
-      <Button id="dashboard-buy-tickets" variant="secondary" onClick={onPresentBuy} disabled={lotteryHasDrawn}>
-        {TranslateString(558, 'Buy Tickets')}
-      </Button>
-    )
-  }
-
   const [onPresentBuy] = useModal(<BuyModal max={cakeBalance} tokenName="CAKE" />)
 
   return (
     <StyledLotteryCard>
       <CardBody>
-        <Heading size="xl" mb="24px">
-          {TranslateString(550, 'Your Lottery Winnings')}
-        </Heading>
-        <CardImage src="/images/ticket.svg" alt="cake logo" width={64} height={64} />
+        <CardDiv>
+          <div>
+            <Heading size="xxl" mb="24px">
+              {TranslateString(550, 'Stats')}
+            </Heading>
+            <Block>
+              <Label>{TranslateString(552, 'Average Staking Length')}:</Label>
+              <CakeWinnings />
+            </Block>
+          </div>
+          <CardImage src="/images/casinochip.svg" alt="cake logo"/>
+        </CardDiv>
         <Block>
-          <Label>{TranslateString(552, 'CAKE to Collect')}:</Label>
-          <CakeWinnings />
+          <Label>{TranslateString(554, 'Total MONEY supply _______________________________________ 201,288')}</Label>
+          <Label>{TranslateString(554, 'Total Market Cap __________________________________________ $2,881,022')}</Label>
+          <Label>{TranslateString(554, 'Total MONEY burned _______________________________________ 14,480')}</Label>
+          <Label>{TranslateString(554, 'Total MONEY per block _____________________________________ 1.25')}</Label>
         </Block>
-        <Block>
-          <Label>{TranslateString(554, 'Total jackpot this round')}:</Label>
-          <LotteryJackpot />
-        </Block>
-        {account ? (
-          <Actions>
-            <Button
-              id="dashboard-collect-winnings"
-              disabled={getBalanceNumber(claimAmount) === 0 || requesteClaim}
-              onClick={handleClaim}
-              style={{ marginRight: '8px' }}
-            >
-              {TranslateString(556, 'Collect Winnings')}
-            </Button>
-            {renderLotteryTicketButtonBuyOrApprove()}
-          </Actions>
-        ) : (
-          <Actions>
-            <UnlockButton width="100%" />
-          </Actions>
-        )}
+        
       </CardBody>
     </StyledLotteryCard>
   )

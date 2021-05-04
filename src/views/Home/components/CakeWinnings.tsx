@@ -19,7 +19,7 @@ const CakeWinnings = () => {
   return (
     <Block>
       <CardValue value={cakeAmount} lineHeight="1.5" />
-      <CardBusdValue value={claimAmountBusd} decimals={2} />
+      {/* <CardBusdValue value={claimAmountBusd} decimals={2} /> */}
     </Block>
   )
 }
