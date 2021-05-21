@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js'
 import React, { useCallback, useState } from 'react'
 import styled from 'styled-components'
-import { Button, IconButton, useModal, AddIcon, Image, Tag } from '@pancakeswap-libs/uikit'
+import { Button, IconButton, useModal, AddIcon, Image, Tag, Text, Flex, Heading } from '@pancakeswap-libs/uikit'
 import { useWeb3React } from '@web3-react/core'
 import UnlockButton from 'components/UnlockButton'
 import Label from 'components/Label'
@@ -127,7 +127,16 @@ const PoolCard: React.FC<HarvestProps> = ({ pool }) => {
     <Card isActive={isCardActive} isFinished={isFinished && pId !== 0}>
       {isFinished && pId !== 0 && <PoolFinishedSash />}
       <div style={{ padding: '24px' }}>
-        <CardTitle isFinished={isFinished && pId !== 0}>
+        <Wrapper justifyContent="space-between" alignItems="center" mb="12px">
+          <Image src={`/images/farms/${poolImage}`} alt={earningToken.symbol} width={150} height={150} />
+          <Flex flexDirection="column" alignItems="flex-end">
+            <Heading mb="4px"size='xl'>{earningToken.symbol}</Heading>
+            <Flex justifyContent="center">
+              <MultiplierTag variant="backgroundRed">10X</MultiplierTag>
+            </Flex>
+          </Flex>
+        </Wrapper>
+        {/* <CardTitle isFinished={isFinished && pId !== 0}>
           {earningToken.symbol} {TranslateString(348, 'Pool')}
           <MultiplierTag variant="secondary">10x</MultiplierTag>
         </CardTitle>
@@ -147,19 +156,29 @@ const PoolCard: React.FC<HarvestProps> = ({ pool }) => {
               }}
             />
           )}
-        </div>
-        <BalanceAndCompound>
-          <Balance value={getBalanceNumber(earnings, earningToken.decimals)} isDisabled={isFinished} />
-          {pId === 0 && account && harvest && (
-            <HarvestButton
-              disabled={!earnings.toNumber() || pendingTx}
-              text={pendingTx ? TranslateString(999, 'Compounding') : TranslateString(704, 'Compound')}
-              onClick={onPresentCompound}
-            />
+        </div> */}
+        <StyledDetails>
+          <Text>{TranslateString(736, 'APR')}:</Text>
+          {isFinished || !apy ? (
+            '-'
+          ) : (
+            <Balance fontSize="14px" isDisabled={isFinished} value={apy} decimals={2} unit="%" />
           )}
-        </BalanceAndCompound>
-        <Label isFinished={isFinished && pId !== 0} text={TranslateString(330, `${earningToken.symbol} earned`)} />
-        <StyledCardActions>
+        </StyledDetails>
+        <StyledDetails>
+          <Text>{TranslateString(384, 'Your Stake')}:</Text>
+          <Text>{getBalanceNumber(stakedBalance, stakingToken.decimals)} {stakingToken.symbol}</Text>
+        </StyledDetails>
+        
+        <StyledDetails>
+          <Text>{TranslateString(384, 'Until harvest')}:</Text>
+          <Text>--/--/---</Text>
+        </StyledDetails>
+
+        
+        
+        
+        <div>
           {!account && <UnlockButton />}
           {account &&
             (needsApproval ? (
@@ -170,35 +189,56 @@ const PoolCard: React.FC<HarvestProps> = ({ pool }) => {
               </div>
             ) : (
               <>
-                <Button
-                  disabled={stakedBalance.eq(new BigNumber(0)) || pendingTx}
-                  onClick={ onPresentWithdraw }
-                >
-                  {`Unstake ${stakingToken.symbol}`}
-                </Button>
-                <StyledActionSpacer />
-                <IconButton disabled={isFinished && pId !== 0} onClick={onPresentDeposit}>
-                  <AddIcon color="white" />
-                </IconButton>
+                
+                <StyledCardActions>
+                  <StyledCardActionsLeft>
+                    <BalanceAndCompound>
+                      <Balance value={getBalanceNumber(earnings, earningToken.decimals)} isDisabled={isFinished} />
+                      {pId === 0 && account && harvest && (
+                        <HarvestButton
+                          disabled={!earnings.toNumber() || pendingTx}
+                          text={pendingTx ? TranslateString(999, 'Compounding') : TranslateString(704, 'Compound')}
+                          onClick={onPresentCompound}
+                        />
+                      )}
+                    </BalanceAndCompound>
+                    <Flex justifyContent="space-between">
+                      <Text bold textTransform="uppercase" color="text" fontSize="20px" pr="3px">
+                        {/* TODO: Is there a way to get a dynamic value here from useFarmFromSymbol? */}
+                        {earningToken.symbol}
+                      </Text>
+                      <Text color="text" fontSize="18px">
+                        {TranslateString(1072, 'earned')}
+                      </Text>
+                    </Flex>
+                  </StyledCardActionsLeft>
+                  <StyledCardActionsRight>
+                    <Flex>
+                    <Button
+                      disabled={!earnings.toNumber() || pendingTx}
+                      onClick={async () => {
+                        setPendingTx(true)
+                        await onReward()
+                        setPendingTx(false)
+                      }}
+                    >
+                    Harvest
+                    </Button>
+                    </Flex>
+
+                    <Flex>
+                    <Button
+                      onClick={ onPresentDeposit }
+                    >
+                      {`Stake ${stakingToken.symbol}`}
+                    </Button>
+                    </Flex>
+                  </StyledCardActionsRight>
+                </StyledCardActions>
               </>
             ))}
-        </StyledCardActions>
-        <StyledDetails>
-          <div>{TranslateString(736, 'APR')}:</div>
-          {isFinished || !apy ? (
-            '-'
-          ) : (
-            <Balance fontSize="14px" isDisabled={isFinished} value={apy} decimals={2} unit="%" />
-          )}
-        </StyledDetails>
-        <StyledDetails>
-          <div>{TranslateString(384, 'Your Stake')}:</div>
-          <Balance
-            fontSize="14px"
-            isDisabled={isFinished}
-            value={getBalanceNumber(stakedBalance, stakingToken.decimals)}
-          />
-        </StyledDetails>
+        </div>
+        
       </div>
       <CardFooter
         projectLink={earningToken.projectLink}
@@ -216,6 +256,13 @@ const PoolCard: React.FC<HarvestProps> = ({ pool }) => {
   )
 }
 
+
+const Wrapper = styled(Flex)`
+  svg {
+    margin-right: 4px;
+  }
+`
+
 const PoolFinishedSash = styled.div`
   background-image: url('/images/pool-finished-sash.svg');
   background-position: top right;
@@ -228,11 +275,25 @@ const PoolFinishedSash = styled.div`
 `
 
 const StyledCardActions = styled.div`
-  display: flex;
-  justify-content: center;
-  margin: 16px 0;
+  display: inline-block;
+  margin: auto;
   width: 100%;
   box-sizing: border-box;
+  
+`
+const StyledCardActionsLeft = styled.div`
+  float: left;
+`
+const StyledCardActionsRight = styled.div`
+  float: right;
+  display: block;
+  > div {
+    padding-top:5px;
+  }
+  > div > button{
+    width: 100%;
+  }
+  
 `
 
 const BalanceAndCompound = styled.div`

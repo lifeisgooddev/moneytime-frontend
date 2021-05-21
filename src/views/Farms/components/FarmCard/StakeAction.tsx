@@ -37,7 +37,6 @@ const StakeAction: React.FC<FarmCardActionsProps> = ({
 
   const rawStakedBalance = getBalanceNumber(stakedBalance)
   const displayBalance = rawStakedBalance.toLocaleString()
-
   const [onPresentDeposit] = useModal(
     <DepositModal max={tokenBalance} onConfirm={onStake} tokenName={tokenName} addLiquidityUrl={addLiquidityUrl} />,
   )
@@ -62,7 +61,7 @@ const StakeAction: React.FC<FarmCardActionsProps> = ({
 
   return (
     <Flex justifyContent="space-between" alignItems="center">
-      <Heading color={rawStakedBalance === 0 ? 'textDisabled' : 'text'}>{displayBalance}</Heading>
+      <Heading color={rawStakedBalance === 0 ? 'textDisabled' : 'text'}> </Heading>
       {renderStakingButtons()}
     </Flex>
   )

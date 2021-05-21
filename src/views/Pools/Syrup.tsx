@@ -15,6 +15,50 @@ import PoolCard from './components/PoolCard'
 import PoolTabButtons from './components/PoolTabButtons'
 import Divider from './components/Divider'
 
+
+
+const Header = styled.div`
+  align-items: center;
+  display: inline-block;
+  width: 100%;
+  // justify-content: center;
+  // flex-direction: column;
+  margin: auto;
+  margin-top:27px;
+  // padding-top: 116px;
+  text-align: left;
+  ${({ theme }) => theme.mediaQueries.lg} {
+    // height: 449px;
+    padding-top: 0;
+  }
+`
+const HeadImg = styled.img`
+  vertical-align: middle;
+  width:25%;
+  text-align: left;
+  float:left;
+`
+const HeadDiv = styled.div`
+align-items: center;
+width: 100%;
+margin: auto;
+margin-top:-235px;
+// padding-top: 116px;
+text-align: center;
+${({ theme }) => theme.mediaQueries.lg} {
+  // height: 449px;
+  padding-top: 0;
+}
+`
+
+const HeadImg1 = styled.img`
+  vertical-align: middle;
+  width:25%;
+  text-align: right;
+  float:right;
+`
+
+
 const Farm: React.FC = () => {
   const { path } = useRouteMatch()
   const TranslateString = useI18n()
@@ -34,21 +78,16 @@ const Farm: React.FC = () => {
 
   return (
     <Page>
-      <Hero>
-        <div>
-          <Heading as="h1" size="xxl" mb="16px">
-            {TranslateString(738, 'Staking Pools')}
-          </Heading>
-          <ul>
-            <li>{TranslateString(580, 'Stake Time to earn Money tokens.')}</li>
-            {/* <li>{TranslateString(486, 'You can unstake at any time.')}</li> */}
-            <li>{TranslateString(406, 'Rewards are calculated per block.')}</li>
-          </ul>
-        </div>
-        <img src="/images/syrup.png" alt="SYRUP POOL icon" width={410} height={191} />
-      </Hero>
+      <Header>
+        <HeadImg alt="hero" width="400px  " height="400px"  src="/images/casinochip.svg"/>
+        
+        <HeadImg1 alt="devilcoin" width="330px" height="330px" src="/images/casinochip.svg" />
+      </Header>
+      <HeadDiv> 
+          <Heading mb="4px" size='xl'>Stake LP tokens to earn MONEY</Heading>
+          <Heading mb="4px" size='xl'>Deposit Fee will be used to buyback MONEY</Heading>
+      </HeadDiv>
       <PoolTabButtons stackedOnly={stackedOnly} setStackedOnly={setStackedOnly} />
-      <Divider />
       <FlexLayout>
         <Route exact path={`${path}`}>
           <>
@@ -66,35 +105,5 @@ const Farm: React.FC = () => {
     </Page>
   )
 }
-
-const Hero = styled.div`
-  align-items: center;
-  color: ${({ theme }) => theme.colors.primary};
-  display: grid;
-  grid-gap: 32px;
-  grid-template-columns: 1fr;
-  margin-left: auto;
-  margin-right: auto;
-  max-width: 250px;
-  padding: 48px 0;
-  ul {
-    margin: 0;
-    padding: 0;
-    list-style-type: none;
-    font-size: 16px;
-    li {
-      margin-bottom: 4px;
-    }
-  }
-  img {
-    height: auto;
-    max-width: 100%;
-  }
-  @media (min-width: 576px) {
-    grid-template-columns: 1fr 1fr;
-    margin: 0;
-    max-width: none;
-  }
-`
 
 export default Farm

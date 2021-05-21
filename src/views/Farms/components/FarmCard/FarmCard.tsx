@@ -9,10 +9,13 @@ import useI18n from 'hooks/useI18n'
 import ExpandableSectionButton from 'components/ExpandableSectionButton'
 import { BASE_ADD_LIQUIDITY_URL } from 'config'
 import getLiquidityUrlPathParts from 'utils/getLiquidityUrlPathParts'
+import { useFarmFromSymbol, useFarmUser } from 'state/hooks'
+import { getBalanceNumber } from 'utils/formatBalance'
 import DetailsSection from './DetailsSection'
 import CardHeading from './CardHeading'
 import CardActionsContainer from './CardActionsContainer'
 import ApyButton from './ApyButton'
+
 
 export interface FarmWithStakedValue extends Farm {
   apy?: number
@@ -95,6 +98,8 @@ interface FarmCardProps {
 
 const FarmCard: React.FC<FarmCardProps> = ({ farm, removed, moneyPrice, account }) => {
   const TranslateString = useI18n()
+  const { pid } = useFarmFromSymbol(farm.lpSymbol)
+  const { allowance, tokenBalance, stakedBalance, earnings } = useFarmUser(pid)
 
   const [showExpandableSection, setShowExpandableSection] = useState(false)
 
@@ -118,9 +123,11 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm, removed, moneyPrice, account 
   })
   const addLiquidityUrl = `${BASE_ADD_LIQUIDITY_URL}/${liquidityUrlPathParts}`
 
+  const rawStakedBalance = getBalanceNumber(stakedBalance)
+  const displayBalance = rawStakedBalance.toLocaleString()
+  
   return (
     <FCard>
-      {farm.token.symbol === 'CAKE' && <StyledCardAccent />}
       <CardHeading
         lpLabel={lpLabel}
         multiplier={farm.multiplier}
@@ -144,8 +151,12 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm, removed, moneyPrice, account 
         </Flex>
       )}
       <Flex justifyContent="space-between">
-        <Text>{TranslateString(318, 'Earn')}:</Text>
-        <Text bold>{earnLabel}</Text>
+        <Text>{TranslateString(318, 'Your stake')}:</Text>
+        <Text>{displayBalance} {farm.lpSymbol}</Text>
+      </Flex>
+      <Flex justifyContent="space-between">
+        <Text>{TranslateString(318, 'Until harvest')}:</Text>
+        <Text>--/--/--</Text>
       </Flex>
       <CardActionsContainer farm={farm} account={account} addLiquidityUrl={addLiquidityUrl} />
       <Divider />

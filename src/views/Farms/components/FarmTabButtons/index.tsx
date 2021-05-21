@@ -10,12 +10,12 @@ const FarmTabButtons = () => {
 
   return (
     <Wrapper>
-      <ButtonMenu activeIndex={isExact ? 0 : 1} scale="sm" variant="subtle">
+      <ButtonMenu activeIndex={isExact ? 0 : 1} scale="lg" variant="subtle">
         <ButtonMenuItem as={Link} to={`${url}`}>
-          {TranslateString(1198, 'Live')}
+          {TranslateString(1198, 'Active')}
         </ButtonMenuItem>
         <ButtonMenuItem as={Link} to={`${url}/history`}>
-          {TranslateString(388, 'Finished')}
+          {TranslateString(388, 'Inactive')}
         </ButtonMenuItem>
       </ButtonMenu>
     </Wrapper>

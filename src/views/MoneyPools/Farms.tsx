@@ -75,7 +75,7 @@ const ViewControls = styled.div`
   display: flex;
   align-items: center;
   width: 100%;
-
+  margin: auto;
   > div {
     padding: 8px 0px;
   }
@@ -96,18 +96,48 @@ const StyledImage = styled(Image)`
   margin-top: 58px;
 `
 
+
 const Header = styled.div`
-  padding: 32px 0px;
-  background: ${({ theme }) => theme.colors.gradients.bubblegum};
-
-  padding-left: 16px;
-  padding-right: 16px;
-
-  ${({ theme }) => theme.mediaQueries.sm} {
-    padding-left: 24px;
-    padding-right: 24px;
+  align-items: center;
+  display: inline-block;
+  width: 100%;
+  // justify-content: center;
+  // flex-direction: column;
+  margin: auto;
+  margin-top:27px;
+  // padding-top: 116px;
+  text-align: left;
+  ${({ theme }) => theme.mediaQueries.lg} {
+    // height: 449px;
+    padding-top: 0;
   }
 `
+const HeadImg = styled.img`
+  vertical-align: middle;
+  width:25%;
+  text-align: left;
+  float:left;
+`
+const HeadDiv = styled.div`
+align-items: center;
+width: 100%;
+margin: auto;
+margin-top:-235px;
+// padding-top: 116px;
+text-align: center;
+${({ theme }) => theme.mediaQueries.lg} {
+  // height: 449px;
+  padding-top: 0;
+}
+`
+
+const HeadImg1 = styled.img`
+  vertical-align: middle;
+  width:25%;
+  text-align: right;
+  float:right;
+`
+
 
 const Farms: React.FC = () => {
   const { path } = useRouteMatch()
@@ -296,56 +326,25 @@ const Farms: React.FC = () => {
   return (
     <>
       <Header>
-        <Heading as="h1" size="xxl" color="secondary" mb="24px">
-          {TranslateString(999, 'Farms')}
-        </Heading>
-        <Heading size="lg" color="text">
-          {TranslateString(999, 'Stake MONEY  token to earn MONEY token')}
-        </Heading>
+        <HeadImg alt="hero" width="400px  " height="400px"  src="/images/casinochip.svg"/>
+        
+        <HeadImg1 alt="devilcoin" width="330px" height="330px" src="/images/casinochip.svg" />
       </Header>
+      <HeadDiv> 
+          <Heading mb="4px" size='xl'>Stake LP tokens to earn MONEY</Heading>
+          <Heading mb="4px" size='xl'>Deposit Fee will be used to buyback MONEY</Heading>
+          <ControlContainer>
+            <ViewControls>  
+              <ToggleWrapper>
+                <Toggle checked={stackedOnly} onChange={() => setStackedOnly(!stackedOnly)} scale="lg" />
+                <Text> {TranslateString(1116, 'Staked only')}</Text>
+              </ToggleWrapper>
+              <FarmTabButtons />
+            </ViewControls>
+          </ControlContainer>
+      </HeadDiv>
       <Page>
-        <ControlContainer>
-          <ViewControls>
-            <ToggleView viewMode={viewMode} onToggle={(mode: ViewMode) => setViewMode(mode)} />
-            
-          </ViewControls>
-          <FilterContainer>
-            <LabelWrapper>
-              <Text>SORT BY</Text>
-              <Select
-                options={[
-                  {
-                    label: 'Hot',
-                    value: 'hot',
-                  },
-                  {
-                    label: 'APR',
-                    value: 'apr',
-                  },
-                  {
-                    label: 'Multiplier',
-                    value: 'multiplier',
-                  },
-                  {
-                    label: 'Earned',
-                    value: 'earned',
-                  },
-                  {
-                    label: 'Liquidity',
-                    value: 'liquidity',
-                  },
-                ]}
-                onChange={handleSortOptionChange}
-              />
-            </LabelWrapper>
-            <LabelWrapper style={{ marginLeft: 16 }}>
-              <Text>SEARCH</Text>
-              <SearchInput onChange={handleChangeQuery} value={query} />
-            </LabelWrapper>
-          </FilterContainer>
-        </ControlContainer>
         {renderContent()}
-        <StyledImage src="/images/3dpan.png" alt="Pancake illustration" width={120} height={103} />
       </Page>
     </>
   )

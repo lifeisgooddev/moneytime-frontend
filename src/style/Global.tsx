@@ -13,32 +13,32 @@ const GlobalStyle = createGlobalStyle`
   }
   body {
     background-color: ${({ theme }) => theme.colors.background};
-    background-image: url('/images/background.jpg');
-    background-size:cover;
+    background-image: url('/images/coinsbackground.png');
+    background-size: contain;
     img {
       height: auto;
       max-width: 100%;
     }
   }
-  .sc-ehSCib{
-    background:rgb(255,255,255,0.49);
-  }
-  .fNtXtj {
-    color: rgb(163,130,0);
-  }
-  .kwDaUr {
-    border : 0;
-    background:rgb(0,0,0,0);
-  }
-  .cJUvT{
-    max-width : 100%;
-  }
-  .sc-eJMQSu{
-    display:none;
-  }
-  .bxOpxZ{
-    margin-top: -27px;
-  }
+  // .sc-ehSCib{
+  //   background:rgb(255,255,255,0.49);
+  // }
+  // .fNtXtj {
+  //   color: rgb(163,130,0);
+  // }
+  // .kwDaUr {
+  //   border : 0;
+  //   background:rgb(0,0,0,0);
+  // }
+  // .cJUvT{
+  //   max-width : 100%;
+  // }
+  // .sc-eJMQSu{
+  //   display:none;
+  // }
+  // .bxOpxZ{
+  //   margin-top: -27px;
+  // }
 `
 
 export default GlobalStyle

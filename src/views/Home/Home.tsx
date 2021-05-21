@@ -13,24 +13,30 @@ import WinCard from 'views/Home/components/WinCard'
 
 const Hero = styled.div`
   align-items: center;
-  background-image: url('/images/pan-bg-mobile.svg');
-  background-repeat: no-repeat;
-  background-position: top center;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
+  display: inline-block;
+  width: 100%;
+  // justify-content: center;
+  // flex-direction: column;
   margin: auto;
   margin-bottom: 32px;
-  padding-top: 116px;
+  // padding-top: 116px;
   text-align: center;
   margin-left : -60px;
   ${({ theme }) => theme.mediaQueries.lg} {
-    background-image: url('/images/moneytimehero.svg'), url('/images/satanbossmoney.svg');
-    background-position: left, right top;
-    background-sizes: 100%, 50%;
-    height: 449px;
+    // height: 449px;
     padding-top: 0;
   }
+`
+const HeadImg = styled.img`
+  vertical-align: middle;
+  width:33%;
+`
+
+const HeadImg1 = styled.img`
+  vertical-align: middle;
+  width:33%;
+  margin-top: -140px;
+  height: 420px;
 `
 
 const Cards = styled(BaseLayout)`
@@ -88,8 +94,9 @@ const Home: React.FC = () => {
   return (
     <Page>
       <Hero>
-        {/* <CardImage src="/images/moneytimelogo.svg" alt="cake logo" /> */}
-        {/* <CardImage src="/images/satanbossmoney.svg" alt="cake logo" /> */}
+        <HeadImg alt="hero" src="/images/hero.svg"/>
+        <HeadImg alt="logo" src="/images/MoneytimeLogo.svg"/>
+        <HeadImg1 alt="devilcoin" src="/images/devilcoins.svg"/>
       </Hero>
       <div>
         <Cards>

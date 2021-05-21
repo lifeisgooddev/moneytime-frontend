@@ -50,6 +50,7 @@ const StyledDetailsButton = styled.button`
   justify-content: center;
   outline: 0;
   padding: 0;
+  margin:auto;
   &:hover {
     opacity: 0.9;
   }
@@ -108,9 +109,6 @@ const CardFooter: React.FC<Props> = ({
   return (
     <StyledFooter isFinished={isFinished}>
       <Row>
-        <FlexFull>
-          <Tag />
-        </FlexFull>
         <StyledDetailsButton onClick={handleClick}>
           {isOpen ? TranslateString(1066, 'Hide') : TranslateString(658, 'Details')} <Icon />
         </StyledDetailsButton>

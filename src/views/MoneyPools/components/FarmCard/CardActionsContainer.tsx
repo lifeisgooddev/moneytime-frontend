@@ -70,26 +70,18 @@ const CardActions: React.FC<FarmCardActionsProps> = ({ farm, account, addLiquidi
 
   return (
     <Action>
-      <Flex>
-        <Text bold textTransform="uppercase" color="secondary" fontSize="12px" pr="3px">
-          {/* TODO: Is there a way to get a dynamic value here from useFarmFromSymbol? */}
-          MONEY
-        </Text>
-        <Text bold textTransform="uppercase" color="textSubtle" fontSize="12px">
-          {TranslateString(1072, 'Earned')}
-        </Text>
-      </Flex>
-      <HarvestAction earnings={earnings} pid={pid} />
-      <Flex>
-        <Text bold textTransform="uppercase" color="secondary" fontSize="12px" pr="3px">
-          {lpName}
-        </Text>
-        <Text bold textTransform="uppercase" color="textSubtle" fontSize="12px">
-          {TranslateString(1074, 'Staked')}
-        </Text>
-      </Flex>
-      {!account ? <UnlockButton mt="8px" width="100%" /> : renderApprovalOrStakeButton()}
-    </Action>
+    <HarvestAction earnings={earnings} pid={pid} />
+    <Flex>
+      <Text bold textTransform="uppercase" color="text" fontSize="20px" pr="3px">
+        {/* TODO: Is there a way to get a dynamic value here from useFarmFromSymbol? */}
+        MONEY
+      </Text>
+      <Text color="text" fontSize="18px">
+        {TranslateString(1072, 'earned')}
+      </Text>
+    </Flex>
+    {!account ? <UnlockButton mt="8px" width="100%" /> : renderApprovalOrStakeButton()}
+  </Action>
   )
 }
 
