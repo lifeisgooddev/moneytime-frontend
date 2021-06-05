@@ -31,7 +31,8 @@ interface FarmCardActionsProps {
 const CardActions: React.FC<FarmCardActionsProps> = ({ farm, account, addLiquidityUrl }) => {
   const TranslateString = useI18n()
   const [requestedApproval, setRequestedApproval] = useState(false)
-  const { pid, lpAddresses } = useTimepoolFromSymbol(farm.lpSymbol)
+  const { lpAddresses } = useTimepoolFromSymbol(farm.lpSymbol)
+  const pid = farm.pid;
   const { allowance, tokenBalance, stakedBalance, earnings } = useTimepoolUser(pid)
   const lpAddress = getAddress(lpAddresses)
   const lpName = farm.lpSymbol.toUpperCase()
@@ -53,14 +54,7 @@ const CardActions: React.FC<FarmCardActionsProps> = ({ farm, account, addLiquidi
   }, [onApprove])
 
   const renderApprovalOrStakeButton = () => {
-    return isApproved ? (
-      <StakeAction
-        stakedBalance={stakedBalance}
-        tokenBalance={tokenBalance}
-        tokenName={lpName}
-        pid={pid}
-        addLiquidityUrl={addLiquidityUrl}
-      />
+    return isApproved ? (<></>
     ) : (
       <Button mt="8px" width="100%" disabled={requestedApproval} onClick={handleApprove}>
         {TranslateString(758, 'Approve Contract')}
@@ -70,15 +64,22 @@ const CardActions: React.FC<FarmCardActionsProps> = ({ farm, account, addLiquidi
 
   return (
     <Action>
-      <HarvestAction earnings={earnings} pid={pid} />
+      <HarvestAction 
+        earnings={earnings} 
+        pid={pid}  
+        stakedBalance={stakedBalance}
+        tokenBalance={tokenBalance}
+        tokenName={lpName}
+        addLiquidityUrl={addLiquidityUrl}/>
       <Flex>
         <Text bold textTransform="uppercase" color="text" fontSize="20px" pr="3px">
           {/* TODO: Is there a way to get a dynamic value here from useFarmFromSymbol? */}
-          Money
+          Money {pid > 3 ? ", Busd" : ""}
         </Text>
         <Text color="text" fontSize="18px">
           {TranslateString(1072, 'earned')}
         </Text>
+
       </Flex>
       {!account ? <UnlockButton mt="8px" width="100%" /> : renderApprovalOrStakeButton()}
     </Action>

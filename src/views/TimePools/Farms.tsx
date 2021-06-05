@@ -49,6 +49,7 @@ const ToggleWrapper = styled.div`
   ${Text} {
     margin-left: 8px;
   }
+  
 `
 
 const LabelWrapper = styled.div`
@@ -77,7 +78,9 @@ const ViewControls = styled.div`
   width: 100%;
   margin:auto;
   > div {
-    padding: 8px 0px;
+    // padding: 8px 0px;
+    padding-left: 75px;
+    padding-right: 75px;
   }
 
   ${({ theme }) => theme.mediaQueries.sm} {
@@ -85,7 +88,8 @@ const ViewControls = styled.div`
     width: auto;
 
     > div {
-      padding: 0;
+      padding-left: 75px;
+    padding-right: 75px;
     }
   }
 `
@@ -113,29 +117,37 @@ const Header = styled.div`
 `
 const HeadImg = styled.img`
   vertical-align: middle;
-  width:25%;
+  width:30%;
   text-align: left;
   float:left;
+  margin-left:-60px;
 `
 const HeadDiv = styled.div`
 align-items: center;
 width: 100%;
 margin: auto;
-margin-top:-460px;
+margin-top:-398px;
 // padding-top: 116px;
+& h2:first-child {
+  color: #ae0108;
+}
 text-align: center;
 ${({ theme }) => theme.mediaQueries.lg} {
   // height: 449px;
   padding-top: 0;
+  & h2:first-child {
+    color: #ae0108;
+  }
 }
 `
 
 const HeadImg1 = styled.img`
   vertical-align: middle;
-  width:25%;
-  margin-top: 135px;
+  width:22%;
+  // margin-top: 135px;
   text-align: right;
   float:right;
+  margin-right: 130px;
 `
 
 const Farms: React.FC = () => {
@@ -325,13 +337,13 @@ const Farms: React.FC = () => {
   return (
     <>
       <Header>
-        <HeadImg alt="hero" width="400px  " height="400px"  src="/images/scaredclock.svg"/>
+        <HeadImg alt="hero" width="500px  " height="500px"  src="/images/hero.svg"/>
         
-        <HeadImg1 alt="devilcoin" width="330px" height="330px" src="/images/satanboss.svg" />
+        <HeadImg1 alt="devilcoin" width="20px" height="330px" src="/images/rabbitboss.svg" />
       </Header>
       <HeadDiv> 
-          <Heading mb="4px" size='xl'>Stake LP tokens to earn MONEY</Heading>
-          <Heading mb="4px" size='xl'>Deposit Fee will be used to buyback MONEY</Heading>
+          <Heading mb="20px" size='lg'>Stake $TIME earn $MONEY. After unlock your reward, 100% of your $TIME<br/>staked are burned when withdraw, IF YOU UNSTAKE<br/>BEFORE UNLOCK YOUR REWARD, 25% OF YOUR $TIME<br/>STAKED ARE BURNED and NO $MONEY REWARD MINTED.</Heading>
+          <Heading mb="20px" size='lg'> CAUTION: After reward unlocked, user must unstake 100% of staked $TIME<br/> for earn $MONEY reward. (Harvest not allowed)</Heading>
           <ControlContainer>
             <ViewControls>  
               <ToggleWrapper>

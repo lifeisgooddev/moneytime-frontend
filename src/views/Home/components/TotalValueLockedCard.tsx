@@ -6,7 +6,7 @@ import { useGetStats } from 'hooks/api'
 
 const StyledTotalValueLockedCard = styled(Card)`
   background-color: rgb(254,251,214,0.95);
-  align-items: center;
+  align-items: right;
   display: flex;
   flex: 1;
 `

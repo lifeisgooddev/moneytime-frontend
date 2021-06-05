@@ -95,7 +95,7 @@ export const useTimepoolUser = (pid) => {
     allowance: timepool.userData ? new BigNumber(timepool.userData.allowance) : new BigNumber(0),
     tokenBalance: timepool.userData ? new BigNumber(timepool.userData.tokenBalance) : new BigNumber(0),
     stakedBalance: timepool.userData ? new BigNumber(timepool.userData.stakedBalance) : new BigNumber(0),
-    earnings: timepool.userData ? new BigNumber(timepool.userData.earnings) : new BigNumber(0),
+    earnings: timepool.userData ? [new BigNumber(timepool.userData.earnings[0]), new BigNumber(timepool.userData.earnings[1])]  : [new BigNumber('0'),new BigNumber('0')],
   }
 }
 

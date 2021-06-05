@@ -39,8 +39,10 @@ export interface Timepool extends TimepoolConfig {
     tokenBalance: BigNumber
     stakedBalance: BigNumber
     earnings: BigNumber
+    depositTime: BigNumber
   },
-  depositFee?: string, 
+  lockTime?: BigNumber
+  depositFee?: string 
   withdrawFee?: string
 }
 

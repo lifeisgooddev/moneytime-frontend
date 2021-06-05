@@ -64,6 +64,7 @@ export interface TimepoolConfig {
   quoteToken?: Token
   multiplier?: string
   isCommunity?: boolean
+  lockPeriod?: string
   dual?: {
     rewardPerBlock: number
     earnLabel: string

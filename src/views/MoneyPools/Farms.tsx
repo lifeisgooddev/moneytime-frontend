@@ -77,7 +77,8 @@ const ViewControls = styled.div`
   width: 100%;
   margin: auto;
   > div {
-    padding: 8px 0px;
+    padding-left: 75px;
+    padding-right: 75px;
   }
 
   ${({ theme }) => theme.mediaQueries.sm} {
@@ -85,7 +86,8 @@ const ViewControls = styled.div`
     width: auto;
 
     > div {
-      padding: 0;
+      padding-left: 75px;
+      padding-right: 75px;
     }
   }
 `
@@ -114,7 +116,7 @@ const Header = styled.div`
 `
 const HeadImg = styled.img`
   vertical-align: middle;
-  width:25%;
+  width:45%;
   text-align: left;
   float:left;
 `
@@ -122,12 +124,18 @@ const HeadDiv = styled.div`
 align-items: center;
 width: 100%;
 margin: auto;
-margin-top:-235px;
+margin-top:-285px;
 // padding-top: 116px;
 text-align: center;
+& h2:first-child {
+  color: #ae0108;
+}
 ${({ theme }) => theme.mediaQueries.lg} {
   // height: 449px;
   padding-top: 0;
+}
+& h2:first-child {
+  color: #ae0108;
 }
 `
 
@@ -326,13 +334,13 @@ const Farms: React.FC = () => {
   return (
     <>
       <Header>
-        <HeadImg alt="hero" width="400px  " height="400px"  src="/images/casinochip.svg"/>
+        <HeadImg alt="hero" width="400px  " height="400px"  src="/images/moneyprinter.svg"/>
         
         <HeadImg1 alt="devilcoin" width="330px" height="330px" src="/images/casinochip.svg" />
       </Header>
       <HeadDiv> 
-          <Heading mb="4px" size='xl'>Stake LP tokens to earn MONEY</Heading>
-          <Heading mb="4px" size='xl'>Deposit Fee will be used to buyback MONEY</Heading>
+          <Heading mb="20px" size='lg'>Stake $MONEY earn $MONEY! 5% Deposit fees to be burned. <br/> Reward locked for 72h. If withdraw before 72h, 5% withdraw fees to be burned.</Heading>
+          <Heading mb="20px" size='lg'>CAUTION: After 72h if User want collect the reward, <br/> he must unstake 100% of his $MONEY stake for earn the $MONEY reward.</Heading>
           <ControlContainer>
             <ViewControls>  
               <ToggleWrapper>

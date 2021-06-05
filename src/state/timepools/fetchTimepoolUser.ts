@@ -49,10 +49,11 @@ export const fetchTimepoolUserStakedBalances = async (account: string) => {
   })
 
   const rawStakedBalances = await multicall(masterchefMoneyABI, calls)
-  const parsedStakedBalances = rawStakedBalances.map((stakedBalance) => {
-    return new BigNumber(stakedBalance[0]._hex).toJSON()
+  const parsedStakeAndDepositTime = rawStakedBalances.map((stakedBalance) => {
+    return [new BigNumber(stakedBalance[0]._hex).toJSON(), stakedBalance[3].toString()]
   })
-  return parsedStakedBalances
+  
+  return parsedStakeAndDepositTime
 }
 
 export const fetchTimepoolUserEarnings = async (account: string) => {
@@ -61,14 +62,16 @@ export const fetchTimepoolUserEarnings = async (account: string) => {
   const calls = timepoolsConfig.map((timepool) => {
     return {
       address: masterChefMoneyAdress,
-      name: 'pendingMoney',
+      name: 'pendingReward',
       params: [timepool.pid, account],
     }
   })
 
   const rawEarnings = await multicall(masterchefMoneyABI, calls)
+  
   const parsedEarnings = rawEarnings.map((earnings) => {
-    return new BigNumber(earnings).toJSON()
+    // return new BigNumber(earnings).toJSON()
+    return [earnings[0].toString(), earnings[1].toString()];
   })
   return parsedEarnings
 }

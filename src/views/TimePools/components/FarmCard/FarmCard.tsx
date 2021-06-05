@@ -3,7 +3,7 @@ import BigNumber from 'bignumber.js'
 import styled, { keyframes } from 'styled-components'
 import { Flex, Text, Skeleton } from '@pancakeswap-libs/uikit'
 import { communityFarms } from 'config/constants'
-import { Farm } from 'state/types'
+import { Timepool } from 'state/types'
 import { provider as ProviderType } from 'web3-core'
 import useI18n from 'hooks/useI18n'
 import ExpandableSectionButton from 'components/ExpandableSectionButton'
@@ -16,7 +16,7 @@ import CardHeading from './CardHeading'
 import CardActionsContainer from './CardActionsContainer'
 import ApyButton from './ApyButton'
 
-export interface FarmWithStakedValue extends Farm {
+export interface FarmWithStakedValue extends Timepool {
   apy?: number
   liquidity?: BigNumber,
 }
@@ -65,7 +65,7 @@ const FCard = styled.div`
   // background: ${(props) => props.theme.card.background};
   background: rgb(254,251,214,0.95);
   border-radius: 32px;
-  box-shadow: 0px 2px 12px -8px rgba(25, 19, 38, 0.1), 0px 1px 1px rgba(25, 19, 38, 0.05);
+  box-shadow: 0px 2px 12px -2px rgba(0,0,0), 0px 1px 1px rgba(25, 19, 38, 0.05);
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -94,9 +94,29 @@ interface FarmCardProps {
   account?: string
 }
 
+const calculateRemainingTime = (time:any, lockPeriod:any) => {
+  console.log(time);
+  if(time === "0")
+    return `?d ?h ?m`;
+  const harvestTimeStamp = parseInt(time)*1000 + parseInt(lockPeriod)*1000; 
+  const untilHarvest:any = new Date(harvestTimeStamp);
+  const currentTime:any = new Date();
+  if(currentTime >= untilHarvest)
+    return `0d 0h 0m`;
+  const totalSeconds     = Math.floor((untilHarvest - currentTime)/1000);
+  const totalMinutes     = Math.floor(totalSeconds/60);
+  const totalHours       = Math.floor(totalMinutes/60);
+  const totalDays        = Math.floor(totalHours/24);
+
+  const hours   = totalHours - ( totalDays * 24 );
+  const minutes = totalMinutes - ( totalDays * 24 * 60 ) - ( hours * 60 );
+
+  return `${totalDays}d ${hours}h ${minutes}m`;
+}
 const FarmCard: React.FC<FarmCardProps> = ({ farm, removed, moneyPrice, account }) => {
   const TranslateString = useI18n()
-  const { pid } = useTimepoolFromSymbol(farm.lpSymbol)
+  // const { pid } = useTimepoolFromSymbol(farm.lpSymbol)
+  const pid = farm.pid;
   const { allowance, tokenBalance, stakedBalance, earnings } = useTimepoolUser(pid)
 
   const [showExpandableSection, setShowExpandableSection] = useState(false)
@@ -104,13 +124,13 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm, removed, moneyPrice, account 
   const isCommunityFarm = communityFarms.includes(farm.token.symbol)
   // We assume the token name is coin pair + lp e.g. CAKE-BNB LP, LINK-BNB LP,
   // NAR-CAKE LP. The images should be cake-bnb.svg, link-bnb.svg, nar-cake.svg
-  const farmImage = farm.lpSymbol.split(' ')[0].toLocaleLowerCase()
+  const farmImage = farm.lockPeriod.split(' ')[1].toLocaleLowerCase().replace('s','');
 
   const totalValueFormated = farm.liquidity
     ? `$${farm.liquidity.toNumber().toLocaleString(undefined, { maximumFractionDigits: 0 })}`
     : '-'
 
-  const lpLabel = farm.lpSymbol && farm.lpSymbol.toUpperCase().replace('PANCAKE', '')
+  const lpLabel = farm.lockPeriod;
   const earnLabel = farm.dual ? farm.dual.earnLabel : 'TIME'
 
   const farmAPY = farm.apy && farm.apy.toLocaleString('en-US', { maximumFractionDigits: 2 })
@@ -152,8 +172,8 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm, removed, moneyPrice, account 
         <Text>{displayBalance} {farm.lpSymbol}</Text>
       </Flex>
       <Flex justifyContent="space-between">
-        <Text>{TranslateString(318, 'Until harvest')}:</Text>
-        <Text>--/--/--</Text>
+        <Text>{TranslateString(318, 'Remaining lock period')}:</Text>
+        <Text>{farm.userData ? calculateRemainingTime(farm.userData.depositTime, farm.lockTime) : "--/--/--"}</Text>
       </Flex>
       <CardActionsContainer farm={farm} account={account} addLiquidityUrl={addLiquidityUrl} />
       <Divider />

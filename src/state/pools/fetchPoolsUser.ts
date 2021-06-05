@@ -11,8 +11,8 @@ import BigNumber from 'bignumber.js'
 
 // Pool 0, Cake / Cake is a different kind of contract (master chef)
 // BNB pools use the native BNB token (wrapping ? unwrapping is done at the contract level)
-const nonBnbPools = poolsConfig.filter((p) => p.stakingToken.symbol !== 'WBNB')
-const bnbPools = poolsConfig.filter((p) => p.stakingToken.symbol === 'WBNB')
+const nonBnbPools = poolsConfig.filter((p) => p.stakingToken.symbol !== 'BNB')
+const bnbPools = poolsConfig.filter((p) => p.stakingToken.symbol === 'BNB')
 const nonMasterPools = poolsConfig.filter((p) => p.pId !== 0)
 const moneyPools = poolsConfig.filter((p) => getAddress(p.contractAddress) === getMasterChefMoneyAddress())
 const timePools = poolsConfig.filter((p) => getAddress(p.contractAddress) === getMasterChefTimeAddress())
@@ -90,14 +90,14 @@ export const fetchUserStakeBalances = async (account) => {
 export const fetchUserPendingRewards = async (account) => {
   const moneyCalls = moneyPools.map((p) => ({
     address: getMasterChefMoneyAddress(),
-    name: 'pendingMoney',
+    name: 'pendingReward',
     params: [p.pId, account],
   }))
   const userMoneyInfo = await multicall(masterChefMoneyABI, moneyCalls)
   const moneyPendingRewards = moneyPools.reduce(
     (acc, pool, index) => ({
       ...acc,
-      [pool.uuid]: new BigNumber(userMoneyInfo[index]).toJSON(),
+      [pool.uuid]: userMoneyInfo[index][0].toString(),
     }),
     {},
   )

@@ -76,7 +76,9 @@ const ViewControls = styled.div`
   width: 100%;
   margin: auto;
   > div {
-    padding: 8px 0px;
+    // padding: 8px 0px;
+    padding-left: 75px;
+    padding-right: 75px;
   }
 
   ${({ theme }) => theme.mediaQueries.sm} {
@@ -84,7 +86,9 @@ const ViewControls = styled.div`
     width: auto;
 
     > div {
-      padding: 0;
+      // padding: 0;
+      padding-left: 75px;
+      padding-right: 75px;
     }
   }
 `
@@ -123,9 +127,15 @@ margin: auto;
 margin-top:-460px;
 // padding-top: 116px;
 text-align: center;
+& h2:first-child {
+  color: #ae0108;
+}
 ${({ theme }) => theme.mediaQueries.lg} {
   // height: 449px;
   padding-top: 0;
+  & h2:first-child {
+    color: #ae0108;
+  }
 }
 `
 
@@ -189,7 +199,7 @@ const Farms: React.FC = () => {
         if (!farm.lpTotalInQuoteToken || !prices) {
           return farm
         }
-
+        
         const quoteTokenPriceUsd = prices[farm.quoteToken.symbol.toLowerCase()]
         const totalLiquidity = new BigNumber(farm.lpTotalInQuoteToken).times(quoteTokenPriceUsd)
         console.log(farm.poolWeight, moneyPrice, totalLiquidity);
@@ -224,7 +234,7 @@ const Farms: React.FC = () => {
   } else {
     farmsStaked = farmsList(inactiveFarms)
   }
-
+  console.log("farmStaked", farmsStaked);
   farmsStaked = sortFarms(farmsStaked)
 
   const rowData = farmsStaked.map((farm) => {
@@ -330,8 +340,8 @@ const Farms: React.FC = () => {
         <HeadImg1 alt="devilcoin" width="330px" height="330px" src="/images/satanboss.svg" />
       </Header>
       <HeadDiv> 
-          <Heading mb="4px" size='xl'>Stake LP tokens to earn MONEY</Heading>
-          <Heading mb="4px" size='xl'>Deposit Fee will be used to buyback MONEY</Heading>
+          <Heading mb="20px" size='lg'>Stake LP tokens to earn TIME! Stake TIME in TimePools <a style={{ textDecoration: 'underline' }} href="https://testnet.moneytime.finance/timepools">here</a></Heading>
+          <Heading mb="20px" size='lg'>Fees are used to Buy-Back,Burn and redistribute $MONEY to MT users. <br/> Learn more about SmartFees <a style={{ textDecoration: 'underline' }} href="https://moneytime.gitbook.io/timeismoney-fi/tokenomics/fees">here</a></Heading>
           <ControlContainer>
             <ViewControls>  
               <ToggleWrapper>

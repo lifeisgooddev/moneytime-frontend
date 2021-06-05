@@ -7,7 +7,7 @@ const tokens = {
     symbol: 'MONEY',
     address: {
       56: '',
-      97: '0x4868BE84Ba40206f95c97E43342611d414F4f35E',
+      97: '0xf3f3824df51BC1Bd846da3Bc9f9a80eb98Ff928A',
     },
     decimals: 18,
     projectLink: 'https://pancakeswap.finance/',
@@ -16,7 +16,7 @@ const tokens = {
     symbol: 'TIME',
     address: {
       56: '',
-      97: '0x5a9783656E473907E49e85Bf936c3e1f04c3921A',
+      97: '0x199C1575eFDA2AA79ED043f2743d684c5EddF770',
     },
     decimals: 18,
     projectLink: 'https://pancakeswap.finance/',

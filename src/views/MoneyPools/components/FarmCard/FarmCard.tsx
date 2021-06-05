@@ -65,7 +65,7 @@ const FCard = styled.div`
   // background: ${(props) => props.theme.card.background};
   background: rgb(254,251,214,0.95);
   border-radius: 32px;
-  box-shadow: 0px 2px 12px -8px rgba(25, 19, 38, 0.1), 0px 1px 1px rgba(25, 19, 38, 0.05);
+  box-shadow: 0px 2px 12px -2px rgba(0,0,0), 0px 1px 1px rgba(25, 19, 38, 0.05);
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -149,10 +149,6 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm, removed, moneyPrice, account 
       <Flex justifyContent="space-between">
         <Text>{TranslateString(318, 'Your stake')}:</Text>
         {/* <Text>{displayBalance} {farm.lpSymbol}</Text> */}
-      </Flex>
-      <Flex justifyContent="space-between">
-        <Text>{TranslateString(318, 'Until harvest')}:</Text>
-        <Text>--/--/--</Text>
       </Flex>
       <CardActionsContainer farm={farm} account={account} addLiquidityUrl={addLiquidityUrl} />
       <Divider />

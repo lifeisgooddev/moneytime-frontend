@@ -4,6 +4,7 @@ import { Heading, Text, BaseLayout } from '@pancakeswap-libs/uikit'
 import useI18n from 'hooks/useI18n'
 import Page from 'components/layout/Page'
 import FarmStakingCard from 'views/Home/components/FarmStakingCard'
+import TimeStakingCard from 'views/Home/components/TimeStakingCard'
 import LotteryCard from 'views/Home/components/LotteryCard'
 import CakeStats from 'views/Home/components/CakeStats'
 import TotalValueLockedCard from 'views/Home/components/TotalValueLockedCard'
@@ -18,7 +19,8 @@ const Hero = styled.div`
   // justify-content: center;
   // flex-direction: column;
   margin: auto;
-  margin-bottom: 32px;
+  // margin-bottom: 32px;
+  margin-bottom: -180px;
   // padding-top: 116px;
   text-align: center;
   margin-left : -60px;
@@ -43,7 +45,7 @@ const Cards = styled(BaseLayout)`
   align-items: stretch;
   justify-content: stretch;
   margin-bottom: 32px;
-  margin-top: -180px;
+  
   & > div {
     grid-column: span 6;
     width: 100%;
@@ -101,6 +103,10 @@ const Home: React.FC = () => {
       <div>
         <Cards>
           <FarmStakingCard />
+          <LotteryCard />
+        </Cards>
+        <Cards>
+          <TimeStakingCard />
           <LotteryCard />
         </Cards>
         <CTACards>

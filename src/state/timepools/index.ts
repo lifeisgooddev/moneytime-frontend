@@ -44,15 +44,16 @@ export const fetchTimepoolsPublicDataAsync = () => async (dispatch) => {
 export const fetchTimepoolUserDataAsync = (account) => async (dispatch) => {
   const userTimepoolAllowances = await fetchTimepoolUserAllowances(account)
   const userTimepoolTokenBalances = await fetchTimepoolUserTokenBalances(account)
-  const userStakedBalances = await fetchTimepoolUserStakedBalances(account)
+  const userInfo = await fetchTimepoolUserStakedBalances(account);
   const userTimepoolEarnings = await fetchTimepoolUserEarnings(account)
   const arrayOfUserDataObjects = userTimepoolAllowances.map((TimepoolAllowance, index) => {
     return {
       index,
       allowance: userTimepoolAllowances[index],
       tokenBalance: userTimepoolTokenBalances[index],
-      stakedBalance: userStakedBalances[index],
+      stakedBalance: userInfo[index][0],
       earnings: userTimepoolEarnings[index],
+      depositTime: userInfo[index][1]
     }
   })
   dispatch(setTimepoolUserData({ arrayOfUserDataObjects }))

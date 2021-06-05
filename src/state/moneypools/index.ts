@@ -42,6 +42,7 @@ export const fetchMoneypoolsPublicDataAsync = () => async (dispatch) => {
   dispatch(setMoneypoolsPublicData(moneypools))
 }
 export const fetchMoneypoolUserDataAsync = (account) => async (dispatch) => {
+  
   const usermoneypoolAllowances = await fetchMoneypoolUserAllowances(account)
   const usermoneypoolTokenBalances = await fetchMoneypoolUserTokenBalances(account)
   const userStakedBalances = await fetchMoneypoolUserStakedBalances(account)

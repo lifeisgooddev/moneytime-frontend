@@ -6,7 +6,7 @@ const farms: FarmConfig[] = [
     pid: 0,
     lpSymbol: 'MONEY-BUSD LP',
     lpAddresses: {
-      97: '0x52f004b523e0342d26e505368e7c3d64e8a875a8',
+      97: '0xcdD9b33fa572740583137a834BD8Db7e192b1D7E',
       56: '',
     },
     token: tokens.money,
@@ -16,7 +16,7 @@ const farms: FarmConfig[] = [
     pid: 1,
     lpSymbol: 'MONEY-WBNB LP',
     lpAddresses: {
-      97: '0x48057bbd8b78c17fe95f53ead6c67aad831baa92',
+      97: '0x9c0edc983c69881a5e3765053752d3073a71a6f5',
       56: '',
     },
     token: tokens.money,

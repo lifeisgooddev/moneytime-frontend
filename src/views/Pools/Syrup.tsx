@@ -42,13 +42,20 @@ const HeadDiv = styled.div`
 align-items: center;
 width: 100%;
 margin: auto;
-margin-top:-235px;
+margin-top:-295px;
 // padding-top: 116px;
 text-align: center;
 ${({ theme }) => theme.mediaQueries.lg} {
   // height: 449px;
   padding-top: 0;
+  & h2:first-child {
+    color: #ae0108;
+  }
 }
+& h2:first-child {
+  color: #ae0108;
+}
+
 `
 
 const HeadImg1 = styled.img`
@@ -84,8 +91,8 @@ const Farm: React.FC = () => {
         <HeadImg1 alt="devilcoin" width="330px" height="330px" src="/images/casinochip.svg" />
       </Header>
       <HeadDiv> 
-          <Heading mb="4px" size='xl'>Stake LP tokens to earn MONEY</Heading>
-          <Heading mb="4px" size='xl'>Deposit Fee will be used to buyback MONEY</Heading>
+          <Heading mb="20px" size='xl'>Stake LP tokens to earn MONEY</Heading>
+          <Heading mb="30px" size='xl'>Deposit Fee will be used to buyback MONEY</Heading>
       </HeadDiv>
       <PoolTabButtons stackedOnly={stackedOnly} setStackedOnly={setStackedOnly} />
       <FlexLayout>

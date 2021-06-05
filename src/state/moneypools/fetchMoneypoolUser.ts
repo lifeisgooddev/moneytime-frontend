@@ -61,14 +61,15 @@ export const fetchMoneypoolUserEarnings = async (account: string) => {
   const calls = moneypoolsConfig.map((moneypool) => {
     return {
       address: masterChefMoneyAdress,
-      name: 'pendingMoney',
+      name: 'pendingReward',
       params: [moneypool.pid, account],
     }
   })
 
   const rawEarnings = await multicall(masterchefMoneyABI, calls)
   const parsedEarnings = rawEarnings.map((earnings) => {
-    return new BigNumber(earnings).toJSON()
+    const earning = earnings[0];
+    return earning.toString()
   })
   return parsedEarnings
 }

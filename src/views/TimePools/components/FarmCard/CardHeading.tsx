@@ -15,6 +15,9 @@ const Wrapper = styled(Flex)`
   svg {
     margin-right: 4px;
   }
+  h2 {
+    text-align: right;
+  }
 `
 
 const MultiplierTag = styled(Tag)`
@@ -30,9 +33,9 @@ const CardHeading: React.FC<ExpandableSectionProps> = ({
 }) => {
   return (
     <Wrapper justifyContent="space-between" alignItems="center" mb="12px">
-      <Image src={`/images/farms/${farmImage}.svg`} alt={tokenSymbol} width={150} height={150} />
+      <Image src={`/images/${farmImage}.svg`} alt={tokenSymbol} width={150} height={150} />
       <Flex flexDirection="column" alignItems="flex-end">
-        <Heading mb="4px"size='xl'>{lpLabel.split(' ')[0]}</Heading>
+        <Heading mb="4px"size='lg'>Reward locked for {lpLabel}</Heading>
         <Flex justifyContent="center">
           <MultiplierTag variant="backgroundRed">{multiplier}</MultiplierTag>
         </Flex>

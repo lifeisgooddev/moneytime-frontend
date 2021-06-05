@@ -78,6 +78,7 @@ const fetchTimepools = async () => {
         },
       ])
       const allocPoint = new BigNumber(info.allocPoint._hex)
+      const lockTime = new BigNumber(info.lockPeriod._hex);
       const poolWeight = allocPoint.div(new BigNumber(totalAllocPoint))
       return {
         ...timepoolConfig,
@@ -87,6 +88,7 @@ const fetchTimepools = async () => {
         tokenPriceVsQuote: quoteTokenAmount.div(tokenAmount).toJSON(),
         poolWeight: poolWeight.toJSON(),
         multiplier: `${allocPoint.div(100).toString()}X`,
+        lockTime: lockTime.toJSON(),
       }
     }),
   )

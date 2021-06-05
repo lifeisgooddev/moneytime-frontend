@@ -1,10 +1,10 @@
 export default {
   masterChefTime: {
-    97: '0x9764c7B7869A1D8fafcEA90d3D018dde5cc0776f',
+    97: '0x5c4a6A235C3EEc708b041C6798fF738336C6D4e4',
     56: '0xB39eADa9B7b1BC6dB7D1876cdfBe574b8096a280',
   },
   masterChefMoney: {
-    97: '0x3c52C7Cbd49364EFAe2FD1ec9a2cB7BC336D8ED6',
+    97: '0x55Eb484Ab62ADE2eE3B3c2eD78533d7e80F5e517',
     56: '0xB39eADa9B7b1BC6dB7D1876cdfBe574b8096a280',
   },
   sousChef: {

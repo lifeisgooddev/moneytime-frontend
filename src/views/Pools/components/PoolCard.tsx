@@ -56,7 +56,6 @@ const PoolCard: React.FC<HarvestProps> = ({ pool }) => {
   const isBnbPool = poolCategory === PoolCategory.BINANCE
   const TranslateString = useI18n()
   const stakingTokenContract = useERC20(stakingToken.address ? getAddress(stakingToken.address) : '')
-  // console.log(stakingTokenContract);
   const masterchefAddress = getAddress(pool.contractAddress)
   const { account } = useWeb3React()
   const { onApprove } = useApprove(masterchefAddress, stakingTokenContract, uuid)
@@ -128,11 +127,11 @@ const PoolCard: React.FC<HarvestProps> = ({ pool }) => {
       {isFinished && pId !== 0 && <PoolFinishedSash />}
       <div style={{ padding: '24px' }}>
         <Wrapper justifyContent="space-between" alignItems="center" mb="12px">
-          <Image src={`/images/farms/${poolImage}`} alt={earningToken.symbol} width={150} height={150} />
+          <Image src={`/images/farms/${stakingToken.symbol.toLocaleLowerCase()}.svg`} alt={earningToken.symbol} width={150} height={150} />
           <Flex flexDirection="column" alignItems="flex-end">
             <Heading mb="4px"size='xl'>{earningToken.symbol}</Heading>
             <Flex justifyContent="center">
-              <MultiplierTag variant="backgroundRed">10X</MultiplierTag>
+              <MultiplierTag variant="backgroundRed">{pool.tokenPerBlock}X</MultiplierTag>
             </Flex>
           </Flex>
         </Wrapper>
@@ -170,16 +169,8 @@ const PoolCard: React.FC<HarvestProps> = ({ pool }) => {
           <Text>{getBalanceNumber(stakedBalance, stakingToken.decimals)} {stakingToken.symbol}</Text>
         </StyledDetails>
         
-        <StyledDetails>
-          <Text>{TranslateString(384, 'Until harvest')}:</Text>
-          <Text>--/--/---</Text>
-        </StyledDetails>
-
-        
-        
-        
         <div>
-          {!account && <UnlockButton />}
+          {!account && <UnlockButton  width="100%"/>}
           {account &&
             (needsApproval ? (
               <div style={{ flex: 1 }}>
