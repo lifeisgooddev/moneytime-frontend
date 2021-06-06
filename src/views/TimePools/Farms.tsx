@@ -210,9 +210,10 @@ const Farms: React.FC = () => {
         }else if( farm.quoteToken.symbol === QuoteToken.BUSD ){
           quoteTokenPriceUsd = quoteTokenPriceUsd.times(1)
         }
-        const totalLiquidity = new BigNumber(farm.lpTotalInQuoteToken).times(quoteTokenPriceUsd)
+
+        const totalLiquidity = new BigNumber(farm.poolDeposit)
         const apy = getFarmApy(farm.poolWeight, moneyPrice, totalLiquidity)
-        if( farm.pid === 0 ) console.log('moneyPrice',farm.lpTotalInQuoteToken );
+        // if( farm.pid === 0 ) console.log('moneyPrice',farm.lpTotalInQuoteToken );
         // if( farm.pid === 0 ) console.log('moneyPrice',moneyPrice.toString() );
         // if( farm.pid === 0 ) console.log('totalLiquidity', totalLiquidity.toString() );
         // if( farm.pid === 0 ) console.log('api', apy);

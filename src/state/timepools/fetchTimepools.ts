@@ -2,7 +2,7 @@ import BigNumber from 'bignumber.js'
 import erc20 from 'config/abi/erc20.json'
 import masterchefMoneyABI from 'config/abi/MasterChefMoney.json'
 import multicall from 'utils/multicall'
-import { getAddress,  getMasterChefMoneyAddress } from 'utils/addressHelpers'
+import {getAddress, getMasterChefMoneyAddress, getMasterChefTimeAddress} from 'utils/addressHelpers'
 import timepoolsConfig from 'config/constants/timepools'
 
 const fetchTimepools = async () => {
@@ -62,11 +62,12 @@ const fetchTimepools = async () => {
         .times(lpTokenRatio)
 
       // Amount of token in the LP that are considered staking (i.e amount of token * lp ratio)
-      const tokenAmount = new BigNumber(tokenBalanceLP).div(new BigNumber(10).pow(tokenDecimals)).times(lpTokenRatio)
+      const tokenAmount = new BigNumber(tokenBalanceLP).div(new BigNumber(10).pow(tokenDecimals))
+
       const quoteTokenAmount = new BigNumber(quoteTokenBlanceLP)
         .div(new BigNumber(10).pow(quoteTokenDecimals))
         .times(lpTokenRatio)
-      const [info, totalAllocPoint] = await multicall(masterchefMoneyABI, [
+      const [info, totalAllocPoint, _poolDeposit] = await multicall(masterchefMoneyABI, [
         {
           address: getMasterChefMoneyAddress(),
           name: 'poolInfo',
@@ -76,10 +77,17 @@ const fetchTimepools = async () => {
           address: getMasterChefMoneyAddress(),
           name: 'totalAllocPoint',
         },
+        {
+          address: getMasterChefMoneyAddress(),
+          name: 'poolDeposit',
+          params: [timepoolConfig.pid],
+        },
       ])
       const allocPoint = new BigNumber(info.allocPoint._hex)
       const lockTime = new BigNumber(info.lockPeriod._hex);
+      const poolDeposit = new BigNumber(_poolDeposit[0]._hex).div(new BigNumber(10).pow(tokenDecimals));
       const poolWeight = allocPoint.div(new BigNumber(totalAllocPoint))
+        // console.log('pid=',timepoolConfig.pid, ' poolDeposit', poolDeposit.toString());
       return {
         ...timepoolConfig,
         tokenAmount: tokenAmount.toJSON(),
@@ -89,6 +97,7 @@ const fetchTimepools = async () => {
         poolWeight: poolWeight.toJSON(),
         multiplier: `${allocPoint.div(100).toString()}X`,
         lockTime: lockTime.toJSON(),
+        poolDeposit: poolDeposit.toJSON()
       }
     }),
   )
