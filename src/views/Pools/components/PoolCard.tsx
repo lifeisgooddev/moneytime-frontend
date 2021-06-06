@@ -73,8 +73,8 @@ const PoolCard: React.FC<HarvestProps> = ({ pool }) => {
     getBalanceNumber(pool.totalStaked, stakingToken.decimals),
     parseFloat(pool.tokenPerBlock),
   )
-  if(pId===0) console.log(pId, 'rewardTokenPrice=', rewardTokenPrice, ' apy=', apy,
-      ' totalStaked', pool.totalStaked);
+  // if(pId===6) console.log(pId, 'rewardTokenPrice=', rewardTokenPrice, ' apy=', apy,
+  //     ' totalStaked', pool.totalStaked);
   const [requestedApproval, setRequestedApproval] = useState(false)
   const [pendingTx, setPendingTx] = useState(false)
 

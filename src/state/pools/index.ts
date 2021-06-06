@@ -45,10 +45,16 @@ export const { setPoolsPublicData, setPoolsUserData, updatePoolsUserData } = Poo
 
 // Thunks
 export const fetchPoolsPublicDataAsync = () => async (dispatch) => {
-  const blockLimits = await fetchPoolsBlockLimits()
+  let blockLimits
+try {
+   blockLimits = await fetchPoolsBlockLimits()
+}catch(e){
+  console.log('fetchPoolsBlockLimits', e.toString());
+  }
+  console.log('blockLimits-----------------');
   const totalStakings = await fetchPoolsTotalStatking()
   const multipliers = await fetchPoolsMultiplier()
-  
+
   const liveData = poolsConfig.map((pool) => {
     const blockLimit = blockLimits.find((entry) => entry.pId === pool.pId)
     const totalStaking = totalStakings.find((entry) => entry.pId === pool.pId)
@@ -59,6 +65,7 @@ export const fetchPoolsPublicDataAsync = () => async (dispatch) => {
       // ...multiplier
     }
   })
+  // console.log('liveData', liveData);
   dispatch(setPoolsPublicData(liveData))
 }
 

@@ -24,6 +24,7 @@ import { fetchTeam, fetchTeams } from './teams'
 import { fetchAchievements } from './achievements'
 
 export const useFetchPublicData = () => {
+
   const dispatch = useDispatch()
   const { slowRefresh } = useRefresh()
   useEffect(() => {
