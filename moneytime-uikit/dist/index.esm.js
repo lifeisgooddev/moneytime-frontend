@@ -2389,11 +2389,11 @@ var links = [
         items: [
             {
                 label: "Exchange",
-                href: "https://exchange.pancakeswap.finance",
+                href: "https://swap.moneytime.finance",
             },
             {
                 label: "Liquidity",
-                href: "https://exchange.pancakeswap.finance/#/pool",
+                href: "https://swap.moneytime.finance/#/pool",
             },
         ],
     },

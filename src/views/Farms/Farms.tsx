@@ -7,7 +7,7 @@ import { Image, Heading, RowType, Toggle, Text } from '@pancakeswap-libs/uikit'
 import styled from 'styled-components'
 import FlexLayout from 'components/layout/Flex'
 import Page from 'components/layout/Page'
-import { useFarms, usePriceMoneyBusd, useGetApiPrices } from 'state/hooks'
+import { useFarms, usePriceMoneyBusd, usePriceBnbBusd } from 'state/hooks'
 import useRefresh from 'hooks/useRefresh'
 import { fetchFarmUserDataAsync } from 'state/actions'
 import { Farm } from 'state/types'
@@ -15,7 +15,7 @@ import useI18n from 'hooks/useI18n'
 import { getBalanceNumber } from 'utils/formatBalance'
 import { getFarmApy } from 'utils/apy'
 import { orderBy } from 'lodash'
-
+import { QuoteToken } from 'config/constants/types'
 import FarmCard, { FarmWithStakedValue } from './components/FarmCard/FarmCard'
 import Table from './components/FarmTable/FarmTable'
 import FarmTabButtons from './components/FarmTabButtons'
@@ -24,6 +24,7 @@ import { RowProps } from './components/FarmTable/Row'
 import ToggleView from './components/ToggleView/ToggleView'
 import { DesktopColumnSchema, ViewMode } from './components/types'
 import Select, { OptionProps } from './components/Select/Select'
+
 
 const ControlContainer = styled.div`
   display: flex;
@@ -153,11 +154,12 @@ const Farms: React.FC = () => {
   const TranslateString = useI18n()
   const farmsLP = useFarms()
   const moneyPrice = usePriceMoneyBusd()
+  const bnbPrice = usePriceBnbBusd()
   const [query, setQuery] = useState('')
   const [viewMode, setViewMode] = useState(ViewMode.CARD)
   const { account } = useWeb3React()
   const [sortOption, setSortOption] = useState('hot')
-  const prices = useGetApiPrices()
+  // const prices = useGetApiPrices()
   const dispatch = useDispatch()
   const { fastRefresh } = useRefresh()
   useEffect(() => {
@@ -196,14 +198,22 @@ const Farms: React.FC = () => {
   const farmsList = useCallback(
     (farmsToDisplay: Farm[]): FarmWithStakedValue[] => {
       let farmsToDisplayWithAPY: FarmWithStakedValue[] = farmsToDisplay.map((farm) => {
-        if (!farm.lpTotalInQuoteToken || !prices) {
+
+        // console.log(farm.pid, 'lpTotalInQuoteToken', farm.lpTotalInQuoteToken);
+        if (!farm.lpTotalInQuoteToken) {
           return farm
         }
-        
-        const quoteTokenPriceUsd = prices[farm.quoteToken.symbol.toLowerCase()]
+
+        let quoteTokenPriceUsd = new BigNumber( 1)
+        if( farm.quoteToken.symbol === QuoteToken.BNB ){
+          quoteTokenPriceUsd = quoteTokenPriceUsd.times(bnbPrice)
+        }else if( farm.quoteToken.symbol === QuoteToken.BUSD ){
+          quoteTokenPriceUsd = quoteTokenPriceUsd.times(1)
+        }
         const totalLiquidity = new BigNumber(farm.lpTotalInQuoteToken).times(quoteTokenPriceUsd)
-        console.log(farm.poolWeight, moneyPrice, totalLiquidity);
         const apy = getFarmApy(farm.poolWeight, moneyPrice, totalLiquidity)
+
+        if(farm.pid===1) console.log(farm.pid, 'apy', apy, bnbPrice.toString());
 
         return { ...farm, apy, liquidity: totalLiquidity }
       })
@@ -220,7 +230,7 @@ const Farms: React.FC = () => {
       }
       return farmsToDisplayWithAPY
     },
-    [moneyPrice, prices, query],
+    [moneyPrice, query, bnbPrice],
   )
 
   const handleChangeQuery = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -234,7 +244,7 @@ const Farms: React.FC = () => {
   } else {
     farmsStaked = farmsList(inactiveFarms)
   }
-  console.log("farmStaked", farmsStaked);
+  // console.log("farmStaked", farmsStaked);
   farmsStaked = sortFarms(farmsStaked)
 
   const rowData = farmsStaked.map((farm) => {
@@ -269,7 +279,7 @@ const Farms: React.FC = () => {
         multiplier: farm.multiplier,
       },
       details: farm,
-      depositFee: { 
+      depositFee: {
         value: farm.depositFee
       },
       withdrawFee: {
@@ -336,14 +346,14 @@ const Farms: React.FC = () => {
     <>
       <Header>
         <HeadImg alt="hero" width="400px  " height="400px"  src="/images/casinochip.svg"/>
-        
+
         <HeadImg1 alt="devilcoin" width="330px" height="330px" src="/images/satanboss.svg" />
       </Header>
-      <HeadDiv> 
+      <HeadDiv>
           <Heading mb="20px" size='lg'>Stake LP tokens to earn TIME! Stake TIME in TimePools <a style={{ textDecoration: 'underline' }} href="https://testnet.moneytime.finance/timepools">here</a></Heading>
           <Heading mb="20px" size='lg'>Fees are used to Buy-Back,Burn and redistribute $MONEY to MT users. <br/> Learn more about SmartFees <a style={{ textDecoration: 'underline' }} href="https://moneytime.gitbook.io/timeismoney-fi/tokenomics/fees">here</a></Heading>
           <ControlContainer>
-            <ViewControls>  
+            <ViewControls>
               <ToggleWrapper>
                 <Toggle checked={stackedOnly} onChange={() => setStackedOnly(!stackedOnly)} scale="lg" />
                 <Text> {TranslateString(1116, 'Staked only')}</Text>
@@ -353,7 +363,7 @@ const Farms: React.FC = () => {
           </ControlContainer>
       </HeadDiv>
       <Page>
-        
+
         {renderContent()}
       </Page>
     </>

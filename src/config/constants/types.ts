@@ -151,3 +151,8 @@ export type Campaign = {
   description?: TranslatableText
   badge?: string
 }
+
+export enum QuoteToken {
+  'BNB' = 'BNB',
+  'BUSD' = 'BUSD'
+}

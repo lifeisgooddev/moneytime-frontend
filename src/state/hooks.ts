@@ -237,13 +237,14 @@ export const useAchievements = () => {
 export const useFetchPriceList = () => {
   const { slowRefresh } = useRefresh()
   const dispatch = useDispatch()
-
+  console.log('useFetchPriceList')
   useEffect(() => {
     dispatch(fetchPrices())
   }, [dispatch, slowRefresh])
 }
 
 export const useGetApiPrices = () => {
+  console.log('useGetApiPrices')
   const prices: PriceState['data'] = useSelector((state: State) => state.prices.data)
   return prices
 }
@@ -267,6 +268,11 @@ export const usePriceMoneyBusd = (): BigNumber => {
   const moneyBusdPrice = moneyBnbFarm.tokenPriceVsQuote ? bnbBusdPrice.times(moneyBnbFarm.tokenPriceVsQuote) : ZERO
 
   return moneyBusdPrice
+}
+export const usePriceBnbBusd = (): BigNumber => {
+  const bnbBusdFarm = useFarmFromPid(2)
+  console.log(bnbBusdFarm);
+  return bnbBusdFarm.tokenPriceVsQuote ? new BigNumber(1).div(bnbBusdFarm.tokenPriceVsQuote) : new BigNumber(0)
 }
 
 // Block
