@@ -5,7 +5,7 @@ const pools: PoolConfig[] = [
 
   {
     uuid: 0,
-    pId: 0,
+    pId: 6,
     stakingToken: tokens.wbnb,
     earningToken: tokens.money,
     contractAddress: {
@@ -19,7 +19,7 @@ const pools: PoolConfig[] = [
   },
   {
     uuid: 1,
-    pId: 1,
+    pId: 7,
     stakingToken: tokens.glto,
     earningToken: tokens.money,
     contractAddress: {
@@ -33,7 +33,7 @@ const pools: PoolConfig[] = [
   },
   {
     uuid: 2,
-    pId: 2,
+    pId: 8,
     stakingToken: tokens.busd,
     earningToken: tokens.money,
     contractAddress: {
@@ -48,7 +48,7 @@ const pools: PoolConfig[] = [
   },
   {
     uuid: 3,
-    pId: 3,
+    pId: 9,
     stakingToken: tokens.btcb,
     earningToken: tokens.money,
     contractAddress: {
@@ -62,7 +62,7 @@ const pools: PoolConfig[] = [
   },
   {
     uuid: 4,
-    pId: 4,
+    pId: 10,
     stakingToken: tokens.eth,
     earningToken: tokens.money,
     contractAddress: {
@@ -76,7 +76,7 @@ const pools: PoolConfig[] = [
   },
   {
     uuid: 5,
-    pId: 5,
+    pId: 11,
     stakingToken: tokens.dot,
     earningToken: tokens.money,
     contractAddress: {
@@ -90,7 +90,7 @@ const pools: PoolConfig[] = [
   },
   {
     uuid: 6,
-    pId: 6,
+    pId: 12,
     stakingToken: tokens.dai,
     earningToken: tokens.money,
     contractAddress: {
@@ -104,7 +104,7 @@ const pools: PoolConfig[] = [
   },
   {
     uuid: 7,
-    pId: 7,
+    pId: 13,
     stakingToken: tokens.usdc,
     earningToken: tokens.money,
     contractAddress: {
@@ -118,7 +118,7 @@ const pools: PoolConfig[] = [
   },
   {
     uuid: 8,
-    pId: 8,
+    pId: 14,
     stakingToken: tokens.cake,
     earningToken: tokens.money,
     contractAddress: {
@@ -132,7 +132,7 @@ const pools: PoolConfig[] = [
   },
   {
     uuid: 9,
-    pId: 9,
+    pId: 15,
     stakingToken: tokens.usdt,
     earningToken: tokens.money,
     contractAddress: {
@@ -146,7 +146,7 @@ const pools: PoolConfig[] = [
   },
   {
     uuid: 10,
-    pId: 10,
+    pId: 11,
     stakingToken: tokens.wbnb,
     earningToken: tokens.time,
     contractAddress: {
@@ -160,7 +160,7 @@ const pools: PoolConfig[] = [
   },
   {
     uuid: 11,
-    pId: 11,
+    pId: 12,
     stakingToken: tokens.glto,
     earningToken: tokens.time,
     contractAddress: {
@@ -174,7 +174,7 @@ const pools: PoolConfig[] = [
   },
   {
     uuid: 12,
-    pId: 12,
+    pId: 13,
     stakingToken: tokens.busd,
     earningToken: tokens.time,
     contractAddress: {
@@ -188,7 +188,7 @@ const pools: PoolConfig[] = [
   },
   {
     uuid: 13,
-    pId: 13,
+    pId: 14,
     stakingToken: tokens.btcb,
     earningToken: tokens.time,
     contractAddress: {
@@ -202,7 +202,7 @@ const pools: PoolConfig[] = [
   },
   {
     uuid: 14,
-    pId: 14,
+    pId: 15,
     stakingToken: tokens.eth,
     earningToken: tokens.time,
     contractAddress: {
@@ -216,7 +216,7 @@ const pools: PoolConfig[] = [
   },
   {
     uuid: 15,
-    pId: 15,
+    pId: 16,
     stakingToken: tokens.dot,
     earningToken: tokens.time,
     contractAddress: {
@@ -230,7 +230,7 @@ const pools: PoolConfig[] = [
   },
   {
     uuid: 16,
-    pId: 16,
+    pId: 17,
     stakingToken: tokens.cake,
     earningToken: tokens.time,
     contractAddress: {
@@ -244,7 +244,7 @@ const pools: PoolConfig[] = [
   },
   {
     uuid: 17,
-    pId: 17,
+    pId: 18,
     stakingToken: tokens.dai,
     earningToken: tokens.time,
     contractAddress: {
@@ -258,7 +258,7 @@ const pools: PoolConfig[] = [
   },
   {
     uuid: 18,
-    pId: 18,
+    pId: 19,
     stakingToken: tokens.usdt,
     earningToken: tokens.time,
     contractAddress: {
@@ -272,7 +272,7 @@ const pools: PoolConfig[] = [
   },
   {
     uuid: 19,
-    pId: 19,
+    pId: 20,
     stakingToken: tokens.usdc,
     earningToken: tokens.time,
     contractAddress: {
