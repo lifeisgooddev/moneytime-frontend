@@ -109,7 +109,7 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm, removed, moneyPrice, account 
   const farmImage = farm.lpSymbol.split(' ')[0].toLocaleLowerCase()
     // if(farm.pid===0 && farm.liquidity) console.log('farm.liquidity', farm.liquidity.toString());
   const totalValueFormated = farm.liquidity
-    ? `$${farm.liquidity.toNumber().toLocaleString(undefined, { maximumFractionDigits: 0 })}`
+    ? `$${farm.liquidity.toNumber().toLocaleString(undefined, { maximumFractionDigits: 4 })}`
     : '-'
 
   const lpLabel = farm.lpSymbol && farm.lpSymbol.toUpperCase().replace('PANCAKE', '')

@@ -212,7 +212,7 @@ const Farms: React.FC = () => {
         const totalLiquidity = new BigNumber(farm.lpTotalInQuoteToken).times(quoteTokenPriceUsd)
         const apy = getFarmApy(farm.poolWeight, moneyPrice, totalLiquidity)
 
-        // if(farm.pid===1) console.log(farm.pid, 'apy', apy, bnbPrice.toString());
+        if(farm.pid===0) console.log(farm.pid, 'totalLiquidity', totalLiquidity.toString());
 
         return { ...farm, apy, liquidity: totalLiquidity }
       })
