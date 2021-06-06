@@ -18,6 +18,7 @@ import Balance from 'components/Balance'
 import { PoolCategory } from 'config/constants/types'
 import tokens from 'config/constants/tokens'
 import { Pool } from 'state/types'
+import { usePriceMoneyBusd, usePriceBnbBusd } from 'state/hooks'
 import DepositModal from './DepositModal'
 import WithdrawModal from './WithdrawModal'
 import CompoundModal from './CompoundModal'
@@ -26,6 +27,7 @@ import Card from './Card'
 import OldSyrupTitle from './OldSyrupTitle'
 import HarvestButton from './HarvestButton'
 import CardFooter from './CardFooter'
+
 
 interface HarvestProps {
   pool: Pool
@@ -63,7 +65,7 @@ const PoolCard: React.FC<HarvestProps> = ({ pool }) => {
   const { onReward } = useHarvest(pId, masterchefAddress, uuid)
 
   // APY
-  const rewardTokenPrice = 1; // prices useGetApiPrice(earningToken.symbol)
+  const rewardTokenPrice = usePriceMoneyBusd().toNumber(); // prices useGetApiPrice(earningToken.symbol)
   const stakingTokenPrice = 1; // prices useGetApiPrice(stakingToken.symbol)
   const apy = getPoolApy(
     stakingTokenPrice,
@@ -71,7 +73,8 @@ const PoolCard: React.FC<HarvestProps> = ({ pool }) => {
     getBalanceNumber(pool.totalStaked, stakingToken.decimals),
     parseFloat(pool.tokenPerBlock),
   )
-
+  if(pId===0) console.log(pId, 'rewardTokenPrice=', rewardTokenPrice, ' apy=', apy,
+      ' totalStaked', pool.totalStaked);
   const [requestedApproval, setRequestedApproval] = useState(false)
   const [pendingTx, setPendingTx] = useState(false)
 
