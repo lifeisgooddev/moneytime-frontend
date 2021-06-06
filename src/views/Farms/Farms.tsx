@@ -159,7 +159,6 @@ const Farms: React.FC = () => {
   const [viewMode, setViewMode] = useState(ViewMode.CARD)
   const { account } = useWeb3React()
   const [sortOption, setSortOption] = useState('hot')
-  // const prices = useGetApiPrices()
   const dispatch = useDispatch()
   const { fastRefresh } = useRefresh()
   useEffect(() => {
@@ -213,7 +212,7 @@ const Farms: React.FC = () => {
         const totalLiquidity = new BigNumber(farm.lpTotalInQuoteToken).times(quoteTokenPriceUsd)
         const apy = getFarmApy(farm.poolWeight, moneyPrice, totalLiquidity)
 
-        if(farm.pid===1) console.log(farm.pid, 'apy', apy, bnbPrice.toString());
+        // if(farm.pid===1) console.log(farm.pid, 'apy', apy, bnbPrice.toString());
 
         return { ...farm, apy, liquidity: totalLiquidity }
       })

@@ -1,5 +1,4 @@
 import React from 'react'
-import { useGetApiPrice } from 'state/hooks'
 import MetaLabel from './MetaLabel'
 
 interface BalanceInUsdProps {
@@ -8,7 +7,7 @@ interface BalanceInUsdProps {
 }
 
 const BalanceInUsd: React.FC<BalanceInUsdProps> = ({ token, balance }) => {
-  const priceInUsd = useGetApiPrice(token)
+  const priceInUsd = 1; // prices
   const hasBalance = !!priceInUsd && balance > 0
   const total = priceInUsd * balance
 

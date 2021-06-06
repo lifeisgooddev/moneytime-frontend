@@ -95,10 +95,10 @@ interface FarmCardProps {
 }
 
 const calculateRemainingTime = (time:any, lockPeriod:any) => {
-  console.log(time);
+  // console.log(time);
   if(time === "0")
     return `?d ?h ?m`;
-  const harvestTimeStamp = parseInt(time)*1000 + parseInt(lockPeriod)*1000; 
+  const harvestTimeStamp = parseInt(time)*1000 + parseInt(lockPeriod)*1000;
   const untilHarvest:any = new Date(harvestTimeStamp);
   const currentTime:any = new Date();
   if(currentTime >= untilHarvest)

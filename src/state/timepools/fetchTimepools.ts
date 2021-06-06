@@ -14,13 +14,13 @@ const fetchTimepools = async () => {
         {
           address: getAddress(timepoolConfig.token.address),
           name: 'balanceOf',
-          params: [lpAddress],
+          params: [getMasterChefMoneyAddress()],
         },
         // Balance of quote token on LP contract
         {
           address: getAddress(timepoolConfig.quoteToken.address),
           name: 'balanceOf',
-          params: [lpAddress],
+          params: [getMasterChefMoneyAddress()],
         },
         // Balance of LP tokens in the master chef contract
         {

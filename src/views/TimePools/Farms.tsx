@@ -7,7 +7,7 @@ import { Image, Heading, RowType, Toggle, Text } from '@pancakeswap-libs/uikit'
 import styled from 'styled-components'
 import FlexLayout from 'components/layout/Flex'
 import Page from 'components/layout/Page'
-import { useTimepools, usePriceMoneyBusd, useGetApiPrices } from 'state/hooks'
+import {useTimepools, usePriceMoneyBusd, usePriceBnbBusd} from 'state/hooks'
 import useRefresh from 'hooks/useRefresh'
 import { fetchTimepoolUserDataAsync } from 'state/actions'
 import { Timepool } from 'state/types'
@@ -24,6 +24,7 @@ import { RowProps } from './components/FarmTable/Row'
 import ToggleView from './components/ToggleView/ToggleView'
 import { DesktopColumnSchema, ViewMode } from './components/types'
 import Select, { OptionProps } from './components/Select/Select'
+import {QuoteToken} from "../../config/constants/types";
 
 const ControlContainer = styled.div`
   display: flex;
@@ -156,11 +157,11 @@ const Farms: React.FC = () => {
   const TranslateString = useI18n()
   const farmsLP = useTimepools()
   const moneyPrice = usePriceMoneyBusd()
+  const bnbPrice = usePriceBnbBusd()
   const [query, setQuery] = useState('')
   const [viewMode, setViewMode] = useState(ViewMode.CARD)
   const { account } = useWeb3React()
   const [sortOption, setSortOption] = useState('hot')
-  const prices = useGetApiPrices()
   const dispatch = useDispatch()
   const { fastRefresh } = useRefresh()
   useEffect(() => {
@@ -199,14 +200,22 @@ const Farms: React.FC = () => {
   const farmsList = useCallback(
     (farmsToDisplay: Timepool[]): FarmWithStakedValue[] => {
       let farmsToDisplayWithAPY: FarmWithStakedValue[] = farmsToDisplay.map((farm) => {
-        if (!farm.lpTotalInQuoteToken || !prices) {
+        if (!farm.lpTotalInQuoteToken) {
           return farm
         }
 
-        const quoteTokenPriceUsd = prices[farm.quoteToken.symbol.toLowerCase()]
+        let quoteTokenPriceUsd = new BigNumber( 1)
+        if( farm.quoteToken.symbol === QuoteToken.BNB ){
+          quoteTokenPriceUsd = quoteTokenPriceUsd.times(bnbPrice)
+        }else if( farm.quoteToken.symbol === QuoteToken.BUSD ){
+          quoteTokenPriceUsd = quoteTokenPriceUsd.times(1)
+        }
         const totalLiquidity = new BigNumber(farm.lpTotalInQuoteToken).times(quoteTokenPriceUsd)
         const apy = getFarmApy(farm.poolWeight, moneyPrice, totalLiquidity)
-
+        if( farm.pid === 0 ) console.log('moneyPrice',farm.lpTotalInQuoteToken );
+        // if( farm.pid === 0 ) console.log('moneyPrice',moneyPrice.toString() );
+        // if( farm.pid === 0 ) console.log('totalLiquidity', totalLiquidity.toString() );
+        // if( farm.pid === 0 ) console.log('api', apy);
         return { ...farm, apy, liquidity: totalLiquidity }
       })
 
@@ -222,7 +231,7 @@ const Farms: React.FC = () => {
       }
       return farmsToDisplayWithAPY
     },
-    [moneyPrice, prices, query],
+    [moneyPrice, query, bnbPrice],
   )
 
   const handleChangeQuery = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -271,7 +280,7 @@ const Farms: React.FC = () => {
         multiplier: farm.multiplier,
       },
       details: farm,
-      depositFee: { 
+      depositFee: {
         value: farm.depositFee
       },
       withdrawFee: {
@@ -338,14 +347,14 @@ const Farms: React.FC = () => {
     <>
       <Header>
         <HeadImg alt="hero" width="500px  " height="500px"  src="/images/hero.svg"/>
-        
+
         <HeadImg1 alt="devilcoin" width="20px" height="330px" src="/images/rabbitboss.svg" />
       </Header>
-      <HeadDiv> 
+      <HeadDiv>
           <Heading mb="20px" size='lg'>Stake $TIME earn $MONEY. After unlock your reward, 100% of your $TIME<br/>staked are burned when withdraw, IF YOU UNSTAKE<br/>BEFORE UNLOCK YOUR REWARD, 25% OF YOUR $TIME<br/>STAKED ARE BURNED and NO $MONEY REWARD MINTED.</Heading>
           <Heading mb="20px" size='lg'> CAUTION: After reward unlocked, user must unstake 100% of staked $TIME<br/> for earn $MONEY reward. (Harvest not allowed)</Heading>
           <ControlContainer>
-            <ViewControls>  
+            <ViewControls>
               <ToggleWrapper>
                 <Toggle checked={stackedOnly} onChange={() => setStackedOnly(!stackedOnly)} scale="lg" />
                 <Text> {TranslateString(1116, 'Staked only')}</Text>
@@ -355,7 +364,7 @@ const Farms: React.FC = () => {
           </ControlContainer>
       </HeadDiv>
       <Page>
-        
+
         {renderContent()}
       </Page>
     </>
