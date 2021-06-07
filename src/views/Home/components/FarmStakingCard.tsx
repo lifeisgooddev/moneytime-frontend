@@ -10,7 +10,7 @@ import CakeHarvestBalance from './CakeHarvestBalance'
 import CakeWalletBalance from './CakeWalletBalance'
 
 const StyledFarmStakingCard = styled(Card)`
-  background-color: rgb(254,251,214,0.95);
+  background: ${({ theme }) => theme.colors.card};
   background-repeat: no-repeat;
   background-position: top right;
   padding-left:30px;
@@ -96,6 +96,35 @@ const FarmedStakingCard = () => {
             <Block>
               <CakeWalletBalance />
               <Label>{TranslateString(546, 'MONEY in Wallet')}:</Label>
+            </Block>
+            <Actions>
+              {account ? (
+                <Button
+                  id="harvest-all"
+                  disabled={balancesWithValue.length <= 0 || pendingTx}
+                  onClick={harvestAllFarms}
+                  width="100%"
+                >
+                  {pendingTx
+                    ? TranslateString(548, 'Collecting CAKE')
+                    : TranslateString(532, `Harvest all (${balancesWithValue.length})`, {
+                        count: balancesWithValue.length,
+                      })}
+                </Button>
+              ) : (
+                <UnlockButton width="100%" />
+              )}
+            </Actions>
+          </div>
+          <CardImage src="/images/timecoin.svg" alt="cake logo" />
+          <div>
+            <Block>
+              <CakeHarvestBalance />
+              <Label>{TranslateString(544, 'TIME to Harvest')}:</Label>
+            </Block>
+            <Block>
+              <CakeWalletBalance />
+              <Label>{TranslateString(546, 'TIME in Wallet')}:</Label>
             </Block>
             <Actions>
               {account ? (

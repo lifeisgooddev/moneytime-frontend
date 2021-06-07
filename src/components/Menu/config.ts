@@ -32,9 +32,9 @@ const config: MenuEntry[] = [
     href: '/moneypools',
   },
   {
-    label: 'Docs',
+    label: 'Roadmap',
     icon: 'NftIcon',
-    href: '/collectibles',
+    href: 'https://moneytime.gitbook.io/timeismoney-fi/',
   },
 ]
 

@@ -18,7 +18,7 @@ import LotteryJackpot from './LotteryJackpot'
 import UnlockButton from '../../../components/UnlockButton'
 
 const StyledLotteryCard = styled(Card)`
-  background-color: rgb(254,251,214,0.95);
+  background: ${({ theme }) => theme.colors.card};
   background-repeat: no-repeat;
   background-position: top right;
   padding-left:30px;
@@ -101,24 +101,18 @@ const FarmedStakingCard = () => {
     <StyledLotteryCard>
       <CardBody>
         <CardDiv>
-          <div>
-            <Heading size="xxl" mb="24px">
-              {TranslateString(550, 'Stats')}
-            </Heading>
-            <Block>
-              <Label>{TranslateString(552, 'Average Staking Length')}:</Label>
-              <CakeWinnings />
-            </Block>
-          </div>
           <CardImage src="/images/casinochip.svg" alt="cake logo"/>
         </CardDiv>
         <Block>
-          <Label>{TranslateString(554, 'Total MONEY supply _______________________________________ 201,288')}</Label>
           <Label>{TranslateString(554, 'Total Market Cap __________________________________________ $2,881,022')}</Label>
           <Label>{TranslateString(554, 'Total MONEY burned _______________________________________ 14,480')}</Label>
           <Label>{TranslateString(554, 'Total MONEY per block _____________________________________ 1.25')}</Label>
         </Block>
-        
+        <Block>
+          <Label>{TranslateString(554, 'Total Market Cap __________________________________________ $2,881,022')}</Label>
+          <Label>{TranslateString(554, 'Total TIME burned _______________________________________ 14,480')}</Label>
+          <Label>{TranslateString(554, 'Total TIME per block _____________________________________ 1.25')}</Label>
+        </Block>
       </CardBody>
     </StyledLotteryCard>
   )

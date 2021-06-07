@@ -5,7 +5,7 @@ import useI18n from 'hooks/useI18n'
 import { useGetStats } from 'hooks/api'
 
 const StyledTotalValueLockedCard = styled(Card)`
-  background-color: rgb(254,251,214,0.95);
+  background: ${({ theme }) => theme.colors.card};
   align-items: right;
   display: flex;
   flex: 1;

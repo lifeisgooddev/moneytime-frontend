@@ -946,7 +946,7 @@ var getBottom = function (_a) {
 };
 var DropdownContent = styled__default['default'].div(templateObject_1$g || (templateObject_1$g = __makeTemplateObject(["\n  width: max-content;\n  display: none;\n  flex-direction: column;\n  position: absolute;\n  transform: translate(-50%, 0);\n  left: ", ";\n  bottom: ", ";\n  background-color: ", ";\n  box-shadow: ", ";\n  padding: 16px;\n  max-height: 500px;\n  overflow-y: auto;\n  z-index: ", ";\n  border-radius: ", ";\n"], ["\n  width: max-content;\n  display: none;\n  flex-direction: column;\n  position: absolute;\n  transform: translate(-50%, 0);\n  left: ", ";\n  bottom: ", ";\n  background-color: ", ";\n  box-shadow: ", ";\n  padding: 16px;\n  max-height: 500px;\n  overflow-y: auto;\n  z-index: ", ";\n  border-radius: ", ";\n"])), getLeft, getBottom, function (_a) {
     var theme = _a.theme;
-    return theme.nav.background;
+    return theme.colors.menuBackground;
 }, function (_a) {
     var theme = _a.theme;
     return theme.shadows.level1;
@@ -1914,7 +1914,7 @@ var mediaQueries = {
     nav: "@media screen and (min-width: " + breakpointMap.lg + "px)",
 };
 var shadows = {
-    level1: "0px 2px 12px -8px rgba(25, 19, 38, 0.1), 0px 1px 1px rgba(25, 19, 38, 0.05)",
+    level1: "0px 2px 12px -2px rgba(0,0,0), 0px 1px 1px rgba(25,19,38,0.05)",
     active: "0px 0px 0px 1px #0098A1, 0px 0px 4px 8px rgba(31, 199, 212, 0.4)",
     success: "0px 0px 0px 1px #31D0AA, 0px 0px 0px 4px rgba(49, 208, 170, 0.2)",
     warning: "0px 0px 0px 1px #ED4B9E, 0px 0px 0px 4px rgba(237, 75, 158, 0.2)",
@@ -2402,11 +2402,11 @@ var links = [
         items: [
             {
                 label: "Exchange",
-                href: "https://swap.moneytime.finance",
+                href: "https://exchange.pancakeswap.finance",
             },
             {
                 label: "Liquidity",
-                href: "https://swap.moneytime.finance/#/pool",
+                href: "https://exchange.pancakeswap.finance/#/pool",
             },
         ],
     },
@@ -2502,6 +2502,27 @@ var links = [
                 href: "https://pancakeswap.medium.com",
             },
         ],
+    },
+];
+var socials = [
+    {
+        label: "Telegram",
+        icon: "TelegramIcon",
+        items: [
+            {
+                label: "English",
+                href: "https://t.me/MoneyTimeFinance",
+            },
+            {
+                label: "Announcements",
+                href: "https://t.me/MoneyTimeFinanceNews",
+            },
+        ],
+    },
+    {
+        label: "Twitter",
+        icon: "TwitterIcon",
+        href: "https://twitter.com/MoneyTimeBSC",
     },
 ];
 var MENU_HEIGHT = 64;
@@ -2634,7 +2655,20 @@ var ThemeSwitcher = function (_a) {
 var ThemeSwitcher$1 = React__default['default'].memo(ThemeSwitcher, function (prev, next) { return prev.isDark === next.isDark; });
 
 var Icons$2 = IconModule;
-var LanguageIcon = Icons$2.LanguageIcon;
+var SocialLinks = function () { return (React__default['default'].createElement(Flex, null, socials.map(function (social, index) {
+    var Icon = Icons$2[social.icon];
+    var iconProps = { width: "24px", color: "textSubtle", style: { cursor: "pointer" } };
+    var mr = index < socials.length - 1 ? "24px" : 0;
+    if (social.items) {
+        return (React__default['default'].createElement(Dropdown, { key: social.label, position: "top", target: React__default['default'].createElement(Icon, __assign({}, iconProps, { mr: mr })) }, social.items.map(function (item) { return (React__default['default'].createElement(Link, { external: true, key: item.label, href: item.href, "aria-label": item.label, color: "textSubtle" }, item.label)); })));
+    }
+    return (React__default['default'].createElement(Link, { external: true, key: social.label, href: social.href, "aria-label": social.label, mr: mr },
+        React__default['default'].createElement(Icon, __assign({}, iconProps))));
+}))); };
+var SocialLinks$1 = React__default['default'].memo(SocialLinks, function () { return true; });
+
+var Icons$3 = IconModule;
+var LanguageIcon = Icons$3.LanguageIcon;
 var LangSelector = function (_a) {
     var currentLang = _a.currentLang, langs = _a.langs, setLang = _a.setLang;
     return (React__default['default'].createElement(Dropdown, { position: "top-right", target: React__default['default'].createElement(Button, { variant: "text", startIcon: React__default['default'].createElement(LanguageIcon, { color: "textSubtle", width: "24px" }) },
@@ -2644,9 +2678,9 @@ var LangSelector = function (_a) {
 };
 var LangSelector$1 = React__default['default'].memo(LangSelector, function (prev, next) { return prev.currentLang === next.currentLang; });
 
-var Container$4 = styled__default['default'].div(templateObject_1$G || (templateObject_1$G = __makeTemplateObject(["\n  flex: none;\n  padding: 8px 4px;\n  background-color: ", ";\n  border-top: solid 2px rgba(133, 133, 133, 0.1);\n"], ["\n  flex: none;\n  padding: 8px 4px;\n  background-color: ", ";\n  border-top: solid 2px rgba(133, 133, 133, 0.1);\n"])), function (_a) {
+var Container$4 = styled__default['default'].div(templateObject_1$G || (templateObject_1$G = __makeTemplateObject(["\n  flex: none;\n  padding: 8px 4px;\n  // background-color: ", ";\n  // border-top: solid 2px rgba(133, 133, 133, 0.1);\n"], ["\n  flex: none;\n  padding: 8px 4px;\n  // background-color: ", ";\n  // border-top: solid 2px rgba(133, 133, 133, 0.1);\n"])), function (_a) {
     var theme = _a.theme;
-    return theme.nav.background;
+    return theme.colors.menuBackground;
 });
 var SettingsEntry = styled__default['default'].div(templateObject_2$e || (templateObject_2$e = __makeTemplateObject(["\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  height: ", "px;\n  padding: 0 8px;\n"], ["\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  height: ", "px;\n  padding: 0 8px;\n"])), MENU_ENTRY_HEIGHT);
 var SocialEntry = styled__default['default'].div(templateObject_3$7 || (templateObject_3$7 = __makeTemplateObject(["\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  height: ", "px;\n  padding: 0 16px;\n"], ["\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  height: ", "px;\n  padding: 0 16px;\n"])), MENU_ENTRY_HEIGHT);
@@ -2659,7 +2693,8 @@ var PanelFooter = function (_a) {
     }
     return (React__default['default'].createElement(Container$4, null,
         React__default['default'].createElement(SocialEntry, null,
-            React__default['default'].createElement(CakePrice$1, { cakePriceUsd: cakePriceUsd })),
+            React__default['default'].createElement(CakePrice$1, { cakePriceUsd: cakePriceUsd }),
+            React__default['default'].createElement(SocialLinks$1, null)),
         React__default['default'].createElement(SettingsEntry, null,
             React__default['default'].createElement(ThemeSwitcher$1, { isDark: isDark, toggleTheme: toggleTheme }),
             React__default['default'].createElement(LangSelector$1, { currentLang: currentLang, langs: langs, setLang: setLang }))));
@@ -3086,12 +3121,12 @@ var baseColors = {
 var brandColors = {
     binance: "#F0B90B",
 };
-var lightColors = __assign(__assign(__assign({}, baseColors), brandColors), { background: "#FAF9FA", menuBackground: "rgb(254,251,214,0.95)", backgroundDisabled: "#d7ebc6", contrast: "#191326", invertedContrast: "#FFFFFF", input: "#d6e9c4", inputSecondary: "#d7caec", tertiary: "#EFF4F5", text: "#68c829", textDisabled: "#BDC2C4", textSubtle: "#a38200", borderColor: "#d7ebc6", card: "#68c829", gradients: {
+var lightColors = __assign(__assign(__assign({}, baseColors), brandColors), { background: "#FAF9FA", menuBackground: "rgb(254,251,214,0.95)", backgroundDisabled: "#d7ebc6", contrast: "#191326", invertedContrast: "#FFFFFF", input: "#d6e9c4", inputSecondary: "#d7caec", tertiary: "#EFF4F5", text: "#68c829", textDisabled: "#BDC2C4", textSubtle: "#a38200", borderColor: "#d7ebc6", card: "rgb(254,251,214,0.95)", gradients: {
         bubblegum: "linear-gradient(139.73deg, #E6FDFF 0%, #F3EFFF 100%)",
-    } });
-var darkColors = __assign(__assign(__assign({}, baseColors), brandColors), { secondary: "#9A6AFF", background: "#100C18", menuBackground: "rgb(0,0,0,0.49)", backgroundDisabled: "#3c3742", contrast: "#FFFFFF", invertedContrast: "#191326", input: "#483f5a", inputSecondary: "#66578D", primaryDark: "#0098A1", tertiary: "#353547", text: "#EAE2FC", textDisabled: "#666171", textSubtle: "#A28BD4", borderColor: "#524B63", card: "#68c829", gradients: {
+    }, backgroundImage: "url('/images/coinsbackground.png')" });
+var darkColors = __assign(__assign(__assign({}, baseColors), brandColors), { secondary: "#9A6AFF", background: "#100C18", menuBackground: "rgb(0,0,0,0.49)", backgroundDisabled: "#3c3742", contrast: "#FFFFFF", invertedContrast: "#191326", input: "#483f5a", inputSecondary: "#66578D", primaryDark: "#0098A1", tertiary: "#353547", text: "#ffffff", textDisabled: "#666171", textSubtle: "#ffffff", borderColor: "#524B63", card: "rgb(4,48,84,0.95)", gradients: {
         bubblegum: "linear-gradient(139.73deg, #313D5C 0%, #3D2A54 100%)",
-    } });
+    }, backgroundImage: "url('/images/coinsdarkbackground.png')" });
 
 var light = {
     background: lightColors.card,
@@ -3127,10 +3162,10 @@ var dark$2 = {
 };
 
 var light$3 = {
-    handleBackground: lightColors.card,
+    handleBackground: lightColors.text,
 };
 var dark$3 = {
-    handleBackground: darkColors.card,
+    handleBackground: darkColors.text,
 };
 
 var light$4 = {

@@ -13,7 +13,7 @@ const GlobalStyle = createGlobalStyle`
   }
   body {
     background-color: ${({ theme }) => theme.colors.background};
-    background-image: url('/images/coinsbackground.png');
+    background-image: ${({ theme }) => theme.colors.backgroundImage};
     background-size: contain;
     img {
       height: auto;
