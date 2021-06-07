@@ -2,7 +2,7 @@ import tokens from './tokens'
 import { PoolConfig, PoolCategory } from './types'
 
 const pools: PoolConfig[] = [
-  
+
   {
     uuid: 0,
     pId: 6,
@@ -276,7 +276,7 @@ const pools: PoolConfig[] = [
     stakingToken: tokens.usdc,
     earningToken: tokens.time,
     contractAddress: {
-      97: '0x16227D60f7a0e586C66B005219dfc887D13C9531',
+      97: '0x5c4a6A235C3EEc708b041C6798fF738336C6D4e4',
       56: '',
     },
     poolCategory: PoolCategory.CORE,

@@ -6,7 +6,7 @@ import { NavLink } from 'react-router-dom'
 import useI18n from 'hooks/useI18n'
 import BigNumber from 'bignumber.js'
 import { getFarmApy } from 'utils/apy'
-import { useFarms, usePriceMoneyBusd, useGetApiPrices } from 'state/hooks'
+import { useFarms, usePriceMoneyBusd } from 'state/hooks'
 
 const StyledFarmStakingCard = styled(Card)`
   margin-left: auto;
@@ -24,7 +24,6 @@ const CardMidContent = styled(Heading).attrs({ size: 'xl' })`
 const EarnAPYCard = () => {
   const TranslateString = useI18n()
   const farmsLP = useFarms()
-  const prices = useGetApiPrices()
   const moneyPrice = usePriceMoneyBusd()
 
   const highestApy = useMemo(() => {
@@ -32,8 +31,8 @@ const EarnAPYCard = () => {
       // Filter inactive farms, because their theoretical APY is super high. In practice, it's 0.
       .filter((farm) => farm.pid !== 0 && farm.multiplier !== '0X')
       .map((farm) => {
-        if (farm.lpTotalInQuoteToken && prices) {
-          const quoteTokenPriceUsd = prices[farm.quoteToken.symbol.toLowerCase()]
+        if (farm.lpTotalInQuoteToken ) {
+          const quoteTokenPriceUsd = 1;
           const totalLiquidity = new BigNumber(farm.lpTotalInQuoteToken).times(quoteTokenPriceUsd)
           return getFarmApy(farm.poolWeight, moneyPrice, totalLiquidity)
         }
@@ -42,7 +41,7 @@ const EarnAPYCard = () => {
 
     const maxApy = max(apys)
     return maxApy?.toLocaleString('en-US', { maximumFractionDigits: 2 })
-  }, [moneyPrice, farmsLP, prices])
+  }, [moneyPrice, farmsLP])
 
   return (
     <StyledFarmStakingCard>

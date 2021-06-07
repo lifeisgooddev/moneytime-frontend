@@ -87,10 +87,10 @@ const Farm: React.FC = () => {
     <Page>
       <Header>
         <HeadImg alt="hero" width="400px  " height="400px"  src="/images/casinochip.svg"/>
-        
+
         <HeadImg1 alt="devilcoin" width="330px" height="330px" src="/images/casinochip.svg" />
       </Header>
-      <HeadDiv> 
+      <HeadDiv>
           <Heading mb="20px" size='xl'>Stake LP tokens to earn MONEY</Heading>
           <Heading mb="30px" size='xl'>Deposit Fee will be used to buyback MONEY</Heading>
       </HeadDiv>
@@ -99,13 +99,13 @@ const Farm: React.FC = () => {
         <Route exact path={`${path}`}>
           <>
             {stackedOnly
-              ? orderBy(stackedOnlyPools, ['sortOrder']).map((pool) => <PoolCard key={pool.pId} pool={pool} />)
-              : orderBy(openPools, ['sortOrder']).map((pool) => <PoolCard key={pool.pId} pool={pool} />)}
+              ? orderBy(stackedOnlyPools, ['sortOrder']).map((pool) => <PoolCard key={pool.uuid} pool={pool} />)
+              : orderBy(openPools, ['sortOrder']).map((pool) => <PoolCard key={pool.uuid} pool={pool} />)}
           </>
         </Route>
         <Route path={`${path}/history`}>
           {orderBy(finishedPools, ['sortOrder']).map((pool) => (
-            <PoolCard key={pool.pId} pool={pool} />
+            <PoolCard key={pool.uuid} pool={pool} />
           ))}
         </Route>
       </FlexLayout>

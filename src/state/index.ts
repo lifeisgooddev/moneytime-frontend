@@ -4,7 +4,6 @@ import timepoolsReducer from './timepools'
 import moneypoolsReducer from './moneypools'
 import toastsReducer from './toasts'
 import poolsReducer from './pools'
-import pricesReducer from './prices'
 import profileReducer from './profile'
 import teamsReducer from './teams'
 import achievementsReducer from './achievements'
@@ -18,7 +17,6 @@ export default configureStore({
     moneypools: moneypoolsReducer,
     toasts: toastsReducer,
     pools: poolsReducer,
-    prices: pricesReducer,
     profile: profileReducer,
     teams: teamsReducer,
     achievements: achievementsReducer,

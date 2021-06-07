@@ -24,7 +24,7 @@ export interface Farm extends FarmConfig {
     stakedBalance: BigNumber
     earnings: BigNumber
   },
-  depositFee?: string, 
+  depositFee?: string,
   withdrawFee?: string
 }
 
@@ -42,8 +42,9 @@ export interface Timepool extends TimepoolConfig {
     depositTime: BigNumber
   },
   lockTime?: BigNumber
-  depositFee?: string 
+  depositFee?: string
   withdrawFee?: string
+  poolDeposit?: BigNumber
 }
 
 export interface Pool extends PoolConfig {
@@ -71,7 +72,7 @@ export interface Moneypool extends MoneypoolConfig {
     stakedBalance: BigNumber
     earnings: BigNumber
   },
-  depositFee?: string, 
+  depositFee?: string,
   withdrawFee?: string
 }
 

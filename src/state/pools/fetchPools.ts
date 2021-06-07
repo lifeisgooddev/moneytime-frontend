@@ -16,23 +16,13 @@ export const fetchPoolsBlockLimits = async () => {
       name: 'startBlock',
     }
   })
-  const callsEndBlock = poolsWithEnd.map((poolConfig) => {
-    return {
-      address: getAddress(poolConfig.contractAddress),
-      name: 'bonusEndBlock',
-    }
-  })
-
+  console.log('callsStartBlock', callsStartBlock);
   const starts = await multicall(sousChefABI, callsStartBlock)
-  const ends = await multicall(sousChefABI, callsEndBlock)
-
   return poolsWithEnd.map((cakePoolConfig, index) => {
     const startBlock = starts[index]
-    const endBlock = ends[index]
     return {
       pId: cakePoolConfig.pId,
-      startBlock: new BigNumber(startBlock).toJSON(),
-      endBlock: new BigNumber(endBlock).toJSON(),
+      startBlock: new BigNumber(startBlock).toJSON()
     }
   })
 }
@@ -47,7 +37,7 @@ export const fetchPoolsMultiplier = async () => {
     params: [p.pId],
   }))
   const moneyInfo = await multicall(masterChefMoneyABI, moneyCalls)
-  
+
   const timeCalls = timePools.map((p) => ({
     address: getMasterChefTimeAddress(),
     name: 'poolInfo',
@@ -88,7 +78,7 @@ export const fetchPoolsTotalStatking = async () => {
       params: [getAddress(poolConfig.contractAddress)],
     }
   })
-
+  // console.log('callsNonBnbPools', callsNonBnbPools);
   const nonBnbPoolsTotalStaked = await multicall(cakeABI, callsNonBnbPools)
   const bnbPoolsTotalStaked = await multicall(wbnbABI, callsBnbPools)
 

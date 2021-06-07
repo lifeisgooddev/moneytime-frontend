@@ -22,9 +22,9 @@ import { State, Farm, Timepool, Moneypool, Pool, Block, ProfileState, TeamsState
 import { fetchProfile } from './profile'
 import { fetchTeam, fetchTeams } from './teams'
 import { fetchAchievements } from './achievements'
-import { fetchPrices } from './prices'
 
 export const useFetchPublicData = () => {
+
   const dispatch = useDispatch()
   const { slowRefresh } = useRefresh()
   useEffect(() => {
@@ -233,46 +233,16 @@ export const useAchievements = () => {
   return achievements
 }
 
-// Prices
-export const useFetchPriceList = () => {
-  const { slowRefresh } = useRefresh()
-  const dispatch = useDispatch()
-  console.log('useFetchPriceList')
-  useEffect(() => {
-    dispatch(fetchPrices())
-  }, [dispatch, slowRefresh])
-}
-
-export const useGetApiPrices = () => {
-  console.log('useGetApiPrices')
-  const prices: PriceState['data'] = useSelector((state: State) => state.prices.data)
-  return prices
-}
-
-export const useGetApiPrice = (token: string) => {
-  const prices = useGetApiPrices()
-
-  if (!prices) {
-    return null
-  }
-
-  return prices[token.toLowerCase()]
-}
 
 export const usePriceMoneyBusd = (): BigNumber => {
   const ZERO = new BigNumber(0)
-  const moneyBnbFarm = useFarmFromPid(1)
-  const bnbBusdFarm = useFarmFromPid(2)
-
-  const bnbBusdPrice = bnbBusdFarm.tokenPriceVsQuote ? new BigNumber(1).div(bnbBusdFarm.tokenPriceVsQuote) : ZERO
-  const moneyBusdPrice = moneyBnbFarm.tokenPriceVsQuote ? bnbBusdPrice.times(moneyBnbFarm.tokenPriceVsQuote) : ZERO
-
-  return moneyBusdPrice
+  const farm = useFarmFromPid(0)
+  return farm.tokenPriceVsQuote ? new BigNumber(1).div(farm.tokenPriceVsQuote) : ZERO
 }
 export const usePriceBnbBusd = (): BigNumber => {
-  const bnbBusdFarm = useFarmFromPid(2)
-  console.log(bnbBusdFarm);
-  return bnbBusdFarm.tokenPriceVsQuote ? new BigNumber(1).div(bnbBusdFarm.tokenPriceVsQuote) : new BigNumber(0)
+  const ZERO = new BigNumber(0)
+  const farm = useFarmFromPid(2)
+  return farm.tokenPriceVsQuote ? new BigNumber(1).div(farm.tokenPriceVsQuote) : ZERO
 }
 
 // Block

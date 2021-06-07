@@ -18,7 +18,7 @@ import Balance from 'components/Balance'
 import { PoolCategory } from 'config/constants/types'
 import tokens from 'config/constants/tokens'
 import { Pool } from 'state/types'
-import { useGetApiPrice } from 'state/hooks'
+import { usePriceMoneyBusd, usePriceBnbBusd } from 'state/hooks'
 import DepositModal from './DepositModal'
 import WithdrawModal from './WithdrawModal'
 import CompoundModal from './CompoundModal'
@@ -27,6 +27,7 @@ import Card from './Card'
 import OldSyrupTitle from './OldSyrupTitle'
 import HarvestButton from './HarvestButton'
 import CardFooter from './CardFooter'
+
 
 interface HarvestProps {
   pool: Pool
@@ -64,15 +65,16 @@ const PoolCard: React.FC<HarvestProps> = ({ pool }) => {
   const { onReward } = useHarvest(pId, masterchefAddress, uuid)
 
   // APY
-  const rewardTokenPrice = useGetApiPrice(earningToken.symbol)
-  const stakingTokenPrice = useGetApiPrice(stakingToken.symbol)
+  const rewardTokenPrice = usePriceMoneyBusd().toNumber(); // prices useGetApiPrice(earningToken.symbol)
+  const stakingTokenPrice = 1; // prices useGetApiPrice(stakingToken.symbol)
   const apy = getPoolApy(
     stakingTokenPrice,
     rewardTokenPrice,
     getBalanceNumber(pool.totalStaked, stakingToken.decimals),
     parseFloat(pool.tokenPerBlock),
   )
-
+  // if(pId===6) console.log(pId, 'rewardTokenPrice=', rewardTokenPrice, ' apy=', apy,
+  //     ' totalStaked', pool.totalStaked);
   const [requestedApproval, setRequestedApproval] = useState(false)
   const [pendingTx, setPendingTx] = useState(false)
 
@@ -139,7 +141,7 @@ const PoolCard: React.FC<HarvestProps> = ({ pool }) => {
           {earningToken.symbol} {TranslateString(348, 'Pool')}
           <MultiplierTag variant="secondary">10x</MultiplierTag>
         </CardTitle>
-        
+
         <div style={{ marginBottom: '8px', display: 'flex', alignItems: 'center' }}>
           <div style={{ flex: 1 }}>
             <Image src={`/images/pools/${poolImage}`} alt={earningToken.symbol} width={64} height={64} />
@@ -168,7 +170,7 @@ const PoolCard: React.FC<HarvestProps> = ({ pool }) => {
           <Text>{TranslateString(384, 'Your Stake')}:</Text>
           <Text>{getBalanceNumber(stakedBalance, stakingToken.decimals)} {stakingToken.symbol}</Text>
         </StyledDetails>
-        
+
         <div>
           {!account && <UnlockButton  width="100%"/>}
           {account &&
@@ -180,7 +182,7 @@ const PoolCard: React.FC<HarvestProps> = ({ pool }) => {
               </div>
             ) : (
               <>
-                
+
                 <StyledCardActions>
                   <StyledCardActionsLeft>
                     <BalanceAndCompound>
@@ -229,7 +231,7 @@ const PoolCard: React.FC<HarvestProps> = ({ pool }) => {
               </>
             ))}
         </div>
-        
+
       </div>
       <CardFooter
         projectLink={earningToken.projectLink}

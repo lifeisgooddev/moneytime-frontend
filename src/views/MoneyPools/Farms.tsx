@@ -7,7 +7,7 @@ import { Image, Heading, RowType, Toggle, Text } from '@pancakeswap-libs/uikit'
 import styled from 'styled-components'
 import FlexLayout from 'components/layout/Flex'
 import Page from 'components/layout/Page'
-import { useMoneypools, usePriceMoneyBusd, useGetApiPrices } from 'state/hooks'
+import { useMoneypools, usePriceMoneyBusd } from 'state/hooks'
 import useRefresh from 'hooks/useRefresh'
 import { fetchMoneypoolUserDataAsync } from 'state/actions'
 import { Moneypool } from 'state/types'
@@ -157,7 +157,6 @@ const Farms: React.FC = () => {
   const [viewMode, setViewMode] = useState(ViewMode.CARD)
   const { account } = useWeb3React()
   const [sortOption, setSortOption] = useState('hot')
-  const prices = useGetApiPrices()
   const dispatch = useDispatch()
   const { fastRefresh } = useRefresh()
   useEffect(() => {
@@ -196,11 +195,11 @@ const Farms: React.FC = () => {
   const farmsList = useCallback(
     (farmsToDisplay: Moneypool[]): FarmWithStakedValue[] => {
       let farmsToDisplayWithAPY: FarmWithStakedValue[] = farmsToDisplay.map((farm) => {
-        if (!farm.lpTotalInQuoteToken || !prices) {
+        if (!farm.lpTotalInQuoteToken) {
           return farm
         }
 
-        const quoteTokenPriceUsd = prices[farm.quoteToken.symbol.toLowerCase()]
+        const quoteTokenPriceUsd = 1; // prices
         const totalLiquidity = new BigNumber(farm.lpTotalInQuoteToken).times(quoteTokenPriceUsd)
         const apy = getFarmApy(farm.poolWeight, moneyPrice, totalLiquidity)
 
@@ -219,7 +218,7 @@ const Farms: React.FC = () => {
       }
       return farmsToDisplayWithAPY
     },
-    [moneyPrice, prices, query],
+    [moneyPrice, query],
   )
 
   const handleChangeQuery = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -268,7 +267,7 @@ const Farms: React.FC = () => {
         multiplier: farm.multiplier,
       },
       details: farm,
-      depositFee: { 
+      depositFee: {
         value: farm.depositFee
       },
       withdrawFee: {
@@ -335,14 +334,14 @@ const Farms: React.FC = () => {
     <>
       <Header>
         <HeadImg alt="hero" width="400px  " height="400px"  src="/images/moneyprinter.svg"/>
-        
+
         <HeadImg1 alt="devilcoin" width="330px" height="330px" src="/images/casinochip.svg" />
       </Header>
-      <HeadDiv> 
+      <HeadDiv>
           <Heading mb="20px" size='lg'>Stake $MONEY earn $MONEY! 5% Deposit fees to be burned. <br/> Reward locked for 72h. If withdraw before 72h, 5% withdraw fees to be burned.</Heading>
           <Heading mb="20px" size='lg'>CAUTION: After 72h if User want collect the reward, <br/> he must unstake 100% of his $MONEY stake for earn the $MONEY reward.</Heading>
           <ControlContainer>
-            <ViewControls>  
+            <ViewControls>
               <ToggleWrapper>
                 <Toggle checked={stackedOnly} onChange={() => setStackedOnly(!stackedOnly)} scale="lg" />
                 <Text> {TranslateString(1116, 'Staked only')}</Text>
