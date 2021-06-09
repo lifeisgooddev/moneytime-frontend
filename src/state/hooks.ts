@@ -23,6 +23,8 @@ import { fetchProfile } from './profile'
 import { fetchTeam, fetchTeams } from './teams'
 import { fetchAchievements } from './achievements'
 
+const ZERO = new BigNumber(0)
+
 export const useFetchPublicData = () => {
 
   const dispatch = useDispatch()
@@ -235,13 +237,15 @@ export const useAchievements = () => {
 
 
 export const usePriceMoneyBusd = (): BigNumber => {
-  const ZERO = new BigNumber(0)
-  const farm = useFarmFromPid(0)
-  return farm.tokenPriceVsQuote ? new BigNumber(1).div(farm.tokenPriceVsQuote) : ZERO
+  const pid = 1 // CAKE-BNB LP
+  const bnbPriceUSD = usePriceBnbBusd()
+  const farm = useFarmFromPid(pid)
+  return farm.tokenPriceVsQuote ? bnbPriceUSD.times(farm.tokenPriceVsQuote) : ZERO;
 }
+
 export const usePriceBnbBusd = (): BigNumber => {
-  const ZERO = new BigNumber(0)
-  const farm = useFarmFromPid(2)
+  const pid = 2 // BUSD-BNB LP
+  const farm = useFarmFromPid(pid)
   return farm.tokenPriceVsQuote ? new BigNumber(1).div(farm.tokenPriceVsQuote) : ZERO
 }
 
