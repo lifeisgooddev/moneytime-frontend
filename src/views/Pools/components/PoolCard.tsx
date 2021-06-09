@@ -195,7 +195,7 @@ const PoolCard: React.FC<HarvestProps> = ({ pool }) => {
                         />
                       )}
                     </BalanceAndCompound>
-                    <Flex justifyContent="space-between">
+                    <Flex >
                       <Text bold textTransform="uppercase" color="text" fontSize="20px" pr="3px">
                         {/* TODO: Is there a way to get a dynamic value here from useFarmFromSymbol? */}
                         {earningToken.symbol}
@@ -272,6 +272,14 @@ const StyledCardActions = styled.div`
   margin: auto;
   width: 100%;
   box-sizing: border-box;
+  > div {
+    width: 47%
+  }
+  ${({ theme }) => theme.mediaQueries.lg} {
+    > div {
+      width: unset;
+    }
+  }
   
 `
 const StyledCardActionsLeft = styled.div`

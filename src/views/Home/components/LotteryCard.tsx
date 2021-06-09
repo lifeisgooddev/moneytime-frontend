@@ -21,22 +21,43 @@ const StyledLotteryCard = styled(Card)`
   background: ${({ theme }) => theme.colors.card};
   background-repeat: no-repeat;
   background-position: top right;
-  padding-left:30px;
   min-height: 376px;
+  // padding-left:10px;
+  // padding-:10px;
+  // min-height: 376px;
+  ${({ theme }) => theme.mediaQueries.md} {
+    padding-left:30px;
+  }
 `
 
 const Block = styled.div`
-  margin-bottom: 16px;
+  margin-top: 16px;
+  padding-right: 16px;
+  display: inline-block;
+  width : 100%;
+  & div:first-child{
+    float: left;
+  }
+  & div:last-child{
+    float: right;
+  }
 `
 
 const CardImage = styled.img`
   padding-left : 60px;
   padding-right : 60px;
+  display: none;
+  ${({ theme }) => theme.mediaQueries.md} {
+    display: unset;
+  }
 `
 
 const Label = styled.div`
   color: ${({ theme }) => theme.colors.textSubtle};
-  font-size: 20px;
+  font-size: 16px;
+  ${({ theme }) => theme.mediaQueries.md} {
+    font-size: 25px;
+  }
 `
 
 const Actions = styled.div`
@@ -101,17 +122,42 @@ const FarmedStakingCard = () => {
     <StyledLotteryCard>
       <CardBody>
         <CardDiv>
+          <div>
+            <Heading size="xxl" mb="24px">
+              {TranslateString(550, 'Stats')}
+            </Heading>
+            
+          </div>
           <CardImage src="/images/casinochip.svg" alt="cake logo"/>
         </CardDiv>
         <Block>
-          <Label>{TranslateString(554, 'Total Market Cap __________________________________________ $2,881,022')}</Label>
-          <Label>{TranslateString(554, 'Total MONEY burned _______________________________________ 14,480')}</Label>
-          <Label>{TranslateString(554, 'Total MONEY per block _____________________________________ 1.25')}</Label>
+          <Label>{TranslateString(554, 'Money Supply')}</Label>
+          <Label>{TranslateString(554, '$2,881,022')}</Label>
         </Block>
         <Block>
-          <Label>{TranslateString(554, 'Total Market Cap __________________________________________ $2,881,022')}</Label>
-          <Label>{TranslateString(554, 'Total TIME burned _______________________________________ 14,480')}</Label>
-          <Label>{TranslateString(554, 'Total TIME per block _____________________________________ 1.25')}</Label>
+          <Label>{TranslateString(554, 'Total Money Market Cap')}</Label>
+          <Label>{TranslateString(554, '$2,881,022')}</Label>
+        </Block>
+        <Block>
+          <Label>{TranslateString(554, 'Total MONEY burned')}</Label>
+          <Label>{TranslateString(554, '$2,881,022')}</Label>
+        </Block>
+        <Block>
+          <Label>{TranslateString(554, 'Total MONEY per block')}</Label>
+          <Label>{TranslateString(554, '$2,881,022')}</Label>
+        </Block>
+
+        <Block>
+          <Label>{TranslateString(554, 'Total TIME Supply')}</Label>
+          <Label>{TranslateString(554, '$2,881,022')}</Label>
+        </Block>
+        <Block>
+          <Label>{TranslateString(554, 'Total TIME burned')}</Label>
+          <Label>{TranslateString(554, '$2,881,022')}</Label>
+        </Block>
+        <Block>
+          <Label>{TranslateString(554, 'Total TIME per block')}</Label>
+          <Label>{TranslateString(554, '$2,881,022')}</Label>
         </Block>
       </CardBody>
     </StyledLotteryCard>

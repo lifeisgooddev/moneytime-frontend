@@ -4,11 +4,12 @@ import { useWeb3React } from '@web3-react/core'
 import multicall from 'utils/multicall'
 import { getMasterChefTimeAddress } from 'utils/addressHelpers'
 import masterChefABI from 'config/abi/MasterChefTime.json'
-import { farmsConfig } from 'config/constants'
+import { farmsConfig, poolsConfig } from 'config/constants'
 import { FarmConfig } from 'config/constants/types'
 import useRefresh from './useRefresh'
 
-export interface FarmWithBalance extends FarmConfig {
+export interface FarmWithBalance{
+  pid: number;
   balance: BigNumber
 }
 
@@ -25,10 +26,19 @@ const useFarmsWithBalance = () => {
         params: [farm.pid, account],
       }))
 
-      const rawResults = await multicall(masterChefABI, calls)
-      const results = farmsConfig.map((farm, index) => ({ ...farm, balance: new BigNumber(rawResults[index]) }))
+      const rawFarmResults = await multicall(masterChefABI, calls)
+      const resultFarms = farmsConfig.map((farm, index) => ({ pid: farm.pid, balance: new BigNumber(rawFarmResults[index]) }))
 
-      setFarmsWithBalances(results)
+      const callsPool = poolsConfig.filter((item) => item.earningToken.symbol === "TIME").map((pool) => ({
+        address: getMasterChefTimeAddress(),
+        name: 'pendingTime',
+        params: [pool.pId, account],
+      }))
+
+      const rawPoolResults = await multicall(masterChefABI, callsPool)
+      const resultPools = poolsConfig.filter((item) => item.earningToken.symbol === "TIME").map((farm, index) => ({ pid: farm.pId, balance: new BigNumber(rawPoolResults[index]) }))
+      const result = [...resultFarms, ...resultPools];
+      setFarmsWithBalances(result);
     }
 
     if (account) {

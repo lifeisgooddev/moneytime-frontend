@@ -11,6 +11,12 @@ export const getAddress = (address: Address): string => {
 export const getCakeAddress = () => {
   return getAddress(tokens.cake.address)
 }
+export const getTimeAddress = () => {
+  return getAddress(tokens.time.address)
+}
+export const getMoneyAddress = () => {
+  return getAddress(tokens.money.address)
+}
 export const getMasterChefTimeAddress = () => {
   return getAddress(addresses.masterChefTime)
 }

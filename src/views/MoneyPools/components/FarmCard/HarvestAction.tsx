@@ -79,7 +79,7 @@ const HarvestAction: React.FC<FarmCardActionsProps> = ({
 
   return (
     <Flex mb="8px" justifyContent="space-between" alignItems="center">
-      <Heading size="xxl" color="text">{displayBalance}</Heading>
+      <Heading size="xl" color="text">{displayBalance}</Heading>
       {account? renderStakingButtons(): ""}
     </Flex>
   )

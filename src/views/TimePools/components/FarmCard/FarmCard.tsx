@@ -71,7 +71,7 @@ const FCard = styled.div`
   justify-content: space-around;
   padding: 24px;
   position: relative;
-  text-align: center;
+  text-align: left;
 `
 
 const Divider = styled.div`

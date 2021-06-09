@@ -6,16 +6,23 @@ import useI18n from 'hooks/useI18n'
 import { useAllHarvest } from 'hooks/useHarvest'
 import useFarmsWithBalance from 'hooks/useFarmsWithBalance'
 import UnlockButton from 'components/UnlockButton'
-import CakeHarvestBalance from './CakeHarvestBalance'
-import CakeWalletBalance from './CakeWalletBalance'
+import MoneyHarvestBalance from './MoneyHarvestBalance'
+import MoneyLockedBalance from './MoneyLockedBalance'
+import TimeHarvestBalance from './TimeHarvestBalance'
+import MoneyWalletBalance from './MoneyWalletBalance'
+import TimeWalletBalance from './TimeWalletBalance'
 
 const StyledFarmStakingCard = styled(Card)`
   background: ${({ theme }) => theme.colors.card};
   background-repeat: no-repeat;
   background-position: top right;
-  padding-left:30px;
-  padding-right:30px;
+  padding-left:10px;
+  padding-right:10px;
   // min-height: 376px;
+  ${({ theme }) => theme.mediaQueries.md} {
+    padding-left:30px;
+    padding-right:30px;
+  }
 `
 
 const Block = styled.div`
@@ -26,6 +33,10 @@ const Block = styled.div`
 const CardImage = styled.img`
   padding-left : 40px;
   padding-right : 40px;
+  display: none;
+  ${({ theme }) => theme.mediaQueries.md} {
+    display: unset;
+  }
 `
 
 const Label = styled.div`
@@ -47,18 +58,22 @@ const CardDiv = styled(BaseLayout)`
   & > img {
     grid-column: span 6;
   }
-
   ${({ theme }) => theme.mediaQueries.sm} {
+    & > div {
+      grid-column: span 4;
+    }
+  }
+  ${({ theme }) => theme.mediaQueries.md} {
     & > div {
       grid-column: span 6;
     }
   }
-
   ${({ theme }) => theme.mediaQueries.lg} {
     & > div {
       grid-column: span 6;
     }
   }
+  
 `
 const FarmedStakingCard = () => {
   const [pendingTx, setPendingTx] = useState(false)
@@ -90,40 +105,26 @@ const FarmedStakingCard = () => {
           <CardImage src="/images/moneycoin.svg" alt="cake logo" />
           <div>
             <Block>
-              <CakeHarvestBalance />
+              <MoneyHarvestBalance />
               <Label>{TranslateString(544, 'MONEY to Harvest')}:</Label>
             </Block>
             <Block>
-              <CakeWalletBalance />
+              <MoneyLockedBalance />
+              <Label>{TranslateString(544, 'MONEY to Locked')}:</Label>
+            </Block>
+            <Block>
+              <MoneyWalletBalance />
               <Label>{TranslateString(546, 'MONEY in Wallet')}:</Label>
             </Block>
-            <Actions>
-              {account ? (
-                <Button
-                  id="harvest-all"
-                  disabled={balancesWithValue.length <= 0 || pendingTx}
-                  onClick={harvestAllFarms}
-                  width="100%"
-                >
-                  {pendingTx
-                    ? TranslateString(548, 'Collecting CAKE')
-                    : TranslateString(532, `Harvest all (${balancesWithValue.length})`, {
-                        count: balancesWithValue.length,
-                      })}
-                </Button>
-              ) : (
-                <UnlockButton width="100%" />
-              )}
-            </Actions>
           </div>
           <CardImage src="/images/timecoin.svg" alt="cake logo" />
           <div>
             <Block>
-              <CakeHarvestBalance />
+              <TimeHarvestBalance />
               <Label>{TranslateString(544, 'TIME to Harvest')}:</Label>
             </Block>
             <Block>
-              <CakeWalletBalance />
+              <TimeWalletBalance />
               <Label>{TranslateString(546, 'TIME in Wallet')}:</Label>
             </Block>
             <Actions>

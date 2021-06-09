@@ -38,13 +38,27 @@ const Wrapper = styled.div`
     padding-right: 12px;
   }
   > div {
-    margin-left: 75px;
-    margin-right: 75px;
+    margin-left: 0px;
+    margin-right:0px;
   }
+  ${({ theme }) => theme.mediaQueries.md} {
+    > div {
+      margin-left: 75px;
+      margin-right: 75px;
+    }
+  }
+
+  ${({ theme }) => theme.mediaQueries.sm} {
+    > div {
+      margin-left: 20px;
+      margin-right: 20px;
+    }
+  }
+
 `
 
 const ToggleWrapper = styled.div`
-  display: flex;
+  display: block;
   justify-content: center;
   align-items: center;
   margin-right: 32px;
@@ -53,5 +67,9 @@ const ToggleWrapper = styled.div`
 
   ${Text} {
     margin-left: 8px;
+  }
+
+  ${({ theme }) => theme.mediaQueries.sm} {
+    display: flex;
   }
 `

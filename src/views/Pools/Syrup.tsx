@@ -19,7 +19,7 @@ import Divider from './components/Divider'
 
 const Header = styled.div`
   align-items: center;
-  display: inline-block;
+  display: none;
   width: 100%;
   // justify-content: center;
   // flex-direction: column;
@@ -27,9 +27,10 @@ const Header = styled.div`
   margin-top:27px;
   // padding-top: 116px;
   text-align: left;
-  ${({ theme }) => theme.mediaQueries.lg} {
+  ${({ theme }) => theme.mediaQueries.xl} {
     // height: 449px;
     padding-top: 0;
+    display: inline-block;
   }
 `
 const HeadImg = styled.img`
@@ -42,19 +43,17 @@ const HeadDiv = styled.div`
 align-items: center;
 width: 100%;
 margin: auto;
-margin-top:-295px;
+margin-top:100px;
 // padding-top: 116px;
 text-align: center;
-${({ theme }) => theme.mediaQueries.lg} {
-  // height: 449px;
-  padding-top: 0;
-  & h2:first-child {
-    color: #ae0108;
-  }
-}
 & h2:first-child {
   color: #ae0108;
 }
+
+${({ theme }) => theme.mediaQueries.xl} {
+  margin-top:-295px;
+}
+
 
 `
 

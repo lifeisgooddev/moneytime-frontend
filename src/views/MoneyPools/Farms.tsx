@@ -42,12 +42,16 @@ const ControlContainer = styled.div`
 `
 
 const ToggleWrapper = styled.div`
-  display: flex;
+  display: block;
   align-items: center;
   margin-left: 10px;
 
   ${Text} {
     margin-left: 8px;
+  }
+
+  ${({ theme }) => theme.mediaQueries.sm} {
+    display: flex;
   }
 `
 
@@ -77,18 +81,26 @@ const ViewControls = styled.div`
   width: 100%;
   margin: auto;
   > div {
-    padding-left: 75px;
-    padding-right: 75px;
+    // padding: 10px 20px;
+    margin: auto;
+    // padding-left: 75px;
+    // padding-right: 75px;
   }
 
   ${({ theme }) => theme.mediaQueries.sm} {
-    justify-content: flex-start;
-    width: auto;
+    width: 100%;
+  }
 
-    > div {
-      padding-left: 75px;
-      padding-right: 75px;
-    }
+  ${({ theme }) => theme.mediaQueries.md} {
+    width: 80%;
+  }
+
+
+  ${({ theme }) => theme.mediaQueries.lg} {
+    width: 80%;
+  }
+  ${({ theme }) => theme.mediaQueries.xl} {
+    width: 60%;
   }
 `
 
@@ -101,7 +113,7 @@ const StyledImage = styled(Image)`
 
 const Header = styled.div`
   align-items: center;
-  display: inline-block;
+  // display: inline-block;
   width: 100%;
   // justify-content: center;
   // flex-direction: column;
@@ -109,9 +121,11 @@ const Header = styled.div`
   margin-top:27px;
   // padding-top: 116px;
   text-align: left;
-  ${({ theme }) => theme.mediaQueries.lg} {
+  display:none;
+  ${({ theme }) => theme.mediaQueries.xl} {
     // height: 449px;
     padding-top: 0;
+    display: inline-block;
   }
 `
 const HeadImg = styled.img`
@@ -121,22 +135,32 @@ const HeadImg = styled.img`
   float:left;
 `
 const HeadDiv = styled.div`
-align-items: center;
-width: 100%;
-margin: auto;
-margin-top:-285px;
-// padding-top: 116px;
-text-align: center;
-& h2:first-child {
-  color: #ae0108;
-}
-${({ theme }) => theme.mediaQueries.lg} {
-  // height: 449px;
-  padding-top: 0;
-}
-& h2:first-child {
-  color: #ae0108;
-}
+  ${({ theme }) => theme.mediaQueries.lg} {
+    // height: 449px;
+    padding-top: 0;
+    // margin-top:-350px;
+    & h2:first-child {
+      color: #ae0108;
+    }
+  }
+  ${({ theme }) => theme.mediaQueries.xl} {
+    margin-top:-400px;
+    & h2:first-child {
+      color: #ae0108;
+    }
+  }
+  align-items: center;
+  width: 100%;
+  margin: auto;
+  margin-top:100px;
+  // padding-top: 116px;
+  text-align: center;
+  & h2:first-child {
+    color: #ae0108;
+  }
+  & h2 {
+    padding: 0px 20px;
+  }
 `
 
 const HeadImg1 = styled.img`

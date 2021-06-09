@@ -15,51 +15,72 @@ const Hero = styled.div`
   align-items: center;
   display: inline-block;
   width: 100%;
-  // justify-content: center;
-  // flex-direction: column;
   margin: auto;
-  // margin-bottom: 32px;
-  margin-bottom: -180px;
-  // padding-top: 116px;
+  
+  padding-top: 60px;
   text-align: center;
-  margin-left : -60px;
-  ${({ theme }) => theme.mediaQueries.lg} {
+  margin-left : 0px;
+  ${({ theme }) => theme.mediaQueries.xl} {
     // height: 449px;
-    padding-top: 0;
+    padding-top: 0px;
+    margin-left : -60px;
   }
 `
 const HeadImg = styled.img`
   vertical-align: middle;
   width:33%;
+  display: none;
+  ${({ theme }) => theme.mediaQueries.xl} {
+    display: unset;
+  }
 `
 
 const HeadImg1 = styled.img`
   vertical-align: middle;
+  width: 90%;
+  ${({ theme }) => theme.mediaQueries.xl} {
+    width: 33%;
+  }
+`
+
+const HeadImg2 = styled.img`
+  vertical-align: middle;
   width:33%;
   margin-top: -140px;
   height: 420px;
+  display: none;
+  ${({ theme }) => theme.mediaQueries.xl} {
+    display: unset;
+  }
 `
 
 const Cards = styled(BaseLayout)`
   align-items: stretch;
   justify-content: stretch;
   margin-bottom: 32px;
-  
+  margin-top: 50px;
   & > div {
-    grid-column: span 6;
+    grid-column: span 12;
     width: 100%;
   }
 
   ${({ theme }) => theme.mediaQueries.sm} {
     & > div {
-      grid-column: span 8;
+      grid-column: span 12;
     }
   }
 
   ${({ theme }) => theme.mediaQueries.lg} {
     & > div {
+      grid-column: span 12;
+    }
+  }
+
+  ${({ theme }) => theme.mediaQueries.xl} {
+    & > div {
       grid-column: span 6;
     }
+    margin-top: -100px;
   }
 `
 
@@ -96,8 +117,8 @@ const Home: React.FC = () => {
     <Page>
       <Hero>
         <HeadImg alt="hero" src="/images/hero.svg"/>
-        <HeadImg alt="logo" src="/images/MoneytimeLogo.svg"/>
-        <HeadImg1 alt="devilcoin" src="/images/devilcoins.svg"/>
+        <HeadImg1 alt="logo" src="/images/MoneytimeLogo.svg"/>
+        <HeadImg2 alt="devilcoin" src="/images/devilcoins.svg"/>
       </Hero>
       <div>
         <Cards>

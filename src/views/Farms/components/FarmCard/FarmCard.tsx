@@ -156,7 +156,7 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm, removed, moneyPrice, account 
       )}
       <Flex justifyContent="space-between">
         <Text>{TranslateString(318, 'Your stake')}:</Text>
-        <Text>{displayBalance} {farm.lpSymbol}</Text>
+        <Text>{displayBalance} LP</Text>
       </Flex>
       <CardActionsContainer farm={farm} account={account} addLiquidityUrl={addLiquidityUrl} />
       <Divider />

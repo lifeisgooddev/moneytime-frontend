@@ -22,7 +22,7 @@ const HarvestAction: React.FC<FarmCardActionsProps> = ({ earnings, pid }) => {
 
   return (
     <Flex justifyContent="space-between" alignItems="center">
-      <Heading size="xxl" color="text">{displayBalance}</Heading>
+      <Heading size="xl" color="text">{displayBalance}</Heading>
       <Button
         disabled={rawEarningsBalance === 0 || pendingTx}
         onClick={async () => {
