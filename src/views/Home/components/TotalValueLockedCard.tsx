@@ -14,6 +14,7 @@ const StyledTotalValueLockedCard = styled(Card)`
 const TotalValueLockedCard = () => {
   const TranslateString = useI18n()
   const data = useGetStats()
+  console.log("Data", data);
   const tvl = data ? data.total_value_locked_all.toLocaleString('en-US', { maximumFractionDigits: 0 }) : null
 
   return (

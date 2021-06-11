@@ -66,7 +66,7 @@ const fetchMoneypools = async () => {
       const quoteTokenAmount = new BigNumber(quoteTokenBlanceLP)
         .div(new BigNumber(10).pow(quoteTokenDecimals))
         .times(lpTokenRatio)
-      const [info, totalAllocPoint] = await multicall(masterchefMoneyABI, [
+      const [info, totalAllocPoint, _poolDeposit] = await multicall(masterchefMoneyABI, [
         {
           address: getMasterChefMoneyAddress(),
           name: 'poolInfo',
@@ -76,9 +76,15 @@ const fetchMoneypools = async () => {
           address: getMasterChefMoneyAddress(),
           name: 'totalAllocPoint',
         },
+        {
+          address: getMasterChefMoneyAddress(),
+          name: 'poolDeposit',
+          params: [moneypoolConfig.pid],
+        },
       ])
       const allocPoint = new BigNumber(info.allocPoint._hex)
       const poolWeight = allocPoint.div(new BigNumber(totalAllocPoint))
+      const poolDeposit = new BigNumber(_poolDeposit[0]._hex).div(new BigNumber(10).pow(tokenDecimals));
       return {
         ...moneypoolConfig,
         tokenAmount: tokenAmount.toJSON(),
@@ -87,6 +93,7 @@ const fetchMoneypools = async () => {
         tokenPriceVsQuote: quoteTokenAmount.div(tokenAmount).toJSON(),
         poolWeight: poolWeight.toJSON(),
         multiplier: `${allocPoint.div(100).toString()}X`,
+        poolDeposit: poolDeposit.toJSON()
       }
     }),
   )

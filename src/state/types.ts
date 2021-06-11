@@ -74,6 +74,7 @@ export interface Moneypool extends MoneypoolConfig {
   },
   depositFee?: string,
   withdrawFee?: string
+  poolDeposit?: BigNumber
 }
 
 export interface Profile {

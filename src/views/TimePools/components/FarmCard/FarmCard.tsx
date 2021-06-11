@@ -129,7 +129,7 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm, removed, moneyPrice, account 
   const totalValueFormated = farm.liquidity
     ? `$${farm.liquidity.toNumber().toLocaleString(undefined, { maximumFractionDigits: 0 })}`
     : '-'
-
+  console.log('totalValueFormated', totalValueFormated);
   const lpLabel = farm.lockPeriod;
   const earnLabel = farm.dual ? farm.dual.earnLabel : 'TIME'
 

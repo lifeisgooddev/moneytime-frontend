@@ -223,10 +223,10 @@ const Farms: React.FC = () => {
           return farm
         }
 
-        const quoteTokenPriceUsd = 1; // prices
-        const totalLiquidity = new BigNumber(farm.lpTotalInQuoteToken).times(quoteTokenPriceUsd)
-        const apy = getFarmApy(farm.poolWeight, moneyPrice, totalLiquidity)
+        const quoteTokenPriceUsd = new BigNumber(1)
 
+        const totalLiquidity = new BigNumber(farm.poolDeposit)
+        const apy = getFarmApy(farm.poolWeight, moneyPrice, totalLiquidity)
         return { ...farm, apy, liquidity: totalLiquidity }
       })
 

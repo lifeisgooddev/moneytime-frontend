@@ -1,5 +1,6 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback, useEffect } from 'react'
 import styled from 'styled-components'
+import BigNumber from 'bignumber.js'
 import { Heading, Card, CardBody, Button, useModal, BaseLayout } from '@pancakeswap-libs/uikit'
 import { useWeb3React } from '@web3-react/core'
 import { getCakeAddress } from 'utils/addressHelpers'
@@ -7,15 +8,15 @@ import { getBalanceNumber } from 'utils/formatBalance'
 import useI18n from 'hooks/useI18n'
 import useGetLotteryHasDrawn from 'hooks/useGetLotteryHasDrawn'
 import useTokenBalance from 'hooks/useTokenBalance'
+import useTokenPerBlock from 'hooks/useTokenPerBlock'
+import useTokenSupply from 'hooks/useTokenSupply'
 import { useMultiClaimLottery } from 'hooks/useBuyLottery'
 import { useTotalClaim } from 'hooks/useTickets'
 import BuyModal from 'views/Lottery/components/TicketCard/BuyTicketModal'
 import { useLotteryAllowance } from 'hooks/useAllowance'
 import { useApproval } from 'hooks/useApproval'
+import { usePriceMoneyBusd } from 'state/hooks'
 import PurchaseWarningModal from 'views/Lottery/components/TicketCard/PurchaseWarningModal'
-import CakeWinnings from './CakeWinnings'
-import LotteryJackpot from './LotteryJackpot'
-import UnlockButton from '../../../components/UnlockButton'
 
 const StyledLotteryCard = styled(Card)`
   background: ${({ theme }) => theme.colors.card};
@@ -102,7 +103,9 @@ const FarmedStakingCard = () => {
   const { onMultiClaim } = useMultiClaimLottery()
   const cakeBalance = useTokenBalance(getCakeAddress())
   const { handleApprove, requestedApproval } = useApproval(onPresentApprove)
-
+  const moneyPrice = usePriceMoneyBusd()
+  const tokenSupply = useTokenSupply();
+  const tokenPerBlock = useTokenPerBlock();
   const handleClaim = useCallback(async () => {
     try {
       setRequestedClaim(true)
@@ -118,11 +121,22 @@ const FarmedStakingCard = () => {
 
   const [onPresentBuy] = useModal(<BuyModal max={cakeBalance} tokenName="CAKE" />)
 
+  const getMarketCap = useCallback(
+    (): any => {
+      if(tokenSupply[0]){
+        return (new BigNumber(tokenSupply[0]).div(new BigNumber(10).pow(18))).times(new BigNumber(moneyPrice)).toFixed(3);
+      }
+      return 0;
+    },
+    [moneyPrice, tokenSupply],
+  )
+  
+  const moneyCap = getMarketCap();
   return (
     <StyledLotteryCard>
       <CardBody>
         <CardDiv>
-          <div>
+          <div> 
             <Heading size="xxl" mb="24px">
               {TranslateString(550, 'Stats')}
             </Heading>
@@ -132,32 +146,32 @@ const FarmedStakingCard = () => {
         </CardDiv>
         <Block>
           <Label>{TranslateString(554, 'Money Supply')}</Label>
-          <Label>{TranslateString(554, '$2,881,022')}</Label>
+          <Label>{tokenSupply[0] ? (new BigNumber(tokenSupply[0]).div(new BigNumber(10).pow(18))).toFixed(3).toString() : "--"}</Label>
         </Block>
         <Block>
           <Label>{TranslateString(554, 'Total Money Market Cap')}</Label>
-          <Label>{TranslateString(554, '$2,881,022')}</Label>
+          <Label>$ {moneyCap}</Label>
         </Block>
         <Block>
           <Label>{TranslateString(554, 'Total MONEY burned')}</Label>
-          <Label>{TranslateString(554, '$2,881,022')}</Label>
+          <Label>{tokenSupply[1] ? (new BigNumber(tokenSupply[1]).div(new BigNumber(10).pow(18))).toFixed(3).toString() : "--"}</Label>
         </Block>
         <Block>
           <Label>{TranslateString(554, 'Total MONEY per block')}</Label>
-          <Label>{TranslateString(554, '$2,881,022')}</Label>
+          <Label>{tokenPerBlock[0] ? (new BigNumber(tokenPerBlock[0]).div(new BigNumber(10).pow(18))).toString() : "--"}</Label>
         </Block>
 
         <Block>
           <Label>{TranslateString(554, 'Total TIME Supply')}</Label>
-          <Label>{TranslateString(554, '$2,881,022')}</Label>
+          <Label>{tokenSupply[2] ? (new BigNumber(tokenSupply[2]).div(new BigNumber(10).pow(18))).toFixed(3).toString() : "--"}</Label>
         </Block>
         <Block>
           <Label>{TranslateString(554, 'Total TIME burned')}</Label>
-          <Label>{TranslateString(554, '$2,881,022')}</Label>
+          <Label>{tokenSupply[3] ? (new BigNumber(tokenSupply[3]).div(new BigNumber(10).pow(18))).toFixed(3).toString() : "--"}</Label>
         </Block>
         <Block>
           <Label>{TranslateString(554, 'Total TIME per block')}</Label>
-          <Label>{TranslateString(554, '$2,881,022')}</Label>
+          <Label>{tokenPerBlock[1] ? (new BigNumber(tokenPerBlock[1]).div(new BigNumber(10).pow(18))).toString() : "--"}</Label>
         </Block>
       </CardBody>
     </StyledLotteryCard>
