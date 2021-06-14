@@ -131,6 +131,10 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm, removed, moneyPrice, account 
         farmImage={farmImage}
         tokenSymbol={farm.token.symbol}
       />
+      <Flex justifyContent="space-between">
+        <Text>{TranslateString(318, 'Deposit Fee')}:</Text>
+        <Text>5%</Text>
+      </Flex>
       {!removed && (
         <Flex justifyContent="space-between" alignItems="center">
           <Text>{TranslateString(736, 'APR')}:</Text>

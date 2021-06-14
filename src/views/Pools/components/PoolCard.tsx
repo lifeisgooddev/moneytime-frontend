@@ -131,7 +131,7 @@ const PoolCard: React.FC<HarvestProps> = ({ pool }) => {
         <Wrapper justifyContent="space-between" alignItems="center" mb="12px">
           <Image src={`/images/farms/${stakingToken.symbol.toLocaleLowerCase()}.svg`} alt={earningToken.symbol} width={150} height={150} />
           <Flex flexDirection="column" alignItems="flex-end">
-            <Heading mb="4px"size='xl'>{earningToken.symbol}</Heading>
+            <Heading mb="4px"size='xl'>{stakingToken.symbol}</Heading>
             <Flex justifyContent="center">
               <MultiplierTag variant="backgroundRed">{pool.tokenPerBlock}X</MultiplierTag>
             </Flex>
@@ -158,6 +158,14 @@ const PoolCard: React.FC<HarvestProps> = ({ pool }) => {
             />
           )}
         </div> */}
+        <StyledDetails>
+          <Text>{TranslateString(384, 'Reward Token')}:</Text>
+          <Text>{earningToken.symbol}</Text>
+        </StyledDetails>
+        <StyledDetails>
+          <Text>{TranslateString(384, 'Deposit Fee')}:</Text>
+          <Text>{earningToken.symbol === "Money" ? "10%": "5%"}</Text>
+        </StyledDetails>
         <StyledDetails>
           <Text>{TranslateString(736, 'APR')}:</Text>
           {isFinished || !apy ? (

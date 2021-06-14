@@ -110,7 +110,7 @@ const FarmedStakingCard = () => {
             </Block>
             <Block>
               <MoneyLockedBalance />
-              <Label>{TranslateString(544, 'MONEY to Locked')}:</Label>
+              <Label>{TranslateString(544, 'MONEY reward locked in TimePools')}:</Label>
             </Block>
             <Block>
               <MoneyWalletBalance />
@@ -137,7 +137,7 @@ const FarmedStakingCard = () => {
                 >
                   {pendingTx
                     ? TranslateString(548, 'Collecting CAKE')
-                    : TranslateString(532, `Harvest all (${balancesWithValue.length})`, {
+                    : TranslateString(532, `Harvest all Time Reward (${balancesWithValue.length})`, {
                         count: balancesWithValue.length,
                       })}
                 </Button>

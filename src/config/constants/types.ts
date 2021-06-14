@@ -84,6 +84,7 @@ export interface PoolConfig {
   sortOrder?: number
   harvest?: boolean
   isFinished?: boolean
+  depositFee?:string
 }
 
 export interface MoneypoolConfig {

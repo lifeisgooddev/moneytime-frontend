@@ -45,8 +45,8 @@ const Block = styled.div`
 `
 
 const CardImage = styled.img`
-  padding-left : 60px;
-  padding-right : 60px;
+  padding-left : 40px;
+  padding-right : 40px;
   display: none;
   ${({ theme }) => theme.mediaQueries.md} {
     display: unset;
@@ -144,6 +144,9 @@ const FarmedStakingCard = () => {
           </div>
           <CardImage src="/images/casinochip.svg" alt="cake logo"/>
         </CardDiv>
+        <Heading size="xl" mt="10px">
+              {TranslateString(550, 'Money')}
+        </Heading>
         <Block>
           <Label>{TranslateString(554, 'Money Supply')}</Label>
           <Label>{tokenSupply[0] ? (new BigNumber(tokenSupply[0]).div(new BigNumber(10).pow(18))).toFixed(3).toString() : "--"}</Label>
@@ -156,6 +159,15 @@ const FarmedStakingCard = () => {
           <Label>{TranslateString(554, 'Total MONEY burned')}</Label>
           <Label>{tokenSupply[1] ? (new BigNumber(tokenSupply[1]).div(new BigNumber(10).pow(18))).toFixed(3).toString() : "--"}</Label>
         </Block>
+        <CardDiv>
+          <div> 
+            <Heading size="xl" mt="10px">
+              {TranslateString(550, 'Time')}
+            </Heading>
+            
+          </div>
+        </CardDiv>
+        
         <Block>
           <Label>{TranslateString(554, 'Total MONEY per block')}</Label>
           <Label>{tokenPerBlock[0] ? (new BigNumber(tokenPerBlock[0]).div(new BigNumber(10).pow(18))).toString() : "--"}</Label>
