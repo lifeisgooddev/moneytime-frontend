@@ -244,7 +244,7 @@ export const usePriceMoneyBusd = (): BigNumber => {
 }
 
 export const usePriceBnbBusd = (): BigNumber => {
-  const pid = 2 // BUSD-BNB LP
+  const pid = 0 // BUSD-BNB LP
   const farm = useFarmFromPid(pid)
   return farm.tokenPriceVsQuote ? new BigNumber(1).div(farm.tokenPriceVsQuote) : ZERO
 }
