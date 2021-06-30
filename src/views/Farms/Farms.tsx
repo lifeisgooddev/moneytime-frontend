@@ -121,7 +121,7 @@ const Header = styled.div`
   // padding-top: 116px;
   text-align: left;
   display:none;
-  ${({ theme }) => theme.mediaQueries.xl} {
+  ${({ theme }) => theme.mediaQueries.xxl} {
     // height: 449px;
     padding-top: 0;
     display: inline-block;
@@ -135,17 +135,17 @@ const HeadImg = styled.img`
 `
 const HeadDiv = styled.div`
 
-  ${({ theme }) => theme.mediaQueries.lg} {
+  ${({ theme }) => theme.mediaQueries.xl} {
     // height: 449px;
     padding-top: 0;
     // margin-top:-350px;
-    & h2:first-child {
+    & h2:first-child{
       color: #ae0108;
     }
   }
-  ${({ theme }) => theme.mediaQueries.xl} {
+  ${({ theme }) => theme.mediaQueries.xxl} {
     margin-top:-400px;
-    & h2:first-child {
+    & h2:first-child{
       color: #ae0108;
     }
   }
@@ -155,7 +155,7 @@ const HeadDiv = styled.div`
   margin-top:100px;
   // padding-top: 116px;
   text-align: center;
-  & h2:first-child {
+  & h2:first-child{
     color: #ae0108;
   }
   & h2 {
@@ -170,6 +170,20 @@ const HeadImg1 = styled.img`
   margin-top: 135px;
   text-align: right;
   float:right;
+`
+const BoxHeading = styled.div`
+  background-image:none;  
+  ${({ theme }) => theme.mediaQueries.sm} {
+    background-image: url(/images/box.svg);
+    padding-top: 25px;
+    padding-bottom: 1px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 100%;
+    margin: auto;
+    max-width: 860px;
+  }
 `
 
 const Farms: React.FC = () => {
@@ -373,8 +387,13 @@ const Farms: React.FC = () => {
         <HeadImg1 alt="devilcoin" width="330px" height="330px" src="/images/satanboss.svg" />
       </Header>
       <HeadDiv>
-          <Heading mb="20px" size='lg'>Stake LP tokens to earn TIME! Stake TIME in TimePools <a style={{ textDecoration: 'underline' }} href="https://testnet.moneytime.finance/timepools">here</a></Heading>
-          <Heading mb="20px" size='lg'>Fees are used to Buy-Back,Burn and redistribute $MONEY to MT users. <br/> Learn more about SmartFees <a style={{ textDecoration: 'underline' }} href="https://moneytime.gitbook.io/timeismoney-fi/tokenomics/fees">here</a></Heading>
+          <BoxHeading>
+            <Heading mb="20px" size='lg'>Stake LP tokens to earn TIME! Stake TIME in TimePools <a style={{ textDecoration: 'underline' }} href="https://testnet.moneytime.finance/timepools">here</a></Heading>
+          </BoxHeading>
+          <BoxHeading>
+            <></>
+            <Heading mb="20px" size='lg'>Fees are used to Buy-Back,Burn and redistribute $MONEY to MT users. Learn more about SmartFees <a style={{ textDecoration: 'underline' }} href="https://moneytime.gitbook.io/timeismoney-fi/tokenomics/fees">here</a></Heading>
+          </BoxHeading>
           <ControlContainer>
             <ViewControls>
               <ToggleWrapper>

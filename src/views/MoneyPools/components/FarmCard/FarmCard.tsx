@@ -9,7 +9,7 @@ import useI18n from 'hooks/useI18n'
 import ExpandableSectionButton from 'components/ExpandableSectionButton'
 import { BASE_ADD_LIQUIDITY_URL } from 'config'
 import getLiquidityUrlPathParts from 'utils/getLiquidityUrlPathParts'
-import { useMoneypoolFromPid, useMoneypoolUser } from 'state/hooks'
+import { useMoneypoolFromSymbol, useMoneypoolUser } from 'state/hooks'
 import { getBalanceNumber } from 'utils/formatBalance'
 import DetailsSection from './DetailsSection'
 import CardHeading from './CardHeading'
@@ -94,10 +94,30 @@ interface FarmCardProps {
   account?: string
 }
 
+const calculateRemainingTime = (time:any, lockPeriod:any) => {
+  // console.log(time);
+  if(time === "0")
+    return `?d ?h ?m`;
+  const harvestTimeStamp = parseInt(time)*1000 + parseInt(lockPeriod)*1000;
+  const untilHarvest:any = new Date(harvestTimeStamp);
+  const currentTime:any = new Date();
+  if(currentTime >= untilHarvest)
+    return `0d 0h 0m`;
+  const totalSeconds     = Math.floor((untilHarvest - currentTime)/1000);
+  const totalMinutes     = Math.floor(totalSeconds/60);
+  const totalHours       = Math.floor(totalMinutes/60);
+  const totalDays        = Math.floor(totalHours/24);
+
+  const hours   = totalHours - ( totalDays * 24 );
+  const minutes = totalMinutes - ( totalDays * 24 * 60 ) - ( hours * 60 );
+
+  return `${totalDays}d ${hours}h ${minutes}m`;
+}
+
 const FarmCard: React.FC<FarmCardProps> = ({ farm, removed, moneyPrice, account }) => {
   const TranslateString = useI18n()
-  // const { pid } = useMoneypoolFromPid(farm.lpSymbol)
-  // const { allowance, tokenBalance, stakedBalance, earnings } = useMoneypoolUser(pid)
+  const { pid } = useMoneypoolFromSymbol(farm.lpSymbol)
+  const { allowance, tokenBalance, stakedBalance, earnings } = useMoneypoolUser(pid)
   const [showExpandableSection, setShowExpandableSection] = useState(false)
 
   const isCommunityFarm = communityFarms.includes(farm.token.symbol)
@@ -120,8 +140,8 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm, removed, moneyPrice, account 
   })
   const addLiquidityUrl = `${BASE_ADD_LIQUIDITY_URL}/${liquidityUrlPathParts}`
 
-  // const rawStakedBalance = getBalanceNumber(stakedBalance)
-  // const displayBalance = rawStakedBalance.toLocaleString()
+  const rawStakedBalance = getBalanceNumber(stakedBalance)
+  const displayBalance = rawStakedBalance.toLocaleString()
   return (
     <FCard>
       <CardHeading
@@ -152,7 +172,11 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm, removed, moneyPrice, account 
       )}
       <Flex justifyContent="space-between">
         <Text>{TranslateString(318, 'Your stake')}:</Text>
-        {/* <Text>{displayBalance} {farm.lpSymbol}</Text> */}
+        <Text>{displayBalance} {farm.lpSymbol}</Text>
+      </Flex>
+      <Flex justifyContent="space-between">
+        <Text>{TranslateString(318, 'Remaining lock period')}:</Text>
+        <Text>{farm.userData ? calculateRemainingTime(farm.userData.depositTime, farm.lockTime) : "--/--/--"}</Text>
       </Flex>
       <CardActionsContainer farm={farm} account={account} addLiquidityUrl={addLiquidityUrl} />
       <Divider />

@@ -1,12 +1,14 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import BigNumber from 'bignumber.js'
-import { Button, Flex, Heading, IconButton, AddIcon, MinusIcon, useModal } from '@pancakeswap-libs/uikit'
+import { Button, Flex, Heading, IconButton, AddIcon, MinusIcon, useModal, Text } from '@pancakeswap-libs/uikit'
 import useI18n from 'hooks/useI18n'
 import {useStakeMoney} from 'hooks/useStake'
+
 import {useUnstakeMoney} from 'hooks/useUnstake'
 import { useHarvestMoney } from 'hooks/useHarvest'
 import { getBalanceNumber } from 'utils/formatBalance'
+import { usePriceMoneyBusd } from 'state/hooks'
 import { useWeb3React } from '@web3-react/core'
 
 
@@ -55,8 +57,7 @@ const HarvestAction: React.FC<FarmCardActionsProps> = ({
   const busdRewardBalance = account ? getBalanceNumber(earnings[1]) : 0
   const busdDisplayBalance = busdRewardBalance.toLocaleString()
 
-  
-
+  const moneyPrice = usePriceMoneyBusd();
   const rawStakedBalance = getBalanceNumber(stakedBalance)
 
   const [onPresentDeposit] = useModal(
@@ -86,7 +87,41 @@ const HarvestAction: React.FC<FarmCardActionsProps> = ({
     <Flex mb="8px" justifyContent="space-between" alignItems="center">
       <div>
         <Heading size="xl" color="text">{displayBalance}</Heading>
-        {pid > 3 ? <Heading size="xl" color="text">{busdDisplayBalance}</Heading> : ""}
+        <Text>{rawEarningsBalance === 0 ?
+           0 : 
+           (
+             <>
+             ~ {(rawEarningsBalance * moneyPrice.toNumber()).toFixed(3)}
+             </>
+            )
+          } USD</Text>
+        <Flex>
+          <Text bold textTransform="uppercase" color="text" fontSize="20px" pr="3px">
+            {/* TODO: Is there a way to get a dynamic value here from useFarmFromSymbol? */}
+            Money
+          </Text>
+          <Text color="text" fontSize="18px">
+            {TranslateString(1072, 'earned')}
+          </Text>
+        </Flex>
+        {pid > 3 ? 
+          <>
+          <Heading size="xl" color="text">{busdDisplayBalance}</Heading>
+          <Flex>
+            <Text bold textTransform="uppercase" color="text" fontSize="20px" pr="3px">
+              {/* TODO: Is there a way to get a dynamic value here from useFarmFromSymbol? */}
+              Busd
+            </Text>
+            <Text color="text" fontSize="18px">
+              {TranslateString(1072, 'earned')}
+            </Text>
+          </Flex>
+          </>
+         : ""
+         }
+        
+
+      
       </div>
       {account ? renderStakingButtons() : ""}
     </Flex>

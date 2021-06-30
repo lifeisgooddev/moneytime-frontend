@@ -122,7 +122,7 @@ const Header = styled.div`
   // padding-top: 116px;
   text-align: left;
   display:none;
-  ${({ theme }) => theme.mediaQueries.xl} {
+  ${({ theme }) => theme.mediaQueries.xxl} {
     // height: 449px;
     padding-top: 0;
     display: inline-block;
@@ -135,7 +135,7 @@ const HeadImg = styled.img`
   float:left;
 `
 const HeadDiv = styled.div`
-  ${({ theme }) => theme.mediaQueries.lg} {
+  ${({ theme }) => theme.mediaQueries.xl} {
     // height: 449px;
     padding-top: 0;
     // margin-top:-350px;
@@ -143,7 +143,7 @@ const HeadDiv = styled.div`
       color: #ae0108;
     }
   }
-  ${({ theme }) => theme.mediaQueries.xl} {
+  ${({ theme }) => theme.mediaQueries.xxl} {
     margin-top:-400px;
     & h2:first-child {
       color: #ae0108;

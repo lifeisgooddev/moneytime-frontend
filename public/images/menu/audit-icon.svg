@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 182.1 160.9">
+  <g id="Camada_2" data-name="Camada 2">
+    <g id="Camada_1-2" data-name="Camada 1">
+      <g>
+        <rect x="54.29" y="96.51" width="73.61" height="53.58" style="fill: #fff"/>
+        <g>
+          <rect x="22" y="42.31" width="148.8" height="43.22" style="fill: #fb1120"/>
+          <rect x="22.04" y="31.59" width="138.05" height="11.23" style="fill: #fb1120"/>
+          <rect x="53.74" y="10.71" width="75.1" height="21.65" style="fill: #fb1120"/>
+          <g>
+            <rect y="53.53" width="11.29" height="32.28"/>
+            <rect x="11.29" y="85.8" width="21.5" height="10.71"/>
+            <polygon points="54.29 96.51 32.79 96.51 32.79 107.22 42.99 107.22 42.99 139.49 54.29 139.49 54.29 107.22 54.29 96.51"/>
+            <rect x="54.29" y="139.49" width="10.71" height="10.71"/>
+            <rect x="64.99" y="150.2" width="52.2" height="10.71"/>
+            <rect x="117.19" y="138.98" width="10.71" height="10.71"/>
+            <rect x="11.29" y="42.82" width="10.71" height="10.71"/>
+            <polygon points="32.71 32.12 53.74 32.12 53.74 21.41 32.25 21.41 32.25 32.12 22 32.12 22 42.82 32.71 42.82 32.71 32.12"/>
+            <rect x="53.74" y="10.71" width="21.5" height="10.71"/>
+            <rect x="75.24" width="32.1" height="10.71"/>
+            <rect x="170.8" y="53.2" width="11.29" height="32.28"/>
+            <polygon points="149.35 96 127.9 96 127.9 106.71 127.9 138.98 139.19 138.98 139.19 106.71 149.4 106.71 149.4 96.36 170.84 96.36 170.84 85.66 149.35 85.66 149.35 96"/>
+            <rect x="160.1" y="42.31" width="10.71" height="10.71"/>
+            <polygon points="128.35 21.41 128.35 31.61 149.39 31.61 149.39 42.31 160.1 42.31 160.1 31.61 149.85 31.61 149.85 20.9 128.84 20.9 128.84 10.71 107.34 10.71 107.34 21.41 128.35 21.41"/>
+          </g>
+          <rect x="22" y="53.53" width="10.25" height="10.25" style="fill: #fff"/>
+          <rect x="107.34" y="53.53" width="10.25" height="10.25" style="fill: #fff"/>
+          <rect x="64.67" y="53.53" width="10.25" height="10.25" style="fill: #fff"/>
+          <rect x="43.52" y="32.58" width="10.25" height="10.25" style="fill: #fff"/>
+          <rect x="85.97" y="21.64" width="10.25" height="10.25" style="fill: #fff"/>
+          <rect x="128.84" y="32.58" width="10.25" height="10.25" style="fill: #fff"/>
+          <rect x="149.85" y="53.53" width="10.25" height="10.25" style="fill: #fff"/>
+          <rect x="85.92" y="75.33" width="10.25" height="10.25" style="fill: #fff"/>
+          <rect x="43.49" y="75.33" width="10.25" height="10.25" style="fill: #fff"/>
+          <rect x="128.84" y="75.33" width="10.25" height="10.25" style="fill: #fff"/>
+          <rect x="54.29" y="96" width="73.61" height="21.53" style="fill: #b9b9b9"/>
+          <rect x="54.29" y="116.98" width="10.71" height="22.62" style="fill: #b9b9b9"/>
+          <rect x="64.99" y="139.6" width="10.5" height="10.5" style="fill: #b9b9b9"/>
+          <polygon points="170.97 74.24 149.22 74.24 149.22 85.51 43.49 85.51 43.49 74.5 22 74.5 22 53.02 10.71 53.02 10.71 85.79 21.74 85.79 22 85.79 32.67 85.79 32.67 96.51 149.3 96.51 149.3 85.54 170.97 85.54 170.97 74.24" style="fill: #990903"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

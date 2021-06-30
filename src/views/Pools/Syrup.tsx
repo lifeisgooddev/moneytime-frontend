@@ -27,7 +27,7 @@ const Header = styled.div`
   margin-top:27px;
   // padding-top: 116px;
   text-align: left;
-  ${({ theme }) => theme.mediaQueries.xl} {
+  ${({ theme }) => theme.mediaQueries.xxl} {
     // height: 449px;
     padding-top: 0;
     display: inline-block;
@@ -50,7 +50,7 @@ text-align: center;
   color: #ae0108;
 }
 
-${({ theme }) => theme.mediaQueries.xl} {
+${({ theme }) => theme.mediaQueries.xxl} {
   margin-top:-295px;
 }
 
@@ -63,7 +63,20 @@ const HeadImg1 = styled.img`
   text-align: right;
   float:right;
 `
-
+const BoxHeading = styled.div`
+  background-image:none;  
+  ${({ theme }) => theme.mediaQueries.sm} {
+    background-image: url(/images/box.svg);
+    padding-top: 25px;
+    padding-bottom: 1px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 100%;
+    margin: auto;
+    max-width: 860px;
+  }
+`
 
 const Farm: React.FC = () => {
   const { path } = useRouteMatch()
@@ -90,8 +103,13 @@ const Farm: React.FC = () => {
         <HeadImg1 alt="devilcoin" width="330px" height="330px" src="/images/casinochip.svg" />
       </Header>
       <HeadDiv>
-          <Heading mb="20px" size='xl'>Stake LP tokens to earn MONEY</Heading>
-          <Heading mb="30px" size='xl'>Deposit Fee will be used to buyback MONEY</Heading>
+          <BoxHeading>
+            <Heading mb="20px" size='lg'>Stake LP tokens to earn MONEY</Heading>
+          </BoxHeading>
+          <BoxHeading>
+            <></>
+            <Heading mb="20px" size='lg'>Deposit Fee will be used to buyback MONEY</Heading>
+          </BoxHeading>
       </HeadDiv>
       <PoolTabButtons stackedOnly={stackedOnly} setStackedOnly={setStackedOnly} />
       <FlexLayout>

@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 178.06 115.18">
+  <g id="Camada_2" data-name="Camada 2">
+    <g id="Camada_1-2" data-name="Camada 1">
+      <g>
+        <g>
+          <rect x="22.12" y="11.06" width="133.65" height="71.24" style="fill: #c5762a"/>
+          <rect x="31.47" y="10.94" width="115.06" height="71.35" style="fill: #9a5022"/>
+          <rect x="22.21" y="42.29" width="133.65" height="11.06"/>
+          <rect x="62.5" y="42.24" width="41.88" height="30.59"/>
+        </g>
+        <path d="M155.76,11.06V31.18H94.47V10.94H83.41V31.18H22.12V11.06H11.06v93.06H166.82V11.06Zm0,71.23H22.12V42.24H73.5V63.35h30.88V42.24h51.38Z" style="fill: #fef200"/>
+        <path d="M177.88,11.06V0H0V104.12H.18v11.06H31.71V104.41H146.53v10.77h31.53V11.06Zm-31.35,93.06V93.35H31.47v10.77H11.06V11.06H167v93.06Z"/>
+      </g>
+    </g>
+  </g>
+</svg>

@@ -50,7 +50,7 @@ export const fetchMoneypoolUserStakedBalances = async (account: string) => {
 
   const rawStakedBalances = await multicall(masterchefMoneyABI, calls)
   const parsedStakedBalances = rawStakedBalances.map((stakedBalance) => {
-    return new BigNumber(stakedBalance[0]._hex).toJSON()
+    return [new BigNumber(stakedBalance[0]._hex).toJSON(), stakedBalance[3].toString()]
   })
   return parsedStakedBalances
 }

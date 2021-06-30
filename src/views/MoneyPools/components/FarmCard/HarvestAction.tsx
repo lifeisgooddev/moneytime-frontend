@@ -1,13 +1,14 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import BigNumber from 'bignumber.js'
-import { Button, Flex, Heading, IconButton, AddIcon, MinusIcon, useModal } from '@pancakeswap-libs/uikit'
+import { Button, Flex, Heading, IconButton, AddIcon, MinusIcon, useModal, Text } from '@pancakeswap-libs/uikit'
 import useI18n from 'hooks/useI18n'
 import { useHarvestMoney } from 'hooks/useHarvest'
 import {useStakeMoney} from 'hooks/useStake'
 import {useUnstakeMoney} from 'hooks/useUnstake'
 import { getBalanceNumber } from 'utils/formatBalance'
 import { useWeb3React } from '@web3-react/core'
+import { usePriceMoneyBusd } from 'state/hooks'
 
 import DepositModal from '../DepositModal'
 import WithdrawModal from '../WithdrawModal'
@@ -50,8 +51,7 @@ const HarvestAction: React.FC<FarmCardActionsProps> = ({
 
   const rawEarningsBalance = account ? getBalanceNumber(earnings) : 0
   const displayBalance = rawEarningsBalance.toLocaleString()
-
-  
+  const moneyPrice = usePriceMoneyBusd();
 
   const rawStakedBalance = getBalanceNumber(stakedBalance)
 
@@ -79,7 +79,19 @@ const HarvestAction: React.FC<FarmCardActionsProps> = ({
 
   return (
     <Flex mb="8px" justifyContent="space-between" alignItems="center">
+      <div>
       <Heading size="xl" color="text">{displayBalance}</Heading>
+      <Flex>
+        <Text>{rawEarningsBalance === 0 ?
+           0 : 
+           (
+             <>
+             ~ {(rawEarningsBalance * moneyPrice.toNumber()).toFixed(3)}
+             </>
+            )
+          } USD</Text>
+      </Flex>
+      </div>
       {account? renderStakingButtons(): ""}
     </Flex>
   )

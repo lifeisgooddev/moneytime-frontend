@@ -115,12 +115,17 @@ const Home: React.FC = () => {
 
   return (
     <Page>
+      
       <Hero>
+        <div>
+          <Heading mt="20px" size='lg'>Using Smart Contracts, Tokens, and Crypto is always a risk. DYOR before investing.</Heading>
+        </div>
         <HeadImg alt="hero" src="/images/hero.svg"/>
         <HeadImg1 alt="logo" src="/images/MoneytimeLogo.svg"/>
         <HeadImg2 alt="devilcoin" src="/images/devilcoins.svg"/>
       </Hero>
       <div>
+        
         <Cards>
           <FarmStakingCard />
           <LotteryCard />

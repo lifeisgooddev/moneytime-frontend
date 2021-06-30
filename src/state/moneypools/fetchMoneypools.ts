@@ -84,6 +84,7 @@ const fetchMoneypools = async () => {
       ])
       const allocPoint = new BigNumber(info.allocPoint._hex)
       const poolWeight = allocPoint.div(new BigNumber(totalAllocPoint))
+      const lockTime = new BigNumber(info.lockPeriod._hex);
       const poolDeposit = new BigNumber(_poolDeposit[0]._hex).div(new BigNumber(10).pow(tokenDecimals));
       return {
         ...moneypoolConfig,
@@ -93,7 +94,8 @@ const fetchMoneypools = async () => {
         tokenPriceVsQuote: quoteTokenAmount.div(tokenAmount).toJSON(),
         poolWeight: poolWeight.toJSON(),
         multiplier: `${allocPoint.div(100).toString()}X`,
-        poolDeposit: poolDeposit.toJSON()
+        poolDeposit: poolDeposit.toJSON(),
+        lockTime: lockTime.toJSON()
       }
     }),
   )

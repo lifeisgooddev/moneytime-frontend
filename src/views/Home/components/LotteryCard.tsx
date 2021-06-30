@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useEffect } from 'react'
 import styled from 'styled-components'
 import BigNumber from 'bignumber.js'
-import { Heading, Card, CardBody, Button, useModal, BaseLayout } from '@pancakeswap-libs/uikit'
+import { Heading, Card, CardBody, Button, useModal, BaseLayout, Svg } from '@pancakeswap-libs/uikit'
 import { useWeb3React } from '@web3-react/core'
 import { getCakeAddress } from 'utils/addressHelpers'
 import { getBalanceNumber } from 'utils/formatBalance'
@@ -66,6 +66,16 @@ const Actions = styled.div`
   margin-top: 24px;
   button {
     flex: 1 0 50%;
+  }
+`
+const HeadImageText = styled.div`
+  
+  display: flex;
+  height: 60px;
+  img {
+    padding-left:5px;
+    padding-right: 5px;
+    width: 60px;
   }
 `
 const CardDiv = styled(BaseLayout)`
@@ -144,9 +154,13 @@ const FarmedStakingCard = () => {
           </div>
           <CardImage src="/images/casinochip.svg" alt="cake logo"/>
         </CardDiv>
-        <Heading size="xl" mt="10px">
-              {TranslateString(550, 'Money')}
-        </Heading>
+        
+        <HeadImageText>
+          <CardImage src="/images/moneycoin.svg"/>
+          <Heading size="xl" mt="10px">
+                {TranslateString(550, 'Money')}
+          </Heading>
+        </HeadImageText>
         <Block>
           <Label>{TranslateString(554, 'Money Supply')}</Label>
           <Label>{tokenSupply[0] ? (new BigNumber(tokenSupply[0]).div(new BigNumber(10).pow(18))).toFixed(3).toString() : "--"}</Label>
@@ -159,20 +173,18 @@ const FarmedStakingCard = () => {
           <Label>{TranslateString(554, 'Total MONEY burned')}</Label>
           <Label>{tokenSupply[1] ? (new BigNumber(tokenSupply[1]).div(new BigNumber(10).pow(18))).toFixed(3).toString() : "--"}</Label>
         </Block>
-        <CardDiv>
-          <div> 
-            <Heading size="xl" mt="10px">
-              {TranslateString(550, 'Time')}
-            </Heading>
-            
-          </div>
-        </CardDiv>
-        
         <Block>
           <Label>{TranslateString(554, 'Total MONEY per block')}</Label>
           <Label>{tokenPerBlock[0] ? (new BigNumber(tokenPerBlock[0]).div(new BigNumber(10).pow(18))).toString() : "--"}</Label>
         </Block>
-
+        
+        <HeadImageText>
+          <CardImage src="/images/timecoin.svg"/>
+          <Heading size="xl" mt="10px">
+                {TranslateString(550, 'Time')}
+          </Heading>
+        </HeadImageText>
+        
         <Block>
           <Label>{TranslateString(554, 'Total TIME Supply')}</Label>
           <Label>{tokenSupply[2] ? (new BigNumber(tokenSupply[2]).div(new BigNumber(10).pow(18))).toFixed(3).toString() : "--"}</Label>

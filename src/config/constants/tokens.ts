@@ -7,7 +7,7 @@ const tokens = {
     symbol: 'MONEY',
     address: {
       56: '',
-      97: '0xf3f3824df51BC1Bd846da3Bc9f9a80eb98Ff928A',
+      97: '0xfc64A462F881A300C999a3fFB141a78b3687d947',
     },
     decimals: 18,
     projectLink: 'https://moneytime.finance/',
@@ -16,7 +16,7 @@ const tokens = {
     symbol: 'TIME',
     address: {
       56: '',
-      97: '0x199C1575eFDA2AA79ED043f2743d684c5EddF770',
+      97: '0xdb647d5C797B33b875cc4064ed4446C23D8a5E10',
     },
     decimals: 18,
     projectLink: 'https://moneytime.finance/',
@@ -31,7 +31,7 @@ const tokens = {
     projectLink: 'https://moneytime.finance/',
   },
   wbnb: {
-    symbol: 'WBNB',
+    symbol: 'BNB',
     address: {
       56: '',
       97: '0xae13d989daC2f0dEbFf460aC112a837C89BAa7cd',
@@ -103,10 +103,10 @@ const tokens = {
     projectLink: 'https://moneytime.finance/',
   },
   cake: { // must be default token
-    symbol: 'MONEY',
+    symbol: 'CAKE',
     address: {
       56: '',
-      97: '0xf3f3824df51BC1Bd846da3Bc9f9a80eb98Ff928A',
+      97: '0x7e3d08f071c704c77df98b94359b700fff5083de',
     },
     decimals: 18,
     projectLink: 'https://moneytime.finance/',

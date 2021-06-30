@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 138.21 131.8">
+  <g id="Camada_2" data-name="Camada 2">
+    <g id="Camada_1-2" data-name="Camada 1">
+      <g>
+        <rect x="25.65" y="6.37" width="86.9" height="118.18" transform="translate(134.57 -3.64) rotate(90)" style="fill: #ffdd17"/>
+        <rect x="41.42" y="11.01" width="55.37" height="108.64" style="fill: #ffdd17"/>
+        <polygon points="107.77 87.72 107.77 76.71 96.84 76.71 96.84 65.7 85.72 65.7 85.72 54.7 74.5 54.7 74.5 43.69 63.56 43.69 63.56 32.68 52.97 32.68 52.97 22.01 19.7 22.01 19.7 33.02 30.29 33.02 30.29 43.69 41.22 43.69 41.22 54.7 52.44 54.7 52.44 65.7 63.56 65.7 63.56 76.71 74.5 76.71 74.5 87.72 85.24 87.72 85.24 98.72 95.19 98.72 95.19 109.73 107.92 109.73 107.92 119.64 118.52 119.64 118.52 109.73 118.52 98.72 118.52 87.72 107.77 87.72" style="fill: #fff"/>
+        <g>
+          <polygon points="74.61 11.01 63.6 11.01 63.6 22.01 74.15 22.01 74.15 33.02 85.16 33.02 85.16 22.01 74.61 22.01 74.61 11.01" style="fill: #fff"/>
+          <polygon points="117.65 66.04 117.65 55.03 107.28 55.03 107.28 44.03 96.73 44.03 96.73 33.02 85.72 33.02 85.72 44.03 96.27 44.03 96.27 55.03 106.64 55.03 106.64 66.04 117.19 66.04 117.19 77.05 128.2 77.05 128.2 66.04 117.65 66.04" style="fill: #fff"/>
+        </g>
+        <rect x="9.85" y="44.03" width="9.85" height="54.17" transform="translate(29.55 142.22) rotate(180)" style="fill: #e9aa10"/>
+        <rect x="63.31" y="86.74" width="11.59" height="55.37" transform="translate(-45.32 183.53) rotate(-90)" style="fill: #e9aa10"/>
+        <rect x="24.62" y="91.99" width="11.59" height="21.44" transform="translate(-72.3 133.13) rotate(-90)" style="fill: #e9aa10"/>
+        <rect x="19.84" y="86.19" width="11.59" height="11.59" transform="translate(-66.35 117.63) rotate(-90)" style="fill: #e9aa10"/>
+        <g>
+          <rect x="41.42" y="120.22" width="55.37" height="11.58"/>
+          <rect x="96.79" y="108.64" width="21.72" height="11.58"/>
+          <rect x="118.52" y="87.47" width="9.85" height="21.45"/>
+          <rect x="128.36" y="44.03" width="9.85" height="43.44"/>
+          <rect x="118.52" y="22.01" width="9.85" height="22.01"/>
+          <rect x="96.5" y="11.01" width="21.72" height="11.01"/>
+          <rect x="41.13" width="55.37" height="11.01"/>
+          <rect x="19.7" y="108.64" width="21.72" height="11.58" transform="translate(61.12 228.86) rotate(180)"/>
+          <rect x="9.85" y="87.19" width="9.85" height="21.45" transform="translate(29.55 195.83) rotate(180)"/>
+          <rect y="44.03" width="9.85" height="43.17" transform="translate(9.85 131.22) rotate(180)"/>
+          <rect x="9.85" y="22.01" width="9.85" height="22.01" transform="translate(29.55 66.04) rotate(180)"/>
+          <rect x="19.7" y="11" width="21.72" height="11.01" transform="translate(61.12 33.02) rotate(180)"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

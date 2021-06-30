@@ -66,6 +66,7 @@ const PoolCard: React.FC<HarvestProps> = ({ pool }) => {
 
   // APY
   const rewardTokenPrice = usePriceMoneyBusd().toNumber(); // prices useGetApiPrice(earningToken.symbol)
+  
   const stakingTokenPrice = 1; // prices useGetApiPrice(stakingToken.symbol)
   const apy = getPoolApy(
     stakingTokenPrice,
@@ -82,7 +83,6 @@ const PoolCard: React.FC<HarvestProps> = ({ pool }) => {
   const stakingTokenBalance = new BigNumber(userData?.stakingTokenBalance || 0)
   const stakedBalance = new BigNumber(userData?.stakedBalance || 0)
   const earnings = new BigNumber(userData?.pendingReward || 0)
-
   const isOldSyrup = stakingToken.symbol === tokens.cake.symbol
   const accountHasStakedBalance = stakedBalance?.toNumber() > 0
   const needsApproval = !accountHasStakedBalance && !allowance.toNumber() && !isBnbPool
@@ -131,7 +131,11 @@ const PoolCard: React.FC<HarvestProps> = ({ pool }) => {
         <Wrapper justifyContent="space-between" alignItems="center" mb="12px">
           <Image src={`/images/farms/${stakingToken.symbol.toLocaleLowerCase()}.svg`} alt={earningToken.symbol} width={150} height={150} />
           <Flex flexDirection="column" alignItems="flex-end">
-            <Heading mb="4px"size='xl'>{stakingToken.symbol}</Heading>
+            {earningToken.symbol === "MONEY" ? 
+              <Heading mb="4px" size='xl' style={{color: "#39c36f"}}>{stakingToken.symbol}</Heading>
+              :
+              <Heading mb="4px" size='xl'  style={{color: "#00e8ff"}}>{stakingToken.symbol}</Heading>
+            } 
             <Flex justifyContent="center">
               <MultiplierTag variant="backgroundRed">{pool.tokenPerBlock}X</MultiplierTag>
             </Flex>
@@ -158,13 +162,13 @@ const PoolCard: React.FC<HarvestProps> = ({ pool }) => {
             />
           )}
         </div> */}
-        <StyledDetails>
+        <StyledRewardDetails>
           <Text>{TranslateString(384, 'Reward Token')}:</Text>
           <Text>{earningToken.symbol}</Text>
-        </StyledDetails>
+        </StyledRewardDetails>
         <StyledDetails>
           <Text>{TranslateString(384, 'Deposit Fee')}:</Text>
-          <Text>{earningToken.symbol === "Money" ? "10%": "5%"}</Text>
+          <Text>{earningToken.symbol === "MONEY" ? "10%": "5%"}</Text>
         </StyledDetails>
         <StyledDetails>
           <Text>{TranslateString(736, 'APR')}:</Text>
@@ -203,6 +207,18 @@ const PoolCard: React.FC<HarvestProps> = ({ pool }) => {
                         />
                       )}
                     </BalanceAndCompound>
+                    {earningToken.symbol === "MONEY" ? (
+                        <Text>{getBalanceNumber(earnings, earningToken.decimals) === 0 ?
+                          0 : 
+                          (
+                            <>
+                            ~ {(getBalanceNumber(earnings, earningToken.decimals) * rewardTokenPrice).toFixed(3)}
+                            </>
+                           )
+                         } USD
+                         </Text>
+                      ) : (<></>)
+                    } 
                     <Flex >
                       <Text bold textTransform="uppercase" color="text" fontSize="20px" pr="3px">
                         {/* TODO: Is there a way to get a dynamic value here from useFarmFromSymbol? */}
@@ -232,6 +248,13 @@ const PoolCard: React.FC<HarvestProps> = ({ pool }) => {
                       onClick={ onPresentDeposit }
                     >
                       {`Stake ${stakingToken.symbol}`}
+                    </Button>
+                    </Flex>
+                    <Flex>
+                    <Button
+                      onClick={ onPresentWithdraw }
+                    >
+                      {`Unstake ${stakingToken.symbol}`}
                     </Button>
                     </Flex>
                   </StyledCardActionsRight>
@@ -322,6 +345,17 @@ const StyledDetails = styled.div`
   justify-content: space-between;
   align-items: center;
   font-size: 14px;
+`
+
+const StyledRewardDetails = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 20px;
+  > div {
+    font-size: 26px;
+    font-width: bold;
+  }
 `
 
 export default PoolCard

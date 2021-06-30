@@ -18,23 +18,28 @@ const config: MenuEntry[] = [
   },
   {
     label: 'Time Pools',
-    icon: 'PoolIcon',
+    icon: 'TimeIcon',
     href: '/timepools',
   },
   {
     label: 'Staking Pools',
-    icon: 'PoolIcon',
+    icon: 'StakeIcon',
     href: '/pools',
   },
   {
     label: 'Money Printer',
-    icon: 'TicketIcon',
+    icon: 'MoneyIcon',
     href: '/moneypools',
   },
   {
-    label: 'Roadmap',
-    icon: 'NftIcon',
+    label: 'Roadmap & Guide',
+    icon: 'DocIcon',
     href: 'https://moneytime.gitbook.io/timeismoney-fi/',
+  },
+  {
+    label: 'Certik Audit(In Progress)',
+    icon: 'AuditIcon',
+    href: 'https://leaderboard.certik.io/projects/moneytime',
   },
 ]
 

@@ -3,10 +3,10 @@ import { TimepoolConfig } from './types'
 
 const timepools: TimepoolConfig[] = [
   {
-    pid: 0,
+    pid: 10,
     lpSymbol: 'TIME',
     lpAddresses: {
-      97: '0x199C1575eFDA2AA79ED043f2743d684c5EddF770',
+      97: '0xdb647d5C797B33b875cc4064ed4446C23D8a5E10',
       56: '',
     },
     token: tokens.time,
@@ -14,10 +14,10 @@ const timepools: TimepoolConfig[] = [
     lockPeriod: '4 Hours'
   },
   {
-    pid: 1,
+    pid: 11,
     lpSymbol: 'TIME',
     lpAddresses: {
-      97: '0x199C1575eFDA2AA79ED043f2743d684c5EddF770',
+      97: '0xdb647d5C797B33b875cc4064ed4446C23D8a5E10',
       56: '',
     },
     token: tokens.time,
@@ -25,10 +25,10 @@ const timepools: TimepoolConfig[] = [
     lockPeriod: '1 Day'
   },
   {
-    pid: 2,
+    pid: 12,
     lpSymbol: 'TIME',
     lpAddresses: {
-      97: '0x199C1575eFDA2AA79ED043f2743d684c5EddF770',
+      97: '0xdb647d5C797B33b875cc4064ed4446C23D8a5E10',
       56: '',
     },
     token: tokens.time,
@@ -36,10 +36,10 @@ const timepools: TimepoolConfig[] = [
     lockPeriod: '3 Days'
   },
   {
-    pid: 3,
+    pid: 13,
     lpSymbol: 'TIME',
     lpAddresses: {
-      97: '0x199C1575eFDA2AA79ED043f2743d684c5EddF770',
+      97: '0xdb647d5C797B33b875cc4064ed4446C23D8a5E10',
       56: '',
     },
     token: tokens.time,
@@ -47,10 +47,10 @@ const timepools: TimepoolConfig[] = [
     lockPeriod: '1 Week'
   },
   {
-    pid: 4,
+    pid: 14,
     lpSymbol: 'TIME',
     lpAddresses: {
-      97: '0x199C1575eFDA2AA79ED043f2743d684c5EddF770',
+      97: '0xdb647d5C797B33b875cc4064ed4446C23D8a5E10',
       56: '',
     },
     token: tokens.time,
@@ -58,10 +58,10 @@ const timepools: TimepoolConfig[] = [
     lockPeriod: '2 Weeks'
   },
   {
-    pid: 5,
+    pid: 15,
     lpSymbol: 'TIME',
     lpAddresses: {
-      97: '0x199C1575eFDA2AA79ED043f2743d684c5EddF770',
+      97: '0xdb647d5C797B33b875cc4064ed4446C23D8a5E10',
       56: '',
     },
     token: tokens.time,

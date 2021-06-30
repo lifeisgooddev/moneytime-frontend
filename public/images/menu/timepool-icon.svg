@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 82.23 127.84">
+  <g id="Camada_2" data-name="Camada 2">
+    <g id="Camada_1-2" data-name="Camada 1">
+      <g>
+        <rect x="73.25" y="27.29" width="8.98" height="8.98" style="fill: #fff"/>
+        <rect x="26.93" y="36.27" width="28.37" height="64.28" style="fill: #fdf0a7"/>
+        <rect x="8.98" y="36.27" width="64.27" height="8.98" style="fill: #fdf0a7"/>
+        <g>
+          <path d="M9,0H0V36.27H9v9h9v-9H9v-9H73.25v9h-9v9h9v-8.8h9V0ZM73.25,18.31H9V9H73.25Z"/>
+          <rect x="17.95" y="45.25" width="8.98" height="8.98"/>
+          <polygon points="55.3 54.23 46.32 54.23 46.32 72.72 55.3 72.72 55.3 54.23 64.27 54.23 64.27 45.25 55.3 45.25 55.3 54.23"/>
+          <rect x="26.93" y="54.23" width="8.98" height="18.49"/>
+          <rect x="17.95" y="72.72" width="8.98" height="8.98"/>
+          <rect x="55.3" y="72.72" width="8.98" height="8.98"/>
+          <path d="M73.25,90.68v9.87H9V90.68h9v-9H9v9H0v37.16H82.23v-9h0v-9.34h0v-9h0V90.68h-9v-9h-9v9Zm0,28.19H9v-9.34H73.25Z"/>
+        </g>
+        <rect x="8.98" y="27.29" width="64.27" height="8.98" style="fill: #26b7ba"/>
+        <rect x="8.98" y="8.98" width="64.27" height="9.34" style="fill: #fee01b"/>
+        <rect x="8.98" y="91.57" width="64.27" height="8.98" style="fill: #fdf0a7"/>
+        <polygon points="64.46 91.22 64.46 81.88 55.66 81.88 55.66 72.72 46.32 72.72 46.32 82.06 55.12 82.06 55.12 91.22 63.92 91.22 63.92 100.55 73.25 100.55 73.25 91.22 64.46 91.22" style="fill: #26b7ba"/>
+        <polygon points="17.77 91.22 17.77 81.88 26.57 81.88 26.57 72.72 35.9 72.72 35.9 82.06 27.1 82.06 27.1 91.22 18.31 91.22 18.31 100.55 8.97 100.55 8.97 91.22 17.77 91.22" style="fill: #26b7ba"/>
+        <rect x="8.98" y="109.53" width="64.27" height="9.34" style="fill: #fee01b"/>
+      </g>
+    </g>
+  </g>
+</svg>

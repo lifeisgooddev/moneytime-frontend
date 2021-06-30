@@ -71,16 +71,7 @@ const CardActions: React.FC<FarmCardActionsProps> = ({ farm, account, addLiquidi
         tokenBalance={tokenBalance}
         tokenName={lpName}
         addLiquidityUrl={addLiquidityUrl}/>
-      <Flex>
-        <Text bold textTransform="uppercase" color="text" fontSize="20px" pr="3px">
-          {/* TODO: Is there a way to get a dynamic value here from useFarmFromSymbol? */}
-          Money {pid > 3 ? ", Busd" : ""}
-        </Text>
-        <Text color="text" fontSize="18px">
-          {TranslateString(1072, 'earned')}
-        </Text>
-
-      </Flex>
+      
       {!account ? <UnlockButton mt="8px" width="100%" /> : renderApprovalOrStakeButton()}
     </Action>
   )
