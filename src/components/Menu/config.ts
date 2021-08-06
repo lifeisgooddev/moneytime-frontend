@@ -7,9 +7,19 @@ const config: MenuEntry[] = [
     href: '/',
   },
   {
-    label: 'Exchange',
+    label: 'Trade',
     icon: 'TradeIcon',
-    href: 'https://swap.moneytime.finance',
+    initialOpenState: true,
+    items: [
+      {
+        label: 'Exchange',
+        href: 'https://swap-testnet.moneytime.finance/swap'
+      },
+      {
+        label: 'Liquidity',
+        href: 'https://swap-testnet.moneytime.finance/pool'
+      }
+    ]
   },
   {
     label: 'Farming Pools',
