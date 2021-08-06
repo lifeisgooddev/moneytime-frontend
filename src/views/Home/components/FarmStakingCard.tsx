@@ -8,6 +8,7 @@ import useFarmsWithBalance from 'hooks/useFarmsWithBalance'
 import UnlockButton from 'components/UnlockButton'
 import MoneyHarvestBalance from './MoneyHarvestBalance'
 import MoneyLockedBalance from './MoneyLockedBalance'
+import MoneyLockedMoneyPrinterBalance from './MoneyLockedMoneyPrinterBalance'
 import TimeHarvestBalance from './TimeHarvestBalance'
 import MoneyWalletBalance from './MoneyWalletBalance'
 import TimeWalletBalance from './TimeWalletBalance'
@@ -106,11 +107,15 @@ const FarmedStakingCard = () => {
           <div>
             <Block>
               <MoneyHarvestBalance />
-              <Label>{TranslateString(544, 'MONEY to Harvest')}:</Label>
+              <Label>{TranslateString(544, 'Unlocked MONEY reward claimable')}:</Label>
             </Block>
             <Block>
               <MoneyLockedBalance />
               <Label>{TranslateString(544, 'MONEY reward locked in TimePools')}:</Label>
+            </Block>
+            <Block>
+              <MoneyLockedMoneyPrinterBalance />
+              <Label>{TranslateString(544, 'MONEY reward locked in Money printer')}:</Label>
             </Block>
             <Block>
               <MoneyWalletBalance />
@@ -136,7 +141,7 @@ const FarmedStakingCard = () => {
                   width="100%"
                 >
                   {pendingTx
-                    ? TranslateString(548, 'Collecting CAKE')
+                    ? TranslateString(548, 'Collecting TIME')
                     : TranslateString(532, `Harvest all Time Reward (${balancesWithValue.length})`, {
                         count: balancesWithValue.length,
                       })}

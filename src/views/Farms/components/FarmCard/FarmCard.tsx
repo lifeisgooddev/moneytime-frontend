@@ -7,7 +7,7 @@ import { Farm } from 'state/types'
 import { provider as ProviderType } from 'web3-core'
 import useI18n from 'hooks/useI18n'
 import ExpandableSectionButton from 'components/ExpandableSectionButton'
-import { BASE_ADD_LIQUIDITY_URL } from 'config'
+import { BASE_ADD_LIQUIDITY_URL, BASE_URL } from 'config'
 import getLiquidityUrlPathParts from 'utils/getLiquidityUrlPathParts'
 import { useFarmFromSymbol, useFarmUser } from 'state/hooks'
 import { getBalanceNumber } from 'utils/formatBalance'
@@ -94,9 +94,10 @@ interface FarmCardProps {
   moneyPrice?: BigNumber
   provider?: ProviderType
   account?: string
+  currentTime?: number
 }
 
-const FarmCard: React.FC<FarmCardProps> = ({ farm, removed, moneyPrice, account }) => {
+const FarmCard: React.FC<FarmCardProps> = ({ farm, removed, moneyPrice, account, currentTime }) => {
   const TranslateString = useI18n()
   const { pid } = useFarmFromSymbol(farm.lpSymbol)
   const { allowance, tokenBalance, stakedBalance, earnings } = useFarmUser(pid)
@@ -158,7 +159,7 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm, removed, moneyPrice, account 
         <Text>{TranslateString(318, 'Your stake')}:</Text>
         <Text>{displayBalance} LP</Text>
       </Flex>
-      <CardActionsContainer farm={farm} account={account} addLiquidityUrl={addLiquidityUrl} />
+      <CardActionsContainer farm={farm} account={account} addLiquidityUrl={addLiquidityUrl} currentTime={currentTime}/>
       <Divider />
       <ExpandableSectionButton
         onClick={() => setShowExpandableSection(!showExpandableSection)}

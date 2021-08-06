@@ -1,7 +1,7 @@
 {
-  "short_name": "PancakeSwap",
-  "name": "PancakeSwap",
-  "description": "Farm CAKE with Pancake LP Tokens",
+  "short_name": "MoneyTimeFinance",
+  "name": "MoneyTimeFinance",
+  "description": "Farm MONEY with MonyTime LP Tokens",
   "icons": [
     {
       "src": "favicon.ico",

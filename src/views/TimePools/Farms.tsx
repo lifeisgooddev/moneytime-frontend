@@ -146,7 +146,7 @@ const HeadDiv = styled.div`
     }
   }
   ${({ theme }) => theme.mediaQueries.xxl} {
-    margin-top:-400px;
+    margin-top:-450px;
     & h2:first-child {
       color: #ae0108;
     }
@@ -174,6 +174,32 @@ const HeadImg1 = styled.img`
   float:right;
   margin-right: 130px;
 `
+const BoxHeading = styled.div`
+  background-image:none;  
+  ${({ theme }) => theme.mediaQueries.sm} {
+    background-image: url(/images/box-m.svg);
+    padding-top: 55px;
+    padding-bottom: 1px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 100%;
+    margin: auto;
+    max-width: 825px;
+  }
+`
+const calculateRemainingTime = (startTime:any, endTime:any) => {
+  if(endTime <= startTime)
+    return `0h 0m 0s`;
+  const totalSeconds     =  Math.floor((endTime - startTime)/1000);
+  const totalMinutes     = Math.floor(totalSeconds/60);
+  const totalHours       = Math.floor(totalMinutes/60);
+
+  const minutes = totalMinutes - ( totalHours * 60 );
+  const seconds = totalSeconds - ( totalMinutes * 60 );
+
+  return `${totalHours}h ${minutes}m ${seconds}s`;
+}
 
 const Farms: React.FC = () => {
   const { path } = useRouteMatch()
@@ -188,6 +214,16 @@ const Farms: React.FC = () => {
   const [sortOption, setSortOption] = useState('hot')
   const dispatch = useDispatch()
   const { fastRefresh } = useRefresh()
+  const [currentTime, setCurrentTime] = useState(new Date());
+  
+  useEffect(() => {
+    // if(currentTime.getTime() <=  +process.env.REACT_APP_END_COUNTDOWN ) {
+      const interval= setInterval(() => setCurrentTime(new Date()), 1000);
+      return () => {
+        clearInterval(interval);
+      }
+    // }
+  }, [])
   useEffect(() => {
     if (account) {
       dispatch(fetchTimepoolUserDataAsync(account))
@@ -376,8 +412,14 @@ const Farms: React.FC = () => {
         <HeadImg1 alt="devilcoin" width="20px" height="330px" src="/images/rabbitboss.svg" />
       </Header>
       <HeadDiv>
-          <Heading mb="20px" size='lg'>Stake $TIME earn $MONEY. After unlock your reward, 100% of your $TIME<br/>staked are burned when withdraw, IF YOU UNSTAKE<br/>BEFORE UNLOCK YOUR REWARD, 25% OF YOUR $TIME<br/>STAKED ARE BURNED and NO $MONEY REWARD MINTED.</Heading>
-          <Heading mb="20px" size='lg'> CAUTION: After reward unlocked, user must unstake 100% of staked $TIME<br/> for earn $MONEY reward. (Harvest not allowed)</Heading>
+          <Heading mb="20px" size='xl'>PreFarm end & Money token release in : {calculateRemainingTime(currentTime.getTime(), +process.env.REACT_APP_END_COUNTDOWN)}</Heading>
+          <BoxHeading>
+            <Heading mb="20px" size='lg'>Stake $TIME earn $MONEY. After unlock your reward, 100% of your $TIME staked are burned when withdraw, <br/> IF YOU UNSTAKE BEFORE UNLOCK YOUR REWARD, <br/> 25% OF YOUR $TIME STAKED ARE BURNED and NO $MONEY REWARD EARNED.</Heading>
+          </BoxHeading>
+          <BoxHeading>
+            <Heading mb="20px" size='lg'> CAUTION: After reward unlocked,<br/> user must unstake 100% of staked $TIME <br/> to earn $MONEY reward. (Harvest not allowed)</Heading>
+          </BoxHeading>
+          {/* <Heading mb="20px" size='xl'>MONEY Reward start 2 july 9pm UTC</Heading> */}
           <ControlContainer>
             <ViewControls>
               <ToggleWrapper>
@@ -389,7 +431,6 @@ const Farms: React.FC = () => {
           </ControlContainer>
       </HeadDiv>
       <Page>
-
         {renderContent()}
       </Page>
     </>

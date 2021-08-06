@@ -128,6 +128,8 @@ const PoolCard: React.FC<HarvestProps> = ({ pool }) => {
     <Card isActive={isCardActive} isFinished={isFinished && pId !== 0}>
       {isFinished && pId !== 0 && <PoolFinishedSash />}
       <div style={{ padding: '24px' }}>
+        {/* {earningToken.symbol === "MONEY" ?<Heading mb="20px" size='xl'>MONEY Reward start 2 july 9pm UTC</Heading> : <></>} */}
+        
         <Wrapper justifyContent="space-between" alignItems="center" mb="12px">
           <Image src={`/images/farms/${stakingToken.symbol.toLocaleLowerCase()}.svg`} alt={earningToken.symbol} width={150} height={150} />
           <Flex flexDirection="column" alignItems="flex-end">
@@ -164,7 +166,12 @@ const PoolCard: React.FC<HarvestProps> = ({ pool }) => {
         </div> */}
         <StyledRewardDetails>
           <Text>{TranslateString(384, 'Reward Token')}:</Text>
-          <Text>{earningToken.symbol}</Text>
+          {earningToken.symbol === "MONEY" ? (
+            <Text  style={{color: "#39c36f"}}>{earningToken.symbol}</Text>
+            ) : (
+              <Text  style={{color: "#00e8ff"}}>{earningToken.symbol}</Text>
+            )
+          }
         </StyledRewardDetails>
         <StyledDetails>
           <Text>{TranslateString(384, 'Deposit Fee')}:</Text>
@@ -182,87 +189,83 @@ const PoolCard: React.FC<HarvestProps> = ({ pool }) => {
           <Text>{TranslateString(384, 'Your Stake')}:</Text>
           <Text>{getBalanceNumber(stakedBalance, stakingToken.decimals)} {stakingToken.symbol}</Text>
         </StyledDetails>
+          <div>
+            {!account && <UnlockButton  width="100%"/>}
+            {account &&
+              (needsApproval ? (
+                <div style={{ flex: 1 }}>
+                  {earningToken.symbol === "MONEY" ? ( 
+                  <Button disabled onClick={handleApprove} width="100%">
+                    {`Approve ${stakingToken.symbol}`}
+                  </Button> ) : (
+                  <Button disabled={isFinished || requestedApproval} onClick={handleApprove} width="100%">
+                    {`Approve ${stakingToken.symbol}`}
+                  </Button>
+                  )}
+                </div>
+              ) : (
+                <>
 
-        <div>
-          {!account && <UnlockButton  width="100%"/>}
-          {account &&
-            (needsApproval ? (
-              <div style={{ flex: 1 }}>
-                <Button disabled={isFinished || requestedApproval} onClick={handleApprove} width="100%">
-                  {`Approve ${stakingToken.symbol}`}
-                </Button>
-              </div>
-            ) : (
-              <>
+                  <StyledCardActions>
+                    <StyledCardActionsLeft>
+                      <BalanceAndCompound>
+                        <Balance value={getBalanceNumber(earnings, earningToken.decimals)} isDisabled={isFinished} />
+                      </BalanceAndCompound>
+                      {earningToken.symbol === "MONEY" ? (
+                          <Text>{getBalanceNumber(earnings, earningToken.decimals) === 0 ?
+                            0 : 
+                            (
+                              <>
+                              ~ {(getBalanceNumber(earnings, earningToken.decimals) * rewardTokenPrice).toFixed(3)}
+                              </>
+                            )
+                          } USD
+                          </Text>
+                        ) : (<></>)
+                      } 
+                      <Flex >
+                        <Text bold textTransform="uppercase" color="text" fontSize="20px" pr="3px">
+                          {/* TODO: Is there a way to get a dynamic value here from useFarmFromSymbol? */}
+                          {earningToken.symbol}
+                        </Text>
+                        <Text color="text" fontSize="18px">
+                          {TranslateString(1072, 'earned')}
+                        </Text>
+                      </Flex>
+                    </StyledCardActionsLeft>
+                    <StyledCardActionsRight>
+                      <Flex>
+                      <Button
+                        disabled={!earnings.toNumber() || pendingTx}
+                        onClick={async () => {
+                          setPendingTx(true)
+                          await onReward()
+                          setPendingTx(false)
+                        }}
+                      >
+                      Harvest
+                      </Button>
+                      </Flex>
 
-                <StyledCardActions>
-                  <StyledCardActionsLeft>
-                    <BalanceAndCompound>
-                      <Balance value={getBalanceNumber(earnings, earningToken.decimals)} isDisabled={isFinished} />
-                      {pId === 0 && account && harvest && (
-                        <HarvestButton
-                          disabled={!earnings.toNumber() || pendingTx}
-                          text={pendingTx ? TranslateString(999, 'Compounding') : TranslateString(704, 'Compound')}
-                          onClick={onPresentCompound}
-                        />
-                      )}
-                    </BalanceAndCompound>
-                    {earningToken.symbol === "MONEY" ? (
-                        <Text>{getBalanceNumber(earnings, earningToken.decimals) === 0 ?
-                          0 : 
-                          (
-                            <>
-                            ~ {(getBalanceNumber(earnings, earningToken.decimals) * rewardTokenPrice).toFixed(3)}
-                            </>
-                           )
-                         } USD
-                         </Text>
-                      ) : (<></>)
-                    } 
-                    <Flex >
-                      <Text bold textTransform="uppercase" color="text" fontSize="20px" pr="3px">
-                        {/* TODO: Is there a way to get a dynamic value here from useFarmFromSymbol? */}
-                        {earningToken.symbol}
-                      </Text>
-                      <Text color="text" fontSize="18px">
-                        {TranslateString(1072, 'earned')}
-                      </Text>
-                    </Flex>
-                  </StyledCardActionsLeft>
-                  <StyledCardActionsRight>
-                    <Flex>
-                    <Button
-                      disabled={!earnings.toNumber() || pendingTx}
-                      onClick={async () => {
-                        setPendingTx(true)
-                        await onReward()
-                        setPendingTx(false)
-                      }}
-                    >
-                    Harvest
-                    </Button>
-                    </Flex>
-
-                    <Flex>
-                    <Button
-                      onClick={ onPresentDeposit }
-                    >
-                      {`Stake ${stakingToken.symbol}`}
-                    </Button>
-                    </Flex>
-                    <Flex>
-                    <Button
-                      onClick={ onPresentWithdraw }
-                    >
-                      {`Unstake ${stakingToken.symbol}`}
-                    </Button>
-                    </Flex>
-                  </StyledCardActionsRight>
-                </StyledCardActions>
-              </>
-            ))}
-        </div>
-
+                      <Flex>
+                      <Button
+                        onClick={ onPresentDeposit }
+                      >
+                        {`Stake ${stakingToken.symbol}`}
+                      </Button>
+                      </Flex>
+                      <Flex>
+                      <Button
+                        onClick={ onPresentWithdraw }
+                      >
+                        {`Unstake ${stakingToken.symbol}`}
+                      </Button>
+                      </Flex>
+                    </StyledCardActionsRight>
+                  </StyledCardActions>
+                </>
+              ))}
+          </div>
       </div>
       <CardFooter
         projectLink={earningToken.projectLink}

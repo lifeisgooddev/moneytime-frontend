@@ -2,7 +2,26 @@ import tokens from './tokens'
 import { FarmConfig } from './types'
 
 const farms: FarmConfig[] = [
-  
+  {
+    pid: 20,
+    lpSymbol: 'MONEY-BNB LP',
+    lpAddresses: {
+      97: '0x668CE763aD876E019aa207075c2aae9297500b74',
+      56: '',
+    },
+    token: tokens.money,
+    quoteToken: tokens.wbnb,
+  },
+  {
+    pid: 21,
+    lpSymbol: 'MONEY-BUSD LP',
+    lpAddresses: {
+      97: '0x7021884D944149577a176338a7f4ec7b1Ea0b471',
+      56: '',
+    },
+    token: tokens.money,
+    quoteToken: tokens.busd,
+  },
   {
     pid: 0,
     lpSymbol: 'BNB-BUSD LP',
@@ -25,6 +44,16 @@ const farms: FarmConfig[] = [
   },
   {
     pid: 2,
+    lpSymbol: 'GLTO-BUSD LP',
+    lpAddresses: {
+      97: '0x4e4B208f11Ba24DfE67DA6d7583f1c305ca15a9C',
+      56: '',
+    },
+    token: tokens.glto,
+    quoteToken: tokens.wbnb,
+  },
+  {
+    pid: 3,
     lpSymbol: 'BTCB-BNB LP',
     lpAddresses: {
       97: '0x2563aebafb08e6a8db5a06f1da0da700756feece',
@@ -34,7 +63,7 @@ const farms: FarmConfig[] = [
     quoteToken: tokens.wbnb,
   },
   {
-    pid: 3,
+    pid: 4,
     lpSymbol: 'ETH-BNB LP',
     lpAddresses: {
       97: '0x6f4e54794f43622c4a244bb1a40f27ee37f93c76',
@@ -44,7 +73,7 @@ const farms: FarmConfig[] = [
     quoteToken: tokens.wbnb,
   },
   {
-    pid: 4,
+    pid: 5,
     lpSymbol: 'DOT-BNB LP',
     lpAddresses: {
       97: '0x2076147fe616bafadabe72b50634199375bb2d92',
@@ -54,7 +83,7 @@ const farms: FarmConfig[] = [
     quoteToken: tokens.wbnb,
   },
   {
-    pid: 5,
+    pid: 6,
     lpSymbol: 'CAKE-BNB LP',
     lpAddresses: {
       97: '0x16e8110e7a0cd5fa1ce1cad318ebfdf85344bbd6',
@@ -64,7 +93,7 @@ const farms: FarmConfig[] = [
     quoteToken: tokens.wbnb,
   },
   {
-    pid: 6,
+    pid: 7,
     lpSymbol: 'USDT-BUSD LP',
     lpAddresses: {
       97: '0xa51d08793ebfa0b69b477109db999ed0a9faceed',
@@ -74,17 +103,17 @@ const farms: FarmConfig[] = [
     quoteToken: tokens.busd,
   },
   {
-    pid: 20,
+    pid: 8,
     lpSymbol: 'USDC-BUSD LP',
     lpAddresses: {
-      97: '0xe3d47962986003b31b2be49b1b59280a5ceae9e7',
+      97: '0x2b14e327c01107813a80ec4f273f7765fccaadd3',
       56: '',
     },
     token: tokens.usdc,
     quoteToken: tokens.busd,
   },
   {
-    pid: 7,
+    pid: 9,
     lpSymbol: 'DAI-BUSD LP',
     lpAddresses: {
       97: '0x2b2e3fa83b47f4a25b8fe7fce786ad008710bdf4',
@@ -92,27 +121,8 @@ const farms: FarmConfig[] = [
     },
     token: tokens.dai,
     quoteToken: tokens.busd,
-  },
-  {
-    pid: 18,
-    lpSymbol: 'MONEY-BNB LP',
-    lpAddresses: {
-      97: '0xfcb00e4e29bb45fdf954a8b0d45c0e136e4f5729',
-      56: '',
-    },
-    token: tokens.money,
-    quoteToken: tokens.wbnb,
-  },
-  {
-    pid: 19,
-    lpSymbol: 'MONEY-BUSD LP',
-    lpAddresses: {
-      97: '0x59d1b0e655b844316e7d679841e6e5e04298fc3b',
-      56: '',
-    },
-    token: tokens.money,
-    quoteToken: tokens.busd,
   }
+  
 ]
 
 export default farms

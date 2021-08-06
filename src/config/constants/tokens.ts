@@ -7,7 +7,7 @@ const tokens = {
     symbol: 'MONEY',
     address: {
       56: '',
-      97: '0xfc64A462F881A300C999a3fFB141a78b3687d947',
+      97: '0x95a96Aa9D1E1334200d1F6448930366595737c9b',
     },
     decimals: 18,
     projectLink: 'https://moneytime.finance/',
@@ -16,7 +16,7 @@ const tokens = {
     symbol: 'TIME',
     address: {
       56: '',
-      97: '0xdb647d5C797B33b875cc4064ed4446C23D8a5E10',
+      97: '0xc89aBA08DFC0996931Da81D1dC01f0E4A4bCEaBB',
     },
     decimals: 18,
     projectLink: 'https://moneytime.finance/',
@@ -88,7 +88,7 @@ const tokens = {
     symbol: 'USDC',
     address: {
       56: '',
-      97: '0x16227D60f7a0e586C66B005219dfc887D13C9531',
+      97: '0x64544969ed7ebf5f083679233325356ebe738930',
     },
     decimals: 18,
     projectLink: 'https://moneytime.finance/',

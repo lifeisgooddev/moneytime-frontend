@@ -170,6 +170,32 @@ const HeadImg1 = styled.img`
   float:right;
 `
 
+const BoxHeading = styled.div`
+  background-image:none;  
+  ${({ theme }) => theme.mediaQueries.sm} {
+    background-image: url(/images/box-m.svg);
+    padding-top: 55px;
+    padding-bottom: 1px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 100%;
+    margin: auto;
+    max-width: 825px;
+  }
+`
+const calculateRemainingTime = (startTime:any, endTime:any) => {
+  if(endTime <= startTime)
+    return `0h 0m 0s`;
+  const totalSeconds     =  Math.floor((endTime - startTime)/1000);
+  const totalMinutes     = Math.floor(totalSeconds/60);
+  const totalHours       = Math.floor(totalMinutes/60);
+
+  const minutes = totalMinutes - ( totalHours * 60 );
+  const seconds = totalSeconds - ( totalMinutes * 60 );
+
+  return `${totalHours}h ${minutes}m ${seconds}s`;
+}
 
 const Farms: React.FC = () => {
   const { path } = useRouteMatch()
@@ -183,6 +209,16 @@ const Farms: React.FC = () => {
   const [sortOption, setSortOption] = useState('hot')
   const dispatch = useDispatch()
   const { fastRefresh } = useRefresh()
+  const [currentTime, setCurrentTime] = useState(new Date());
+  
+  useEffect(() => {
+    // if(currentTime.getTime() <=  +process.env.REACT_APP_END_COUNTDOWN ) {
+      const interval= setInterval(() => setCurrentTime(new Date()), 1000);
+      return () => {
+        clearInterval(interval);
+      }
+    // }
+  }, [])
   useEffect(() => {
     if (account) {
       dispatch(fetchMoneypoolUserDataAsync(account))
@@ -362,8 +398,14 @@ const Farms: React.FC = () => {
         <HeadImg1 alt="devilcoin" width="330px" height="330px" src="/images/casinochip.svg" />
       </Header>
       <HeadDiv>
-          <Heading mb="20px" size='lg'>Stake $MONEY earn $MONEY! 5% Deposit fees to be burned. <br/> Reward locked for 72h. If withdraw before 72h, 5% withdraw fees to be burned.</Heading>
-          <Heading mb="20px" size='lg'>CAUTION: After 72h if User want collect the reward, <br/> he must unstake 100% of his $MONEY stake for earn the $MONEY reward.</Heading>
+          <Heading mb="20px" size='lg'>PreFarm end & Money token release in : {calculateRemainingTime(currentTime.getTime(), +process.env.REACT_APP_END_COUNTDOWN)}</Heading>
+          <BoxHeading>
+            <Heading mb="20px" size='lg'>Stake $MONEY earn $MONEY! 5% Deposit fees to be burned. <br/> Reward locked for 72h. If withdraw before 72h, 5% withdraw fees <br/>to be burned.</Heading>
+          </BoxHeading>
+          <BoxHeading>
+            <Heading mb="20px" size='lg'>CAUTION: After 72h, you can collect your rewards <br/> ONLY by unstaking 100% of your $MONEY staked.</Heading>
+          </BoxHeading>
+          {/* <Heading mb="20px" size='xl'>MONEY Reward start 2 july 9pm UTC</Heading> */}
           <ControlContainer>
             <ViewControls>
               <ToggleWrapper>

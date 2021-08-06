@@ -237,7 +237,7 @@ export const useAchievements = () => {
 
 
 export const usePriceMoneyBusd = (): BigNumber => {
-  const pid = 18 // CAKE-BNB LP
+  const pid = 20 // CAKE-BNB LP
   const bnbPriceUSD = usePriceBnbBusd()
   const farm = useFarmFromPid(pid)
   return farm.tokenPriceVsQuote ? bnbPriceUSD.times(farm.tokenPriceVsQuote) : ZERO;

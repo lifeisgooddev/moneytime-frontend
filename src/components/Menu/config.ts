@@ -9,7 +9,7 @@ const config: MenuEntry[] = [
   {
     label: 'Exchange',
     icon: 'TradeIcon',
-    href: 'https://swap.moneytime.finance',
+    href: 'https://thewapdev.github.io',
   },
   {
     label: 'Farming Pools',

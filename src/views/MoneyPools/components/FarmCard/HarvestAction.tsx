@@ -8,7 +8,7 @@ import {useStakeMoney} from 'hooks/useStake'
 import {useUnstakeMoney} from 'hooks/useUnstake'
 import { getBalanceNumber } from 'utils/formatBalance'
 import { useWeb3React } from '@web3-react/core'
-import { usePriceMoneyBusd } from 'state/hooks'
+import { usePriceMoneyBusd, useMoneypoolUser } from 'state/hooks'
 
 import DepositModal from '../DepositModal'
 import WithdrawModal from '../WithdrawModal'
@@ -48,12 +48,14 @@ const HarvestAction: React.FC<FarmCardActionsProps> = ({
   const TranslateString = useI18n()
   const [pendingTx, setPendingTx] = useState(false)
   const { onReward } = useHarvestMoney(pid, "MONEY")
-
+  const { allowance } = useMoneypoolUser(pid)
   const rawEarningsBalance = account ? getBalanceNumber(earnings) : 0
   const displayBalance = rawEarningsBalance.toLocaleString()
   const moneyPrice = usePriceMoneyBusd();
 
   const rawStakedBalance = getBalanceNumber(stakedBalance)
+
+  const isApproved = account && allowance && allowance.isGreaterThan(0)
 
   const [onPresentDeposit] = useModal(
     <DepositModal max={tokenBalance} onConfirm={onStake} tokenName={tokenName} addLiquidityUrl={addLiquidityUrl} />,
@@ -64,7 +66,7 @@ const HarvestAction: React.FC<FarmCardActionsProps> = ({
 
   const renderStakingButtons = () => {
     return rawStakedBalance === 0 ? (
-      <Button onClick={onPresentDeposit}>{TranslateString(999, 'Stake MONEY')}</Button>
+      <Button disabled onClick={onPresentDeposit}>{TranslateString(999, 'Stake MONEY')}</Button>
     ) : (
       <IconButtonWrapper>
         <IconButton variant="tertiary" onClick={onPresentWithdraw} mr="6px">
@@ -92,7 +94,7 @@ const HarvestAction: React.FC<FarmCardActionsProps> = ({
           } USD</Text>
       </Flex>
       </div>
-      {account? renderStakingButtons(): ""}
+      {account && isApproved? renderStakingButtons(): ""}
     </Flex>
   )
 }

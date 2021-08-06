@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import styled from 'styled-components'
 import BigNumber from 'bignumber.js'
 import { Button, Flex, Heading, IconButton, AddIcon, MinusIcon, useModal } from '@pancakeswap-libs/uikit'
@@ -15,6 +15,7 @@ interface FarmCardActionsProps {
   tokenName?: string
   pid?: number
   addLiquidityUrl?: string
+  currentTime?: number
 }
 
 const IconButtonWrapper = styled.div`
@@ -30,11 +31,12 @@ const StakeAction: React.FC<FarmCardActionsProps> = ({
   tokenName,
   pid,
   addLiquidityUrl,
+  currentTime
 }) => {
   const TranslateString = useI18n()
   const { onStake } = useStakeTime(pid)
   const { onUnstake } = useUnstakeTime(pid)
-
+  const [disable, setDisable] = useState(true);
   const rawStakedBalance = getBalanceNumber(stakedBalance)
   const displayBalance = rawStakedBalance.toLocaleString()
   const [onPresentDeposit] = useModal(
@@ -43,7 +45,16 @@ const StakeAction: React.FC<FarmCardActionsProps> = ({
   const [onPresentWithdraw] = useModal(
     <WithdrawModal max={stakedBalance} onConfirm={onUnstake} tokenName={tokenName} />,
   )
-
+  useEffect(() => {
+    if(currentTime < +process.env.REACT_APP_END_COUNTDOWN)
+    {
+      setDisable(true);
+    }
+    else{
+      setDisable(false);
+    }
+  }, [currentTime]);
+  
   const renderStakingButtons = () => {
     return rawStakedBalance === 0 ? (
       <Button onClick={onPresentDeposit}>{TranslateString(999, 'Stake LP')}</Button>

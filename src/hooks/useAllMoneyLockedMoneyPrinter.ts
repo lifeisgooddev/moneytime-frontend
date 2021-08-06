@@ -7,21 +7,13 @@ import timepoolsConfig from 'config/constants/timepools'
 import moneypoolsConfig from 'config/constants/moneypools'
 import useRefresh from './useRefresh'
 
-const useAllMoneyLocked = () => {
+const useAllMoneyLockedMoneyPrinter = () => {
   const [balances, setBalance] = useState([])
   const { account } = useWeb3React()
   const { fastRefresh } = useRefresh()
 
   useEffect(() => {
     const fetchAllBalances = async () => {
-
-      const callsTimePool = timepoolsConfig.map((pool) => ({
-        address: getMasterChefMoneyAddress(),
-        name: 'pendingReward',
-        params: [pool.pid, account],
-      }))
-      
-      const resTimePool = await multicall(masterChefABI, callsTimePool)
 
       const callsMoneyPool = moneypoolsConfig.map((pool) => ({
         address: getMasterChefMoneyAddress(),
@@ -30,7 +22,7 @@ const useAllMoneyLocked = () => {
       }))
       
       const resMoneyPool = await multicall(masterChefABI, callsMoneyPool)
-      const res = [...resTimePool.map(pool => [pool[0]]), ...resMoneyPool.map(pool => [pool[0]])];
+      const res = [...resMoneyPool.map(pool => [pool[0]])];
       setBalance(res)
     }
 
@@ -42,4 +34,4 @@ const useAllMoneyLocked = () => {
   return balances
 }
 
-export default useAllMoneyLocked
+export default useAllMoneyLockedMoneyPrinter

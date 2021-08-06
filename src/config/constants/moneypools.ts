@@ -6,7 +6,7 @@ const moneypools: MoneypoolConfig[] = [
     pid: 16,
     lpSymbol: 'MONEY',
     lpAddresses: {
-      97: '0xfc64A462F881A300C999a3fFB141a78b3687d947',
+      97: '0x95a96Aa9D1E1334200d1F6448930366595737c9b',
       56: '',
     },
     token: tokens.money,

@@ -144,7 +144,7 @@ const HeadDiv = styled.div`
     }
   }
   ${({ theme }) => theme.mediaQueries.xxl} {
-    margin-top:-400px;
+    margin-top:-450px;
     & h2:first-child{
       color: #ae0108;
     }
@@ -182,9 +182,21 @@ const BoxHeading = styled.div`
     background-position: center;
     width: 100%;
     margin: auto;
-    max-width: 860px;
+    max-width: 735px;
   }
 `
+const calculateRemainingTime = (startTime:any, endTime:any) => {
+  if(endTime <= startTime)
+    return `0h 0m 0s`;
+  const totalSeconds     =  Math.floor((endTime - startTime)/1000);
+  const totalMinutes     = Math.floor(totalSeconds/60);
+  const totalHours       = Math.floor(totalMinutes/60);
+
+  const minutes = totalMinutes - ( totalHours * 60 );
+  const seconds = totalSeconds - ( totalMinutes * 60 );
+
+  return `${totalHours}h ${minutes}m ${seconds}s`;
+}
 
 const Farms: React.FC = () => {
   const { path } = useRouteMatch()
@@ -199,6 +211,17 @@ const Farms: React.FC = () => {
   const [sortOption, setSortOption] = useState('hot')
   const dispatch = useDispatch()
   const { fastRefresh } = useRefresh()
+  const [currentTime, setCurrentTime] = useState(new Date());
+  
+  useEffect(() => {
+    // if(currentTime.getTime() <=  +process.env.REACT_APP_END_COUNTDOWN ) {
+      const interval= setInterval(() => setCurrentTime(new Date()), 1000);
+      return () => {
+        clearInterval(interval);
+      }
+    // }
+  }, [])
+
   useEffect(() => {
     if (account) {
       dispatch(fetchFarmUserDataAsync(account))
@@ -362,12 +385,12 @@ const Farms: React.FC = () => {
         <FlexLayout>
           <Route exact path={`${path}`}>
             {farmsStaked.map((farm) => (
-              <FarmCard key={farm.pid} farm={farm} moneyPrice={moneyPrice} account={account} removed={false} />
+              <FarmCard key={farm.pid} farm={farm} moneyPrice={moneyPrice} account={account} removed={false} currentTime={currentTime.getTime()} />
             ))}
           </Route>
           <Route exact path={`${path}/history`}>
             {farmsStaked.map((farm) => (
-              <FarmCard key={farm.pid} farm={farm} moneyPrice={moneyPrice} account={account} removed />
+              <FarmCard key={farm.pid} farm={farm} moneyPrice={moneyPrice} account={account} removed currentTime={currentTime.getTime()} />
             ))}
           </Route>
         </FlexLayout>
@@ -387,6 +410,10 @@ const Farms: React.FC = () => {
         <HeadImg1 alt="devilcoin" width="330px" height="330px" src="/images/satanboss.svg" />
       </Header>
       <HeadDiv>
+          <Heading mb="20px" size='xl'>PreFarm end & Money token release in : {calculateRemainingTime(currentTime.getTime(), +process.env.REACT_APP_END_COUNTDOWN)}</Heading>
+          <BoxHeading>
+            <Heading mb="20px" size='lg'>CAUTION: TIME token cannot be sold or transferred</Heading>
+          </BoxHeading>
           <BoxHeading>
             <Heading mb="20px" size='lg'>Stake LP tokens to earn TIME! Stake TIME in TimePools <a style={{ textDecoration: 'underline' }} href="https://testnet.moneytime.finance/timepools">here</a></Heading>
           </BoxHeading>

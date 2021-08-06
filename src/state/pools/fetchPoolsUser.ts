@@ -11,8 +11,8 @@ import BigNumber from 'bignumber.js'
 
 // Pool 0, Cake / Cake is a different kind of contract (master chef)
 // BNB pools use the native BNB token (wrapping ? unwrapping is done at the contract level)
-const nonBnbPools = poolsConfig.filter((p) => p.stakingToken.symbol !== 'BNB')
-const bnbPools = poolsConfig.filter((p) => p.stakingToken.symbol === 'BNB')
+const nonBnbPools = poolsConfig;
+// const bnbPools = poolsConfig.filter((p) => p.stakingToken.symbol === 'BNB')
 const nonMasterPools = poolsConfig.filter((p) => p.pId !== 0)
 const moneyPools = poolsConfig.filter((p) => getAddress(p.contractAddress) === getMasterChefMoneyAddress())
 const timePools = poolsConfig.filter((p) => getAddress(p.contractAddress) === getMasterChefTimeAddress())
@@ -46,13 +46,13 @@ export const fetchUserBalances = async (account) => {
   )
 
   // BNB pools
-  const bnbBalance = await web3.eth.getBalance(account)
-  const bnbBalances = bnbPools.reduce(
-    (acc, pool) => ({ ...acc, [pool.uuid]: new BigNumber(bnbBalance).toJSON() }),
-    {},
-  )
+  // const bnbBalance = await web3.eth.getBalance(account)
+  // const bnbBalances = bnbPools.reduce(
+  //   (acc, pool) => ({ ...acc, [pool.uuid]: new BigNumber(bnbBalance).toJSON() }),
+  //   {},
+  // )
 
-  return { ...tokenBalances, ...bnbBalances }
+  return { ...tokenBalances }
 }
 
 export const fetchUserStakeBalances = async (account) => {

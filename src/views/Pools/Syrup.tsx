@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react'
+import React, { useState, useMemo, useEffect } from 'react'
 import { Route, useRouteMatch } from 'react-router-dom'
 import BigNumber from 'bignumber.js'
 import styled from 'styled-components'
@@ -51,7 +51,7 @@ text-align: center;
 }
 
 ${({ theme }) => theme.mediaQueries.xxl} {
-  margin-top:-295px;
+  margin-top:-395px;
 }
 
 
@@ -74,9 +74,22 @@ const BoxHeading = styled.div`
     background-position: center;
     width: 100%;
     margin: auto;
-    max-width: 860px;
+    max-width: 735px;
   }
 `
+
+const calculateRemainingTime = (startTime:any, endTime:any) => {
+  if(endTime <= startTime)
+    return `0h 0m 0s`;
+  const totalSeconds     =  Math.floor((endTime - startTime)/1000);
+  const totalMinutes     = Math.floor(totalSeconds/60);
+  const totalHours       = Math.floor(totalMinutes/60);
+
+  const minutes = totalMinutes - ( totalHours * 60 );
+  const seconds = totalSeconds - ( totalMinutes * 60 );
+
+  return `${totalHours}h ${minutes}m ${seconds}s`;
+}
 
 const Farm: React.FC = () => {
   const { path } = useRouteMatch()
@@ -95,6 +108,17 @@ const Farm: React.FC = () => {
     [openPools],
   )
 
+  const [currentTime, setCurrentTime] = useState(new Date());
+  
+  useEffect(() => {
+    // if(currentTime.getTime() <=  +process.env.REACT_APP_END_COUNTDOWN ) {
+      const interval= setInterval(() => setCurrentTime(new Date()), 1000);
+      return () => {
+        clearInterval(interval);
+      }
+    // }
+  }, [])
+
   return (
     <Page>
       <Header>
@@ -103,8 +127,9 @@ const Farm: React.FC = () => {
         <HeadImg1 alt="devilcoin" width="330px" height="330px" src="/images/casinochip.svg" />
       </Header>
       <HeadDiv>
+          <Heading mb="20px" size='xl'>PreFarm end & Money token release in : {calculateRemainingTime(currentTime.getTime(), +process.env.REACT_APP_END_COUNTDOWN)}</Heading>
           <BoxHeading>
-            <Heading mb="20px" size='lg'>Stake LP tokens to earn MONEY</Heading>
+            <Heading mb="20px" size='lg'>Stake tokens to earn MONEY & TIME</Heading>
           </BoxHeading>
           <BoxHeading>
             <></>

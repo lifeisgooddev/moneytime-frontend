@@ -9,7 +9,7 @@ const pools: PoolConfig[] = [
     stakingToken: tokens.wbnb,
     earningToken: tokens.money,
     contractAddress: {
-      97: '0x921F58464d8e3c3DFFCa00820E90878324d7F0F4',
+      97: '0x3A63BE1979503b74B707aFCd213512b9a95711BA',
       56: '',
     },
     poolCategory: PoolCategory.CORE,
@@ -23,7 +23,7 @@ const pools: PoolConfig[] = [
     stakingToken: tokens.glto,
     earningToken: tokens.money,
     contractAddress: {
-      97: '0x921F58464d8e3c3DFFCa00820E90878324d7F0F4',
+      97: '0x3A63BE1979503b74B707aFCd213512b9a95711BA',
       56: '',
     },
     poolCategory: PoolCategory.CORE,
@@ -37,7 +37,7 @@ const pools: PoolConfig[] = [
     stakingToken: tokens.busd,
     earningToken: tokens.money,
     contractAddress: {
-      97: '0x921F58464d8e3c3DFFCa00820E90878324d7F0F4',
+      97: '0x3A63BE1979503b74B707aFCd213512b9a95711BA',
       56: '',
     },
     poolCategory: PoolCategory.CORE,
@@ -52,7 +52,7 @@ const pools: PoolConfig[] = [
     stakingToken: tokens.btcb,
     earningToken: tokens.money,
     contractAddress: {
-      97: '0x921F58464d8e3c3DFFCa00820E90878324d7F0F4',
+      97: '0x3A63BE1979503b74B707aFCd213512b9a95711BA',
       56: '',
     },
     poolCategory: PoolCategory.CORE,
@@ -66,7 +66,7 @@ const pools: PoolConfig[] = [
     stakingToken: tokens.eth,
     earningToken: tokens.money,
     contractAddress: {
-      97: '0x921F58464d8e3c3DFFCa00820E90878324d7F0F4',
+      97: '0x3A63BE1979503b74B707aFCd213512b9a95711BA',
       56: '',
     },
     poolCategory: PoolCategory.CORE,
@@ -80,7 +80,7 @@ const pools: PoolConfig[] = [
     stakingToken: tokens.dot,
     earningToken: tokens.money,
     contractAddress: {
-      97: '0x921F58464d8e3c3DFFCa00820E90878324d7F0F4',
+      97: '0x3A63BE1979503b74B707aFCd213512b9a95711BA',
       56: '',
     },
     poolCategory: PoolCategory.CORE,
@@ -94,7 +94,7 @@ const pools: PoolConfig[] = [
     stakingToken: tokens.dai,
     earningToken: tokens.money,
     contractAddress: {
-      97: '0x921F58464d8e3c3DFFCa00820E90878324d7F0F4',
+      97: '0x3A63BE1979503b74B707aFCd213512b9a95711BA',
       56: '',
     },
     poolCategory: PoolCategory.CORE,
@@ -108,7 +108,7 @@ const pools: PoolConfig[] = [
     stakingToken: tokens.usdc,
     earningToken: tokens.money,
     contractAddress: {
-      97: '0x921F58464d8e3c3DFFCa00820E90878324d7F0F4',
+      97: '0x3A63BE1979503b74B707aFCd213512b9a95711BA',
       56: '',
     },
     poolCategory: PoolCategory.CORE,
@@ -122,7 +122,7 @@ const pools: PoolConfig[] = [
     stakingToken: tokens.cake,
     earningToken: tokens.money,
     contractAddress: {
-      97: '0x921F58464d8e3c3DFFCa00820E90878324d7F0F4',
+      97: '0x3A63BE1979503b74B707aFCd213512b9a95711BA',
       56: '',
     },
     poolCategory: PoolCategory.CORE,
@@ -136,7 +136,7 @@ const pools: PoolConfig[] = [
     stakingToken: tokens.usdt,
     earningToken: tokens.money,
     contractAddress: {
-      97: '0x921F58464d8e3c3DFFCa00820E90878324d7F0F4',
+      97: '0x3A63BE1979503b74B707aFCd213512b9a95711BA',
       56: '',
     },
     poolCategory: PoolCategory.CORE,
@@ -146,11 +146,11 @@ const pools: PoolConfig[] = [
   },
   {
     uuid: 10,
-    pId: 8,
+    pId: 10,
     stakingToken: tokens.wbnb,
     earningToken: tokens.time,
     contractAddress: {
-      97: '0x791B2ac16c49234173eb24AF81e28f6389a1020F',
+      97: '0x16a5f09684C906197753b05C9A50C402aff7733C',
       56: '',
     },
     poolCategory: PoolCategory.CORE,
@@ -160,11 +160,11 @@ const pools: PoolConfig[] = [
   },
   {
     uuid: 11,
-    pId: 9,
+    pId: 11,
     stakingToken: tokens.glto,
     earningToken: tokens.time,
     contractAddress: {
-      97: '0x791B2ac16c49234173eb24AF81e28f6389a1020F',
+      97: '0x16a5f09684C906197753b05C9A50C402aff7733C',
       56: '',
     },
     poolCategory: PoolCategory.CORE,
@@ -174,11 +174,11 @@ const pools: PoolConfig[] = [
   },
   {
     uuid: 12,
-    pId: 10,
+    pId: 12,
     stakingToken: tokens.busd,
     earningToken: tokens.time,
     contractAddress: {
-      97: '0x791B2ac16c49234173eb24AF81e28f6389a1020F',
+      97: '0x16a5f09684C906197753b05C9A50C402aff7733C',
       56: '',
     },
     poolCategory: PoolCategory.CORE,
@@ -188,11 +188,11 @@ const pools: PoolConfig[] = [
   },
   {
     uuid: 13,
-    pId: 11,
+    pId: 13,
     stakingToken: tokens.btcb,
     earningToken: tokens.time,
     contractAddress: {
-      97: '0x791B2ac16c49234173eb24AF81e28f6389a1020F',
+      97: '0x16a5f09684C906197753b05C9A50C402aff7733C',
       56: '',
     },
     poolCategory: PoolCategory.CORE,
@@ -202,11 +202,11 @@ const pools: PoolConfig[] = [
   },
   {
     uuid: 14,
-    pId: 13,
+    pId: 14,
     stakingToken: tokens.eth,
     earningToken: tokens.time,
     contractAddress: {
-      97: '0x791B2ac16c49234173eb24AF81e28f6389a1020F',
+      97: '0x16a5f09684C906197753b05C9A50C402aff7733C',
       56: '',
     },
     poolCategory: PoolCategory.CORE,
@@ -216,11 +216,11 @@ const pools: PoolConfig[] = [
   },
   {
     uuid: 15,
-    pId: 12,
+    pId: 15,
     stakingToken: tokens.dot,
     earningToken: tokens.time,
     contractAddress: {
-      97: '0x791B2ac16c49234173eb24AF81e28f6389a1020F',
+      97: '0x16a5f09684C906197753b05C9A50C402aff7733C',
       56: '',
     },
     poolCategory: PoolCategory.CORE,
@@ -230,11 +230,11 @@ const pools: PoolConfig[] = [
   },
   {
     uuid: 16,
-    pId: 14,
+    pId: 16,
     stakingToken: tokens.cake,
     earningToken: tokens.time,
     contractAddress: {
-      97: '0x791B2ac16c49234173eb24AF81e28f6389a1020F',
+      97: '0x16a5f09684C906197753b05C9A50C402aff7733C',
       56: '',
     },
     poolCategory: PoolCategory.CORE,
@@ -244,11 +244,11 @@ const pools: PoolConfig[] = [
   },
   {
     uuid: 17,
-    pId: 15,
+    pId: 17,
     stakingToken: tokens.dai,
     earningToken: tokens.time,
     contractAddress: {
-      97: '0x791B2ac16c49234173eb24AF81e28f6389a1020F',
+      97: '0x16a5f09684C906197753b05C9A50C402aff7733C',
       56: '',
     },
     poolCategory: PoolCategory.CORE,
@@ -258,11 +258,11 @@ const pools: PoolConfig[] = [
   },
   {
     uuid: 18,
-    pId: 16,
+    pId: 18,
     stakingToken: tokens.usdt,
     earningToken: tokens.time,
     contractAddress: {
-      97: '0x791B2ac16c49234173eb24AF81e28f6389a1020F',
+      97: '0x16a5f09684C906197753b05C9A50C402aff7733C',
       56: '',
     },
     poolCategory: PoolCategory.CORE,
@@ -272,11 +272,11 @@ const pools: PoolConfig[] = [
   },
   {
     uuid: 19,
-    pId: 17,
+    pId: 19,
     stakingToken: tokens.usdc,
     earningToken: tokens.time,
     contractAddress: {
-      97: '0x791B2ac16c49234173eb24AF81e28f6389a1020F',
+      97: '0x16a5f09684C906197753b05C9A50C402aff7733C',
       56: '',
     },
     poolCategory: PoolCategory.CORE,

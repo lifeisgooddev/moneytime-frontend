@@ -175,7 +175,7 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm, removed, moneyPrice, account 
         <Text>{TranslateString(318, 'Remaining lock period')}:</Text>
         <Text>{farm.userData ? calculateRemainingTime(farm.userData.depositTime, farm.lockTime) : "--/--/--"}</Text>
       </Flex>
-      <CardActionsContainer farm={farm} account={account} addLiquidityUrl={addLiquidityUrl} />
+      <CardActionsContainer farm={farm} account={account} addLiquidityUrl={addLiquidityUrl} lockTime={farm.lockTime} />
       <Divider />
       <ExpandableSectionButton
         onClick={() => setShowExpandableSection(!showExpandableSection)}

@@ -6,7 +6,7 @@ const timepools: TimepoolConfig[] = [
     pid: 10,
     lpSymbol: 'TIME',
     lpAddresses: {
-      97: '0xdb647d5C797B33b875cc4064ed4446C23D8a5E10',
+      97: '0xc89aBA08DFC0996931Da81D1dC01f0E4A4bCEaBB',
       56: '',
     },
     token: tokens.time,
@@ -17,7 +17,7 @@ const timepools: TimepoolConfig[] = [
     pid: 11,
     lpSymbol: 'TIME',
     lpAddresses: {
-      97: '0xdb647d5C797B33b875cc4064ed4446C23D8a5E10',
+      97: '0xc89aBA08DFC0996931Da81D1dC01f0E4A4bCEaBB',
       56: '',
     },
     token: tokens.time,
@@ -28,7 +28,7 @@ const timepools: TimepoolConfig[] = [
     pid: 12,
     lpSymbol: 'TIME',
     lpAddresses: {
-      97: '0xdb647d5C797B33b875cc4064ed4446C23D8a5E10',
+      97: '0xc89aBA08DFC0996931Da81D1dC01f0E4A4bCEaBB',
       56: '',
     },
     token: tokens.time,
@@ -39,7 +39,7 @@ const timepools: TimepoolConfig[] = [
     pid: 13,
     lpSymbol: 'TIME',
     lpAddresses: {
-      97: '0xdb647d5C797B33b875cc4064ed4446C23D8a5E10',
+      97: '0xc89aBA08DFC0996931Da81D1dC01f0E4A4bCEaBB',
       56: '',
     },
     token: tokens.time,
@@ -50,7 +50,7 @@ const timepools: TimepoolConfig[] = [
     pid: 14,
     lpSymbol: 'TIME',
     lpAddresses: {
-      97: '0xdb647d5C797B33b875cc4064ed4446C23D8a5E10',
+      97: '0xc89aBA08DFC0996931Da81D1dC01f0E4A4bCEaBB',
       56: '',
     },
     token: tokens.time,
@@ -61,7 +61,7 @@ const timepools: TimepoolConfig[] = [
     pid: 15,
     lpSymbol: 'TIME',
     lpAddresses: {
-      97: '0xdb647d5C797B33b875cc4064ed4446C23D8a5E10',
+      97: '0xc89aBA08DFC0996931Da81D1dC01f0E4A4bCEaBB',
       56: '',
     },
     token: tokens.time,

@@ -8,7 +8,7 @@ import {useStakeMoney} from 'hooks/useStake'
 import {useUnstakeMoney} from 'hooks/useUnstake'
 import { useHarvestMoney } from 'hooks/useHarvest'
 import { getBalanceNumber } from 'utils/formatBalance'
-import { usePriceMoneyBusd } from 'state/hooks'
+import { usePriceMoneyBusd, useTimepoolUser } from 'state/hooks'
 import { useWeb3React } from '@web3-react/core'
 
 
@@ -21,6 +21,7 @@ interface FarmCardActionsProps {
   tokenName?: string
   pid?: number
   addLiquidityUrl?: string
+  lockTime?: any
 }
 
 interface FarmCardActionsProps {
@@ -42,6 +43,7 @@ const HarvestAction: React.FC<FarmCardActionsProps> = ({
   tokenBalance,
   tokenName,
   addLiquidityUrl,
+  lockTime
 }) => {
   const { account } = useWeb3React()
   const TranslateString = useI18n()
@@ -50,6 +52,8 @@ const HarvestAction: React.FC<FarmCardActionsProps> = ({
 
   const { onStake } = useStakeMoney(pid, "TIME")
   const { onUnstake } = useUnstakeMoney(pid, "TIME")
+
+  const { allowance } = useTimepoolUser(pid);
 
   const rawEarningsBalance = account ? getBalanceNumber(earnings[0]) : 0
   const displayBalance = rawEarningsBalance.toLocaleString()
@@ -60,16 +64,18 @@ const HarvestAction: React.FC<FarmCardActionsProps> = ({
   const moneyPrice = usePriceMoneyBusd();
   const rawStakedBalance = getBalanceNumber(stakedBalance)
 
+  const isApproved = account && allowance && allowance.isGreaterThan(0)
+
   const [onPresentDeposit] = useModal(
     <DepositModal max={tokenBalance} onConfirm={onStake} tokenName={tokenName} addLiquidityUrl={addLiquidityUrl} />,
   )
   const [onPresentWithdraw] = useModal(
     <WithdrawModal max={stakedBalance} onConfirm={onUnstake} tokenName={tokenName} />,
   )
-
+  
   const renderStakingButtons = () => {
     return rawStakedBalance === 0 ? (
-      <Button onClick={onPresentDeposit}>{TranslateString(999, 'Stake TIME')}</Button>
+      <Button disabled onClick={onPresentDeposit}>{TranslateString(999, 'Stake TIME')}</Button>
     ) : (
       <IconButtonWrapper>
         <IconButton variant="tertiary" onClick={onPresentWithdraw} mr="6px">
@@ -104,7 +110,7 @@ const HarvestAction: React.FC<FarmCardActionsProps> = ({
             {TranslateString(1072, 'earned')}
           </Text>
         </Flex>
-        {pid > 3 ? 
+        {lockTime >= 1209600 ? 
           <>
           <Heading size="xl" color="text">{busdDisplayBalance}</Heading>
           <Flex>
@@ -123,7 +129,7 @@ const HarvestAction: React.FC<FarmCardActionsProps> = ({
 
       
       </div>
-      {account ? renderStakingButtons() : ""}
+      {account && isApproved ? renderStakingButtons() : ""}
     </Flex>
   )
 }

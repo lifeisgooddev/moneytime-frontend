@@ -26,9 +26,10 @@ interface FarmCardActionsProps {
   provider?: ProviderType
   account?: string
   addLiquidityUrl?: string
+  lockTime?: any
 }
 
-const CardActions: React.FC<FarmCardActionsProps> = ({ farm, account, addLiquidityUrl }) => {
+const CardActions: React.FC<FarmCardActionsProps> = ({ farm, account, addLiquidityUrl, lockTime }) => {
   const TranslateString = useI18n()
   const [requestedApproval, setRequestedApproval] = useState(false)
   const { lpAddresses } = useTimepoolFromSymbol(farm.lpSymbol)
@@ -56,7 +57,8 @@ const CardActions: React.FC<FarmCardActionsProps> = ({ farm, account, addLiquidi
   const renderApprovalOrStakeButton = () => {
     return isApproved ? (<></>
     ) : (
-      <Button mt="8px" width="100%" disabled={requestedApproval} onClick={handleApprove}>
+      // <Button  mt="8px" width="100%" disabled={requestedApproval} onClick={handleApprove}>
+      <Button  mt="8px" width="100%" disabled onClick={handleApprove}>
         {TranslateString(758, 'Approve Contract')}
       </Button>
     )
@@ -70,8 +72,9 @@ const CardActions: React.FC<FarmCardActionsProps> = ({ farm, account, addLiquidi
         stakedBalance={stakedBalance}
         tokenBalance={tokenBalance}
         tokenName={lpName}
-        addLiquidityUrl={addLiquidityUrl}/>
-      
+        addLiquidityUrl={addLiquidityUrl}
+        lockTime={lockTime}/>
+        
       {!account ? <UnlockButton mt="8px" width="100%" /> : renderApprovalOrStakeButton()}
     </Action>
   )

@@ -60,7 +60,7 @@ export const fetchPoolsMultiplier = async () => {
 
 
 export const fetchPoolsTotalStatking = async () => {
-  const nonBnbPools = poolsConfig.filter((p) => p.stakingToken.symbol !== 'BNB')
+  const nonBnbPools = poolsConfig;
   // const bnbPool = poolsConfig.filter((p) => p.stakingToken.symbol === 'BNB')
 
   const callsNonBnbPools = nonBnbPools.map((poolConfig) => {
