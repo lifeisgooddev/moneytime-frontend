@@ -412,7 +412,7 @@ const Farms: React.FC = () => {
         <HeadImg1 alt="devilcoin" width="20px" height="330px" src="/images/rabbitboss.svg" />
       </Header>
       <HeadDiv>
-          <Heading mb="20px" size='xl'>PreFarm end & Money token release in : {calculateRemainingTime(currentTime.getTime(), +process.env.REACT_APP_END_COUNTDOWN)}</Heading>
+          <Heading mb="20px" size='xl'>PreFarm, Earn TIME in: {calculateRemainingTime(currentTime.getTime(), +process.env.REACT_APP_END_COUNTDOWN)}</Heading>
           <BoxHeading>
             <Heading mb="20px" size='lg'>Stake $TIME earn $MONEY. After unlock your reward, 100% of your $TIME staked are burned when withdraw, <br/> IF YOU UNSTAKE BEFORE UNLOCK YOUR REWARD, <br/> 25% OF YOUR $TIME STAKED ARE BURNED and NO $MONEY REWARD EARNED.</Heading>
           </BoxHeading>

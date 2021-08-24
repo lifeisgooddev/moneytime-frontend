@@ -13,11 +13,11 @@ const config: MenuEntry[] = [
     items: [
       {
         label: 'Exchange',
-        href: 'https://swap-testnet.moneytime.finance/swap'
+        href: 'https://swap.moneytime.finance/swap'
       },
       {
         label: 'Liquidity',
-        href: 'https://swap-testnet.moneytime.finance/pool'
+        href: 'https://swap.moneytime.finance/pool'
       }
     ]
   },
@@ -47,7 +47,7 @@ const config: MenuEntry[] = [
     href: 'https://moneytime.gitbook.io/timeismoney-fi/',
   },
   {
-    label: 'Certik Audit(In Progress)',
+    label: 'Certik Audit',
     icon: 'AuditIcon',
     href: 'https://leaderboard.certik.io/projects/moneytime',
   },

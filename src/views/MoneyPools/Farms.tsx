@@ -398,7 +398,7 @@ const Farms: React.FC = () => {
         <HeadImg1 alt="devilcoin" width="330px" height="330px" src="/images/casinochip.svg" />
       </Header>
       <HeadDiv>
-          <Heading mb="20px" size='lg'>PreFarm end & Money token release in : {calculateRemainingTime(currentTime.getTime(), +process.env.REACT_APP_END_COUNTDOWN)}</Heading>
+          <Heading mb="20px" size='lg'>PreFarm, Earn TIME in: {calculateRemainingTime(currentTime.getTime(), +process.env.REACT_APP_END_COUNTDOWN)}</Heading>
           <BoxHeading>
             <Heading mb="20px" size='lg'>Stake $MONEY earn $MONEY! 5% Deposit fees to be burned. <br/> Reward locked for 72h. If withdraw before 72h, 5% withdraw fees <br/>to be burned.</Heading>
           </BoxHeading>

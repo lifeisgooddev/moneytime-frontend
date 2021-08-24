@@ -410,12 +410,12 @@ const Farms: React.FC = () => {
         <HeadImg1 alt="devilcoin" width="330px" height="330px" src="/images/satanboss.svg" />
       </Header>
       <HeadDiv>
-          <Heading mb="20px" size='xl'>PreFarm end & Money token release in : {calculateRemainingTime(currentTime.getTime(), +process.env.REACT_APP_END_COUNTDOWN)}</Heading>
+          <Heading mb="20px" size='xl'>PreFarm, Earn TIME in: {calculateRemainingTime(currentTime.getTime(), +process.env.REACT_APP_END_COUNTDOWN)}</Heading>
           <BoxHeading>
             <Heading mb="20px" size='lg'>CAUTION: TIME token cannot be sold or transferred</Heading>
           </BoxHeading>
           <BoxHeading>
-            <Heading mb="20px" size='lg'>Stake LP tokens to earn TIME! Stake TIME in TimePools <a style={{ textDecoration: 'underline' }} href="https://testnet.moneytime.finance/timepools">here</a></Heading>
+            <Heading mb="20px" size='lg'>Stake LP tokens to earn TIME! Stake TIME in TimePools <a style={{ textDecoration: 'underline' }} href="https://moneytime.finance/timepools">here</a></Heading>
           </BoxHeading>
           <BoxHeading>
             <></>

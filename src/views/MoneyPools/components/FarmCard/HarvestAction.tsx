@@ -66,7 +66,7 @@ const HarvestAction: React.FC<FarmCardActionsProps> = ({
 
   const renderStakingButtons = () => {
     return rawStakedBalance === 0 ? (
-      <Button disabled onClick={onPresentDeposit}>{TranslateString(999, 'Stake MONEY')}</Button>
+      <Button onClick={onPresentDeposit}>{TranslateString(999, 'Stake MONEY')}</Button>
     ) : (
       <IconButtonWrapper>
         <IconButton variant="tertiary" onClick={onPresentWithdraw} mr="6px">

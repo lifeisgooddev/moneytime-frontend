@@ -194,13 +194,13 @@ const PoolCard: React.FC<HarvestProps> = ({ pool }) => {
             {account &&
               (needsApproval ? (
                 <div style={{ flex: 1 }}>
-                  {earningToken.symbol === "MONEY" ? ( 
-                  <Button disabled onClick={handleApprove} width="100%">
-                    {`Approve ${stakingToken.symbol}`}
-                  </Button> ) : (
+                  {earningToken.symbol === "TIME" ?(
                   <Button disabled={isFinished || requestedApproval} onClick={handleApprove} width="100%">
                     {`Approve ${stakingToken.symbol}`}
-                  </Button>
+                  </Button> ) : (
+                  <Button disabled onClick={handleApprove} width="100%">
+                    {`Approve ${stakingToken.symbol}`}
+                  </Button> 
                   )}
                 </div>
               ) : (
