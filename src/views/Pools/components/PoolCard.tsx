@@ -11,14 +11,14 @@ import useI18n from 'hooks/useI18n'
 import { useStake } from 'hooks/useStake'
 import { useUnstake } from 'hooks/useUnstake'
 import { getBalanceNumber } from 'utils/formatBalance'
-import { getPoolApy } from 'utils/apy'
+import { getPoolApy, getFarmApy } from 'utils/apy'
 import { getAddress } from 'utils/addressHelpers'
 import { useHarvest } from 'hooks/useHarvest'
 import Balance from 'components/Balance'
 import { PoolCategory } from 'config/constants/types'
 import tokens from 'config/constants/tokens'
 import { Pool } from 'state/types'
-import { usePriceMoneyBusd, usePriceBnbBusd } from 'state/hooks'
+import { usePriceMoneyBusd, usePriceBnbBusd, usePriceTimeBusd, usePricePool } from 'state/hooks'
 import DepositModal from './DepositModal'
 import WithdrawModal from './WithdrawModal'
 import CompoundModal from './CompoundModal'
@@ -65,16 +65,22 @@ const PoolCard: React.FC<HarvestProps> = ({ pool }) => {
   const { onReward } = useHarvest(pId, masterchefAddress, uuid)
 
   // APY
-  const rewardTokenPrice = usePriceMoneyBusd().toNumber(); // prices useGetApiPrice(earningToken.symbol)
-  
-  const stakingTokenPrice = 1; // prices useGetApiPrice(stakingToken.symbol)
-  const apy = getPoolApy(
-    stakingTokenPrice,
-    rewardTokenPrice,
-    getBalanceNumber(pool.totalStaked, stakingToken.decimals),
-    parseFloat(pool.tokenPerBlock),
+  const moneyPrice = usePriceMoneyBusd();// prices useGetApiPrice(earningToken.symbol)
+  const timePrice = usePriceTimeBusd();
+  const stakingTokenPrice = usePricePool(uuid);
+  const totalStakedUsd = stakingTokenPrice?stakingTokenPrice.times(totalStaked) : new BigNumber(0);
+  const apy = earningToken.symbol === "TIME" ? getFarmApy(
+    pool.poolWeight,
+    timePrice,
+    new BigNumber(getBalanceNumber(pool.totalStaked, stakingToken.decimals)).times(stakingTokenPrice),
+    0.5,
+  ) :  getFarmApy(
+    pool.poolWeight,
+    moneyPrice,
+    new BigNumber(getBalanceNumber(pool.totalStaked, stakingToken.decimals)).times(stakingTokenPrice),
+    1.5,
   )
-  // if(pId===6) console.log(pId, 'rewardTokenPrice=', rewardTokenPrice, ' apy=', apy,
+  // if(pId===6) console.log(pId, 'moneyPrice=', moneyPrice, ' apy=', apy,
   //     ' totalStaked', pool.totalStaked);
   const [requestedApproval, setRequestedApproval] = useState(false)
   const [pendingTx, setPendingTx] = useState(false)
@@ -86,6 +92,8 @@ const PoolCard: React.FC<HarvestProps> = ({ pool }) => {
   const isOldSyrup = stakingToken.symbol === tokens.cake.symbol
   const accountHasStakedBalance = stakedBalance?.toNumber() > 0
   const needsApproval = !accountHasStakedBalance && !allowance.toNumber() && !isBnbPool
+
+  // console.log(accountHasStakedBalance,allowance.toNumber(), isBnbPool, stakingToken.symbol);
   const isCardActive = isFinished && accountHasStakedBalance
 
   const convertedLimit = new BigNumber(stakingLimit).multipliedBy(new BigNumber(10).pow(earningToken.decimals))
@@ -124,6 +132,8 @@ const PoolCard: React.FC<HarvestProps> = ({ pool }) => {
     }
   }, [onApprove, setRequestedApproval])
 
+
+  
   return (
     <Card isActive={isCardActive} isFinished={isFinished && pId !== 0}>
       {isFinished && pId !== 0 && <PoolFinishedSash />}
@@ -139,8 +149,15 @@ const PoolCard: React.FC<HarvestProps> = ({ pool }) => {
               <Heading mb="4px" size='xl'  style={{color: "#00e8ff"}}>{stakingToken.symbol}</Heading>
             } 
             <Flex justifyContent="center">
-              <MultiplierTag variant="backgroundRed">{pool.tokenPerBlock}X</MultiplierTag>
+              {
+                !pool.isPartner ? (
+                  <MultiplierTag variant="backgroundRed">{pool.tokenPerBlock}X</MultiplierTag>
+                ) : (
+                  <Text textAlign="right">For {pool.period} weeks only <br/> {pool.rewardCount} TIME to be distributed </Text>
+                )
+              } 
             </Flex>
+            
           </Flex>
         </Wrapper>
         {/* <CardTitle isFinished={isFinished && pId !== 0}>
@@ -175,7 +192,12 @@ const PoolCard: React.FC<HarvestProps> = ({ pool }) => {
         </StyledRewardDetails>
         <StyledDetails>
           <Text>{TranslateString(384, 'Deposit Fee')}:</Text>
-          <Text>{earningToken.symbol === "MONEY" ? "10%": "5%"}</Text>
+          { !pool.isPartner ? (
+              <Text>{earningToken.symbol === "MONEY" ? "10%": "5%"}</Text>
+            ) : (
+              <Text>0%</Text>
+            )
+          }
         </StyledDetails>
         <StyledDetails>
           <Text>{TranslateString(736, 'APR')}:</Text>
@@ -194,14 +216,9 @@ const PoolCard: React.FC<HarvestProps> = ({ pool }) => {
             {account &&
               (needsApproval ? (
                 <div style={{ flex: 1 }}>
-                  {earningToken.symbol === "TIME" ?(
                   <Button disabled={isFinished || requestedApproval} onClick={handleApprove} width="100%">
                     {`Approve ${stakingToken.symbol}`}
-                  </Button> ) : (
-                  <Button disabled onClick={handleApprove} width="100%">
-                    {`Approve ${stakingToken.symbol}`}
                   </Button> 
-                  )}
                 </div>
               ) : (
                 <>
@@ -216,7 +233,7 @@ const PoolCard: React.FC<HarvestProps> = ({ pool }) => {
                             0 : 
                             (
                               <>
-                              ~ {(getBalanceNumber(earnings, earningToken.decimals) * rewardTokenPrice).toFixed(3)}
+                              ~ {(getBalanceNumber(earnings, earningToken.decimals) * moneyPrice.toNumber()).toFixed(3)}
                               </>
                             )
                           } USD
@@ -270,7 +287,7 @@ const PoolCard: React.FC<HarvestProps> = ({ pool }) => {
       <CardFooter
         projectLink={earningToken.projectLink}
         decimals={stakingToken.decimals}
-        totalStaked={totalStaked}
+        totalStaked={totalStakedUsd}
         startBlock={startBlock}
         endBlock={endBlock}
         isFinished={isFinished}

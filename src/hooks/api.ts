@@ -37,7 +37,7 @@ export const useGetStats = () => {
         const responsedata: ApiStatResponse = await response.json()
 
         setData(responsedata)
-      } catch (error) {
+      } catch (error: any) {
         console.error('Unable to fetch data:', error)
       }
     }

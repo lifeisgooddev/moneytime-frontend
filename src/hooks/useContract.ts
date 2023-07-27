@@ -13,7 +13,7 @@ import {
   getMasterchefTimeContract,
   getMasterchefMoneyContract,
   getPointCenterIfoContract,
-  getSouschefContract,
+  getSousChefContract,
   getClaimRefundContract,
 } from 'utils/contractHelpers'
 
@@ -71,15 +71,15 @@ export const useMasterchefMoney = () => {
   return useMemo(() => getMasterchefMoneyContract(web3), [web3])
 }
 
-export const useSousChef = (id) => {
+export const useSousChef = (contract) => {
   const web3 = useWeb3()
-  return useMemo(() => getSouschefContract(id, web3), [id, web3])
+  return useMemo(() => getSousChefContract(web3, contract), [web3, contract])
 }
 
-export const useMasterChefMoney = (id) => {
-  const web3 = useWeb3()
-  return useMemo(() => getSouschefContract(id, web3), [id, web3])
-}
+// export const useMasterChefMoney = (id) => {
+//   const web3 = useWeb3()
+//   return useMemo(() => getSouschefContract(id, web3), [id, web3])
+// }
 
 export const usePointCenterIfoContract = () => {
   const web3 = useWeb3()

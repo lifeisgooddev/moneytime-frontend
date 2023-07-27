@@ -20,7 +20,7 @@ export const PoolsSlice = createSlice({
     setPoolsPublicData: (state, action) => {
       const livePoolsData = action.payload
       state.data = state.data.map((pool) => {
-        const livePoolData = livePoolsData.find((entry) => entry.pId === pool.pId)
+        const livePoolData = livePoolsData.find((entry) => entry.uuid === pool.uuid)
         // const livePoolData = livePoolsData.find((entry) => pool.tokenAddress === getAddress(entry.stakingToken.address) && pool.contractAddress === getAddress(entry.contractAddress))
         return { ...pool, ...livePoolData }
       })
@@ -51,21 +51,20 @@ try {
 }catch(e){
   console.log('fetchPoolsBlockLimits', e.toString());
   }
-  console.log('blockLimits-----------------');
   const totalStakings = await fetchPoolsTotalStatking()
   const multipliers = await fetchPoolsMultiplier()
-
+  
   const liveData = poolsConfig.map((pool) => {
-    const blockLimit = blockLimits.find((entry) => entry.pId === pool.pId)
-    const totalStaking = totalStakings.find((entry) => entry.pId === pool.pId)
-    // const multiplier = multipliers.find((entry) => entry.tokenAddress === getAddress(pool.stakingToken.address) && entry.contractAddress === getAddress(pool.contractAddress))
+    const blockLimit = blockLimits.find((entry) => entry.uuid === pool.uuid)
+    const totalStaking = totalStakings.find((entry) => entry.uuid === pool.uuid)
+    const multiplier = multipliers.find((entry) => entry.tokenAddress === getAddress(pool.stakingToken.address) && entry.contractAddress === getAddress(pool.contractAddress))
     return {
       ...blockLimit,
       ...totalStaking,
-      // ...multiplier
+      'multiplier': multiplier.multiplier,
+      'poolWeight': multiplier.poolWeight
     }
   })
-  // console.log('liveData', liveData);
   dispatch(setPoolsPublicData(liveData))
 }
 
@@ -99,7 +98,6 @@ export const updateUserBalance = (uuid: string, account: string) => async (dispa
 
 export const updateUserStakedBalance = (uuid: string, account: string) => async (dispatch) => {
   const stakedBalances = await fetchUserStakeBalances(account)
-  console.log(stakedBalances)
   dispatch(updatePoolsUserData({ uuid, field: 'stakedBalance', value: stakedBalances[uuid] }))
 }
 

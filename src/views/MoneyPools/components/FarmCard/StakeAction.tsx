@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import BigNumber from 'bignumber.js'
 import { Button, Flex, Heading, IconButton, AddIcon, MinusIcon, useModal } from '@pancakeswap-libs/uikit'
 import useI18n from 'hooks/useI18n'
-import {useStakeMoney} from 'hooks/useStake'
+import {useStakeMoney, useStakeSphn} from 'hooks/useStake'
 import {useUnstakeMoney} from 'hooks/useUnstake'
 import { getBalanceNumber } from 'utils/formatBalance'
 import DepositModal from '../DepositModal'
@@ -15,6 +15,7 @@ interface FarmCardActionsProps {
   tokenName?: string
   pid?: number
   addLiquidityUrl?: string
+  masterChef?: string
 }
 
 const IconButtonWrapper = styled.div`
@@ -30,8 +31,11 @@ const StakeAction: React.FC<FarmCardActionsProps> = ({
   tokenName,
   pid,
   addLiquidityUrl,
+  masterChef
 }) => {
   const TranslateString = useI18n()
+  // const onStakeMoney = 
+  // const onStakeSphn = useStakeSphn()
   const { onStake } = useStakeMoney(pid, "MONEY")
   const { onUnstake } = useUnstakeMoney(pid, "MONEY")
 

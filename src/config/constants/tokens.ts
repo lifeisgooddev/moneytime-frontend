@@ -87,7 +87,7 @@ const tokens = {
   usdc: {
     symbol: 'USDC',
     address: {
-      56: '0x8ac76a51cc950d9822d68b83fe1ad97b32cd580d',
+      56: '0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d',
       97: '0x64544969ed7ebf5f083679233325356ebe738930',
     },
     decimals: 18,
@@ -109,6 +109,33 @@ const tokens = {
       97: '0x7e3d08f071c704c77df98b94359b700fff5083de',
     },
     decimals: 18,
+    projectLink: 'https://moneytime.finance/',
+  },
+  sphn: { // must be default token
+    symbol: 'SPHN',
+    address: {
+      56: '0xb58a579e8f987b52564A5fE08Fe5181dc2621a9c',
+      97: '0xb58a579e8f987b52564A5fE08Fe5181dc2621a9c',
+    },
+    decimals: 18,
+    projectLink: 'https://moneytime.finance/',
+  },
+  onemt: { // must be default token
+    symbol: 'b1MT',
+    address: {
+      56: '0x8d67448d4f6231ABc070a42A8905084b79E09136',
+      97: '0x8d67448d4f6231ABc070a42A8905084b79E09136',
+    },
+    decimals: 7,
+    projectLink: 'https://moneytime.finance/',
+  },
+  fg: { // must be default token
+    symbol: 'FG',
+    address: {
+      56: "0x4492cA0AFF6D603e18Aea5075B49A5ff76b9Ea06",
+      97: "0x4492cA0AFF6D603e18Aea5075B49A5ff76b9Ea06",
+    },
+    decimals: 9,
     projectLink: 'https://moneytime.finance/',
   }
 }

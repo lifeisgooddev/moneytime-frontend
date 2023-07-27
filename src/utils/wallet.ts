@@ -28,7 +28,7 @@ export const setupNetwork = async () => {
         ],
       })
       return true
-    } catch (error) {
+    } catch (error: any) {
       console.error(error)
       return false
     }

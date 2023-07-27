@@ -57,7 +57,7 @@ const Claim: React.FC<ClaimProps> = ({
       await contract.methods.harvest().send({ from: account })
       setIsClaimed()
       toastSuccess('Success!', 'You have successfully claimed your rewards.')
-    } catch (error) {
+    } catch (error : any) {
       toastError('Error', error?.message)
       console.error(error)
     } finally {

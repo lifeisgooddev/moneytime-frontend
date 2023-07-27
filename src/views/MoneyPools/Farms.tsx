@@ -227,8 +227,8 @@ const Farms: React.FC = () => {
 
   const [stackedOnly, setStackedOnly] = useState(false)
 
-  const activeFarms = farmsLP.filter((farm) => farm.multiplier !== '0X')
-  const inactiveFarms = farmsLP.filter((farm) => farm.multiplier === '0X')
+  const activeFarms = farmsLP.filter((farm) => farm.isFinished !== true)
+  const inactiveFarms = farmsLP.filter((farm) => farm.isFinished === true)
   const stackedOnlyFarms = activeFarms.filter(
     (farm) => farm.userData && new BigNumber(farm.userData.stakedBalance).isGreaterThan(0),
   )
@@ -262,7 +262,11 @@ const Farms: React.FC = () => {
         const quoteTokenPriceUsd = new BigNumber(1)
 
         const totalLiquidity = new BigNumber(farm.poolDeposit)
-        const apy = getFarmApy(farm.poolWeight, moneyPrice, totalLiquidity)
+        let apy;
+        if(farm.earningToken.symbol === "MONEY")
+          apy = getFarmApy(farm.poolWeight, moneyPrice, totalLiquidity.times(moneyPrice), 1.5)
+        else
+          apy = 0;
         return { ...farm, apy, liquidity: totalLiquidity }
       })
 
@@ -398,12 +402,11 @@ const Farms: React.FC = () => {
         <HeadImg1 alt="devilcoin" width="330px" height="330px" src="/images/casinochip.svg" />
       </Header>
       <HeadDiv>
-          <Heading mb="20px" size='lg'>PreFarm, Earn TIME in: {calculateRemainingTime(currentTime.getTime(), +process.env.REACT_APP_END_COUNTDOWN)}</Heading>
           <BoxHeading>
             <Heading mb="20px" size='lg'>Stake $MONEY earn $MONEY! 5% Deposit fees to be burned. <br/> Reward locked for 72h. If withdraw before 72h, 5% withdraw fees <br/>to be burned.</Heading>
           </BoxHeading>
           <BoxHeading>
-            <Heading mb="20px" size='lg'>CAUTION: After 72h, you can collect your rewards <br/> ONLY by unstaking 100% of your $MONEY staked.</Heading>
+            <Heading mb="20px" size='lg'>CAUTION: After 72h, you can collect your rewards <br/> ONLY by unstaking 100% of your $MONEY staked. <br/>If you unstake before 72h, no reward are earned.</Heading>
           </BoxHeading>
           {/* <Heading mb="20px" size='xl'>MONEY Reward start 2 july 9pm UTC</Heading> */}
           <ControlContainer>

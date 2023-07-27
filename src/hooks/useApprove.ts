@@ -36,7 +36,6 @@ export const useApproveMoney = (lpContract: Contract , token: string) => {
   const handleApprove = useCallback(async () => {
     try {
       const tx = await approve(lpContract, masterChefMoneyContract, account)
-      console.log(tx);
       if(token === "TIME")
         dispatch(fetchTimepoolUserDataAsync(account))
       else
@@ -46,6 +45,24 @@ export const useApproveMoney = (lpContract: Contract , token: string) => {
       return false
     }
   }, [account, dispatch, lpContract, masterChefMoneyContract, token])
+
+  return { onApprove: handleApprove }
+}
+
+export const useApproveSphn = (masterchefAddress: string, lpContract: Contract , token: string) => {
+  const dispatch = useDispatch()
+  const { account } = useWeb3React()
+  const masterChefContract = useSousChef(masterchefAddress)
+  const handleApprove = useCallback(async () => {
+    try {
+      const tx = await approve(lpContract, masterChefContract, account)
+        dispatch(fetchMoneypoolUserDataAsync(account))
+      return tx
+    } catch (e) {
+      console.log(e)
+      return false
+    }
+  }, [account, dispatch, lpContract, masterChefContract])
 
   return { onApprove: handleApprove }
 }

@@ -1,22 +1,35 @@
 import BigNumber from 'bignumber.js'
 import erc20ABI from 'config/abi/erc20.json'
 import masterchefMoneyABI from 'config/abi/MasterChefMoney.json'
+import sousChefABI from 'config/abi/sousChef.json'
 import multicall from 'utils/multicall'
 import moneypoolsConfig from 'config/constants/moneypools'
 import { getAddress, getMasterChefMoneyAddress } from 'utils/addressHelpers'
 
 export const fetchMoneypoolUserAllowances = async (account: string) => {
-  const masterChefMoneyAdress = getMasterChefMoneyAddress()
-
-  const calls = moneypoolsConfig.map((moneypool) => {
-    const lpContractAddress = getAddress(moneypool.token.address)
-    return { address: lpContractAddress, name: 'allowance', params: [account, masterChefMoneyAdress] }
-  })
-
-  const rawLpAllowances = await multicall(erc20ABI, calls)
-  const parsedLpAllowances = rawLpAllowances.map((lpBalance) => {
-    return new BigNumber(lpBalance).toJSON()
-  })
+  
+  const lpContractAddress = getAddress(moneypoolsConfig[0].token.address)
+  const parsedLpAllowances = await Promise.all(moneypoolsConfig.map(async (moneypool) => {
+    if (moneypool.lpSymbol === "MONEY") {
+      const callsMoneyPool = [ {
+        address: lpContractAddress, 
+        name: 'allowance', 
+        params: [account, getMasterChefMoneyAddress()]
+      }]
+    
+      const rawMoneyAllowances = await multicall(erc20ABI, callsMoneyPool)
+      return new BigNumber(rawMoneyAllowances[0]).toJSON();
+    }
+    const callsSphnPool = [ {
+      address: lpContractAddress, 
+      name: 'allowance', 
+      params: [account,  getAddress(moneypool.masterChef)]
+    }]
+  
+    const rawSphnAllowances = await multicall(erc20ABI, callsSphnPool)
+    return new BigNumber(rawSphnAllowances[0]).toJSON();
+  }))
+  console.log(parsedLpAllowances)
   return parsedLpAllowances
 }
 
@@ -31,6 +44,7 @@ export const fetchMoneypoolUserTokenBalances = async (account: string) => {
   })
 
   const rawTokenBalances = await multicall(erc20ABI, calls)
+  
   const parsedTokenBalances = rawTokenBalances.map((tokenBalance) => {
     return new BigNumber(tokenBalance).toJSON()
   })
@@ -38,38 +52,53 @@ export const fetchMoneypoolUserTokenBalances = async (account: string) => {
 }
 
 export const fetchMoneypoolUserStakedBalances = async (account: string) => {
-  const masterChefMoneyAdress = getMasterChefMoneyAddress()
 
-  const calls = moneypoolsConfig.map((moneypool) => {
-    return {
-      address: masterChefMoneyAdress,
-      name: 'userInfo',
-      params: [moneypool.pid, account],
+  const parsedStakedBalances = await Promise.all(moneypoolsConfig.map(async (moneypool) => {
+    if (moneypool.lpSymbol === "MONEY") {
+      const callsMoneyPool = [ {
+        address: getMasterChefMoneyAddress(),
+        name: 'userInfo',
+        params: [moneypool.pid, account],
+      }]
+  
+      const moneyStakedBalance = await multicall(masterchefMoneyABI, callsMoneyPool)
+      return [new BigNumber(moneyStakedBalance[0][0]._hex).toJSON(), moneyStakedBalance[0][3].toString()]
     }
-  })
+    
+    const callsSphnPool = [ {
+      address: getAddress(moneypool.masterChef),
+      name: 'userInfo',
+      params: [account],
+    }]
 
-  const rawStakedBalances = await multicall(masterchefMoneyABI, calls)
-  const parsedStakedBalances = rawStakedBalances.map((stakedBalance) => {
-    return [new BigNumber(stakedBalance[0]._hex).toJSON(), stakedBalance[3].toString()]
-  })
+    const sphnStakedBalance = await multicall(sousChefABI, callsSphnPool)
+    return [new BigNumber(sphnStakedBalance[0][0]._hex).toJSON(), "0"]
+  }))
+  
   return parsedStakedBalances
 }
 
 export const fetchMoneypoolUserEarnings = async (account: string) => {
-  const masterChefMoneyAdress = getMasterChefMoneyAddress()
+  const parsedEarnings = await Promise.all(moneypoolsConfig.map(async (moneypool) => {
+    if (moneypool.lpSymbol === "MONEY") {
+      const callsMoneyPool = [ {
+        address: getMasterChefMoneyAddress(),
+        name: 'pendingReward',
+        params: [moneypool.pid, account],
+      }]
 
-  const calls = moneypoolsConfig.map((moneypool) => {
-    return {
-      address: masterChefMoneyAdress,
-      name: 'pendingReward',
-      params: [moneypool.pid, account],
+      const moneyEarnings = await multicall(masterchefMoneyABI, callsMoneyPool)
+      return moneyEarnings[0][0].toString();
     }
-  })
 
-  const rawEarnings = await multicall(masterchefMoneyABI, calls)
-  const parsedEarnings = rawEarnings.map((earnings) => {
-    const earning = earnings[0];
-    return earning.toString()
-  })
+    const callsSphnPool = [ {
+      address: getAddress(moneypool.masterChef),
+      name: 'pendingReward',
+      params: [account],
+    }]
+
+    const sphnEarnings = await multicall(sousChefABI, callsSphnPool)
+    return sphnEarnings[0][0].toString();
+  }));
   return parsedEarnings
 }

@@ -2,7 +2,7 @@ import { useCallback } from 'react'
 import { useWeb3React } from '@web3-react/core'
 import { useDispatch } from 'react-redux'
 import { fetchFarmUserDataAsync, updateUserBalance, updateUserPendingReward, fetchTimepoolUserDataAsync, fetchMoneypoolUserDataAsync } from 'state/actions'
-import { soushHarvest, soushHarvestBnb, harvest } from 'utils/callHelpers'
+import { soushHarvest, soushHarvestBnb, harvest, harvestSphn } from 'utils/callHelpers'
 import { getMasterChefMoneyAddress } from 'utils/addressHelpers'
 import { useMasterchefTime, useMasterchefMoney, useSousChef } from './useContract'
 
@@ -33,6 +33,20 @@ export const useHarvestMoney = (farmPid: number, token: string) => {
       dispatch(fetchMoneypoolUserDataAsync(account))
     return txHash
   }, [account, dispatch, farmPid, masterChefMoneyContract, token])
+
+  return { onReward: handleHarvest }
+}
+
+export const useHarvestSphn = (masterchefAddress: string, token: string) => {
+  const dispatch = useDispatch()
+  const { account } = useWeb3React()
+  const masterChefContract = useSousChef(masterchefAddress)
+
+  const handleHarvest = useCallback(async () => {
+    const txHash = await harvestSphn(masterChefContract, account)
+      dispatch(fetchMoneypoolUserDataAsync(account))
+    return txHash
+  }, [account, dispatch, masterChefContract])
 
   return { onReward: handleHarvest }
 }

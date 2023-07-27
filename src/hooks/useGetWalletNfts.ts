@@ -69,7 +69,7 @@ const useGetWalletNfts = () => {
               const [bunnyId, tokenUri] = await makeBatchRequest([getBunnyId(tokenId).call, tokenURI(tokenId).call])
 
               return [Number(bunnyId), Number(tokenId), tokenUri]
-            } catch (error) {
+            } catch (error: any) {
               return null
             }
           }
@@ -103,7 +103,7 @@ const useGetWalletNfts = () => {
           // Reset it in case of wallet change
           dispatch({ type: 'reset' })
         }
-      } catch (error) {
+      } catch (error: any) {
         dispatch({ type: 'reset' })
       }
     }

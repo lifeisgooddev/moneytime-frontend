@@ -52,11 +52,11 @@ export const getLpContract = (address: string, web3?: Web3) => {
 export const getIfoContract = (address: string, web3?: Web3) => {
   return getContract(ifoAbi, address, web3)
 }
-export const getSouschefContract = (id: number, web3?: Web3) => {
-  const config = poolsConfig.find((pool) => pool.pId === id)
-  const abi = config.poolCategory === PoolCategory.BINANCE ? sousChefBnb : sousChef
-  return getContract(abi, getAddress(config.contractAddress), web3)
-}
+// export const getSouschefContract = (id: number, web3?: Web3) => {
+//   const config = poolsConfig.find((pool) => pool.pId === id)
+//   const abi = config.poolCategory === PoolCategory.BINANCE ? sousChefBnb : sousChef
+//   return getContract(abi, getAddress(config.contractAddress), web3)
+// }
 export const getPointCenterIfoContract = (web3?: Web3) => {
   return getContract(pointCenterIfo, getPointCenterIfoAddress(), web3)
 }
@@ -87,6 +87,11 @@ export const getMasterchefTimeContract = (web3?: Web3) => {
 export const getMasterchefMoneyContract = (web3?: Web3) => {
   return getContract(masterChefMoney, getMasterChefMoneyAddress(), web3)
 }
+
+export const getSousChefContract = (web3?: Web3, contract?: string) => {
+  return getContract(sousChef, contract, web3)
+}
+
 export const getClaimRefundContract = (web3?: Web3) => {
   return getContract(claimRefundAbi, getClaimRefundAddress(), web3)
 }

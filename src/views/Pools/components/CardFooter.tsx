@@ -124,7 +124,7 @@ const CardFooter: React.FC<Props> = ({
                 {TranslateString(408, 'Total')}
               </Label>
             </FlexFull>
-            <Balance fontSize="14px" isDisabled={isFinished} value={getBalanceNumber(totalStaked, decimals)} />
+            <Balance fontSize="14px" isDisabled={isFinished} value={getBalanceNumber(totalStaked, decimals)} unit=" $"/>
           </Row>
           {blocksUntilStart > 0 && (
             <Row mb="4px">

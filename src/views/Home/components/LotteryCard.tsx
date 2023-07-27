@@ -12,11 +12,9 @@ import useTokenPerBlock from 'hooks/useTokenPerBlock'
 import useTokenSupply from 'hooks/useTokenSupply'
 import { useMultiClaimLottery } from 'hooks/useBuyLottery'
 import { useTotalClaim } from 'hooks/useTickets'
-import BuyModal from 'views/Lottery/components/TicketCard/BuyTicketModal'
 import { useLotteryAllowance } from 'hooks/useAllowance'
 import { useApproval } from 'hooks/useApproval'
 import { usePriceMoneyBusd } from 'state/hooks'
-import PurchaseWarningModal from 'views/Lottery/components/TicketCard/PurchaseWarningModal'
 
 const StyledLotteryCard = styled(Card)`
   background: ${({ theme }) => theme.colors.card};
@@ -103,33 +101,12 @@ const CardDiv = styled(BaseLayout)`
 `
 
 const FarmedStakingCard = () => {
-  const { account } = useWeb3React()
-  const lotteryHasDrawn = useGetLotteryHasDrawn()
-  const [requesteClaim, setRequestedClaim] = useState(false)
   const TranslateString = useI18n()
-  const allowance = useLotteryAllowance()
-  const [onPresentApprove] = useModal(<PurchaseWarningModal />)
-  const { claimAmount } = useTotalClaim()
   const { onMultiClaim } = useMultiClaimLottery()
-  const cakeBalance = useTokenBalance(getCakeAddress())
-  const { handleApprove, requestedApproval } = useApproval(onPresentApprove)
   const moneyPrice = usePriceMoneyBusd()
   const tokenSupply = useTokenSupply();
   const tokenPerBlock = useTokenPerBlock();
-  const handleClaim = useCallback(async () => {
-    try {
-      setRequestedClaim(true)
-      const txHash = await onMultiClaim()
-      // user rejected tx or didn't go thru
-      if (txHash) {
-        setRequestedClaim(false)
-      }
-    } catch (e) {
-      console.error(e)
-    }
-  }, [onMultiClaim, setRequestedClaim])
 
-  const [onPresentBuy] = useModal(<BuyModal max={cakeBalance} tokenName="CAKE" />)
 
   const getMarketCap = useCallback(
     (): any => {

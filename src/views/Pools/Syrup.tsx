@@ -127,7 +127,6 @@ const Farm: React.FC = () => {
         <HeadImg1 alt="devilcoin" width="330px" height="330px" src="/images/casinochip.svg" />
       </Header>
       <HeadDiv>
-          <Heading mb="20px" size='xl'>PreFarm, Earn TIME in: {calculateRemainingTime(currentTime.getTime(), +process.env.REACT_APP_END_COUNTDOWN)}</Heading>
           <BoxHeading>
             <Heading mb="20px" size='lg'>Stake tokens to earn MONEY & TIME</Heading>
           </BoxHeading>

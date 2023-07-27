@@ -15,13 +15,14 @@ const pools: PoolConfig[] = [
     poolCategory: PoolCategory.CORE,
     harvest: true,
     sortOrder: 0,
-    tokenPerBlock: '3',
+    tokenPerBlock: '1.5',
   },
   {
     uuid: 1,
     pId: 2,
     stakingToken: tokens.glto,
     earningToken: tokens.money,
+    quoteToken: tokens.wbnb,
     contractAddress: {
       97: '0xa2892CDD8152dB54b59252FbC5B05e0cB8cfC4bA',
       56: '0x015CD1D5FE7fABd84273cB068aC167217d5E92F1',
@@ -29,20 +30,21 @@ const pools: PoolConfig[] = [
     poolCategory: PoolCategory.CORE,
     harvest: true,
     sortOrder: 20,
-    tokenPerBlock: '0.5',
+    tokenPerBlock: '0.25',
   },
   {
     uuid: 2,
     pId: 0,
     stakingToken: tokens.busd,
     earningToken: tokens.money,
+    stableCoin: true,
     contractAddress: {
       97: '0xa2892CDD8152dB54b59252FbC5B05e0cB8cfC4bA',
       56: '0x015CD1D5FE7fABd84273cB068aC167217d5E92F1',
     },
     poolCategory: PoolCategory.CORE,
     harvest: true,
-    tokenPerBlock: '2',
+    tokenPerBlock: '1',
     sortOrder: 4,
     isFinished: false,
   },
@@ -51,6 +53,8 @@ const pools: PoolConfig[] = [
     pId: 3,
     stakingToken: tokens.btcb,
     earningToken: tokens.money,
+    quoteToken: tokens.wbnb,
+    stableCoin: false,
     contractAddress: {
       97: '0xa2892CDD8152dB54b59252FbC5B05e0cB8cfC4bA',
       56: '0x015CD1D5FE7fABd84273cB068aC167217d5E92F1',
@@ -58,13 +62,15 @@ const pools: PoolConfig[] = [
     poolCategory: PoolCategory.CORE,
     harvest: true,
     sortOrder: 6,
-    tokenPerBlock: '2',
+    tokenPerBlock: '1',
   },
   {
     uuid: 4,
     pId: 4,
     stakingToken: tokens.eth,
     earningToken: tokens.money,
+    quoteToken: tokens.wbnb,
+    stableCoin: false,
     contractAddress: {
       97: '0xa2892CDD8152dB54b59252FbC5B05e0cB8cfC4bA',
       56: '0x015CD1D5FE7fABd84273cB068aC167217d5E92F1',
@@ -72,13 +78,15 @@ const pools: PoolConfig[] = [
     poolCategory: PoolCategory.CORE,
     harvest: true,
     sortOrder: 8,
-    tokenPerBlock: '2',
+    tokenPerBlock: '1',
   },
   {
     uuid: 5,
     pId: 5,
     stakingToken: tokens.dot,
     earningToken: tokens.money,
+    quoteToken: tokens.wbnb,
+    stableCoin: false,
     contractAddress: {
       97: '0xa2892CDD8152dB54b59252FbC5B05e0cB8cfC4bA',
       56: '0x015CD1D5FE7fABd84273cB068aC167217d5E92F1',
@@ -86,13 +94,14 @@ const pools: PoolConfig[] = [
     poolCategory: PoolCategory.CORE,
     harvest: true,
     sortOrder: 10,
-    tokenPerBlock: '2',
+    tokenPerBlock: '1',
   },
   {
     uuid: 6,
     pId: 6,
     stakingToken: tokens.dai,
     earningToken: tokens.money,
+    stableCoin: true,
     contractAddress: {
       97: '0xa2892CDD8152dB54b59252FbC5B05e0cB8cfC4bA',
       56: '0x015CD1D5FE7fABd84273cB068aC167217d5E92F1',
@@ -100,13 +109,14 @@ const pools: PoolConfig[] = [
     poolCategory: PoolCategory.CORE,
     harvest: true,
     sortOrder: 12,
-    tokenPerBlock: '1',
+    tokenPerBlock: '0.5',
   },
   {
     uuid: 7,
     pId: 7,
     stakingToken: tokens.usdc,
     earningToken: tokens.money,
+    stableCoin: true,
     contractAddress: {
       97: '0xa2892CDD8152dB54b59252FbC5B05e0cB8cfC4bA',
       56: '0x015CD1D5FE7fABd84273cB068aC167217d5E92F1',
@@ -114,13 +124,15 @@ const pools: PoolConfig[] = [
     poolCategory: PoolCategory.CORE,
     harvest: true,
     sortOrder: 14,
-    tokenPerBlock: '1',
+    tokenPerBlock: '0.5',
   },
   {
     uuid: 8,
     pId: 9,
     stakingToken: tokens.cake,
     earningToken: tokens.money,
+    quoteToken: tokens.wbnb,
+    stableCoin: false,
     contractAddress: {
       97: '0xa2892CDD8152dB54b59252FbC5B05e0cB8cfC4bA',
       56: '0x015CD1D5FE7fABd84273cB068aC167217d5E92F1',
@@ -128,13 +140,14 @@ const pools: PoolConfig[] = [
     poolCategory: PoolCategory.CORE,
     harvest: true,
     sortOrder: 16,
-    tokenPerBlock: '1',
+    tokenPerBlock: '0.5',
   },
   {
     uuid: 9,
     pId: 8,
     stakingToken: tokens.usdt,
     earningToken: tokens.money,
+    stableCoin: true,
     contractAddress: {
       97: '0xa2892CDD8152dB54b59252FbC5B05e0cB8cfC4bA',
       56: '0x015CD1D5FE7fABd84273cB068aC167217d5E92F1',
@@ -142,7 +155,7 @@ const pools: PoolConfig[] = [
     poolCategory: PoolCategory.CORE,
     harvest: true,
     sortOrder: 18,
-    tokenPerBlock: '1',
+    tokenPerBlock: '0.5',
   },
   {
     uuid: 10,
@@ -163,6 +176,8 @@ const pools: PoolConfig[] = [
     pId: 10,
     stakingToken: tokens.glto,
     earningToken: tokens.time,
+    quoteToken: tokens.wbnb,
+    stableCoin: false,
     contractAddress: {
       97: '0x26521388233692788d2C34bE01138f5Eeb3f7127',
       56: '0x863ca65619cdb02e066BbEFE60EC6f5eb6F76eE1',
@@ -177,6 +192,7 @@ const pools: PoolConfig[] = [
     pId: 11,
     stakingToken: tokens.busd,
     earningToken: tokens.time,
+    stableCoin: true,
     contractAddress: {
       97: '0x26521388233692788d2C34bE01138f5Eeb3f7127',
       56: '0x863ca65619cdb02e066BbEFE60EC6f5eb6F76eE1',
@@ -191,6 +207,8 @@ const pools: PoolConfig[] = [
     pId: 12,
     stakingToken: tokens.btcb,
     earningToken: tokens.time,
+    quoteToken: tokens.wbnb,
+    stableCoin: false,
     contractAddress: {
       97: '0x26521388233692788d2C34bE01138f5Eeb3f7127',
       56: '0x863ca65619cdb02e066BbEFE60EC6f5eb6F76eE1',
@@ -205,6 +223,8 @@ const pools: PoolConfig[] = [
     pId: 13,
     stakingToken: tokens.eth,
     earningToken: tokens.time,
+    quoteToken: tokens.wbnb,
+    stableCoin: false,
     contractAddress: {
       97: '0x26521388233692788d2C34bE01138f5Eeb3f7127',
       56: '0x863ca65619cdb02e066BbEFE60EC6f5eb6F76eE1',
@@ -219,6 +239,8 @@ const pools: PoolConfig[] = [
     pId: 14,
     stakingToken: tokens.dot,
     earningToken: tokens.time,
+    quoteToken: tokens.wbnb,
+    stableCoin: false,
     contractAddress: {
       97: '0x26521388233692788d2C34bE01138f5Eeb3f7127',
       56: '0x863ca65619cdb02e066BbEFE60EC6f5eb6F76eE1',
@@ -233,6 +255,8 @@ const pools: PoolConfig[] = [
     pId: 15,
     stakingToken: tokens.cake,
     earningToken: tokens.time,
+    quoteToken: tokens.wbnb,
+    stableCoin: false,
     contractAddress: {
       97: '0x26521388233692788d2C34bE01138f5Eeb3f7127',
       56: '0x863ca65619cdb02e066BbEFE60EC6f5eb6F76eE1',
@@ -247,6 +271,7 @@ const pools: PoolConfig[] = [
     pId: 16,
     stakingToken: tokens.dai,
     earningToken: tokens.time,
+    stableCoin: true,
     contractAddress: {
       97: '0x26521388233692788d2C34bE01138f5Eeb3f7127',
       56: '0x863ca65619cdb02e066BbEFE60EC6f5eb6F76eE1',
@@ -261,6 +286,7 @@ const pools: PoolConfig[] = [
     pId: 17,
     stakingToken: tokens.usdt,
     earningToken: tokens.time,
+    stableCoin: true,
     contractAddress: {
       97: '0x26521388233692788d2C34bE01138f5Eeb3f7127',
       56: '0x863ca65619cdb02e066BbEFE60EC6f5eb6F76eE1',
@@ -275,6 +301,7 @@ const pools: PoolConfig[] = [
     pId: 18,
     stakingToken: tokens.usdc,
     earningToken: tokens.time,
+    stableCoin: true,
     contractAddress: {
       97: '0x26521388233692788d2C34bE01138f5Eeb3f7127',
       56: '0x863ca65619cdb02e066BbEFE60EC6f5eb6F76eE1',
@@ -283,6 +310,59 @@ const pools: PoolConfig[] = [
     harvest: true,
     sortOrder: 15,
     tokenPerBlock: '3',
+  },
+  {
+    uuid: 20,
+    pId: 21,
+    stakingToken: tokens.sphn,
+    earningToken: tokens.time,
+    stableCoin: true,
+    contractAddress: {
+      97: '0x26521388233692788d2C34bE01138f5Eeb3f7127',
+      56: '0x863ca65619cdb02e066BbEFE60EC6f5eb6F76eE1',
+    },
+    poolCategory: PoolCategory.CORE,
+    harvest: true,
+    sortOrder: 21,
+    tokenPerBlock: '0',
+    isFinished: true,
+    isPartner: true
+  },
+  {
+    uuid: 21,
+    pId: 23,
+    stakingToken: tokens.onemt,
+    earningToken: tokens.time,
+    stableCoin: true,
+    contractAddress: {
+      97: '0x26521388233692788d2C34bE01138f5Eeb3f7127',
+      56: '0x863ca65619cdb02e066BbEFE60EC6f5eb6F76eE1',
+    },
+    poolCategory: PoolCategory.CORE,
+    harvest: true,
+    sortOrder: 21,
+    tokenPerBlock: '3.19',
+    isPartner: true,
+    period: 2,
+    rewardCount: '10k'
+  },
+  {
+    uuid: 23,
+    pId: 25,
+    stakingToken: tokens.fg,
+    earningToken: tokens.time,
+    stableCoin: true,
+    contractAddress: {
+      97: '0x26521388233692788d2C34bE01138f5Eeb3f7127',
+      56: '0x863ca65619cdb02e066BbEFE60EC6f5eb6F76eE1',
+    },
+    poolCategory: PoolCategory.CORE,
+    harvest: true,
+    sortOrder: 22,
+    tokenPerBlock: '1.07',
+    isPartner: true,
+    period: 3,
+    rewardCount: '5k'
   }
 ]
 

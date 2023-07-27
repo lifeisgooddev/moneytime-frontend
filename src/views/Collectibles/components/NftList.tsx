@@ -38,7 +38,7 @@ const NftList = () => {
             }
           }, {}),
         )
-      } catch (error) {
+      } catch (error: any) {
         console.error(error)
         toastError('Error checking NFT claimable status')
       }

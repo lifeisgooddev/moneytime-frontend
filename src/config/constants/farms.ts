@@ -105,7 +105,7 @@ const farms: FarmConfig[] = [
   },
   {
     pid: 1,
-    lpSymbol: 'GLTO-BNB (ICS) LP',
+    lpSymbol: 'GLTO-BNB LP',
     lpAddresses: {
       97: '0xd80283e7b4f824a9575dfe788d0d1dbf45c5ff0d',
       56: '0x4ac95acB54bf2FDB48Cab3Fab6F40ff88bD85C85',
@@ -113,7 +113,26 @@ const farms: FarmConfig[] = [
     token: tokens.glto,
     quoteToken: tokens.wbnb,
   },
-  
+  {
+    pid: 22,
+    lpSymbol: 'SPHN-BNB PCS LP',
+    lpAddresses: {
+      97: '0xe6b3b02cefaaca05635cadfe4ebb1dfbbde60732',
+      56: '0xe6b3b02cefaaca05635cadfe4ebb1dfbbde60732',
+    },
+    token: tokens.sphn,
+    quoteToken: tokens.wbnb,
+  },
+  {
+    pid: 24,
+    lpSymbol: '1MT-BNB MTS LP',
+    lpAddresses: {
+      97: '0xf1a136a87c6c857ace11da51fccf00b1d95ae725',
+      56: '0xf1a136a87c6c857ace11da51fccf00b1d95ae725',
+    },
+    token: tokens.onemt,
+    quoteToken: tokens.wbnb,
+  },
 ]
 
 export default farms

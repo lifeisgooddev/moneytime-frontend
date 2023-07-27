@@ -149,6 +149,11 @@ export const usePoolFromPid = (pId): Pool => {
   return pool
 }
 
+export const usePoolFromUuid = (id): Pool => {
+  const pool = useSelector((state: State) => state.pools.data.find((p) => p.uuid === id))
+  return pool
+}
+
 // Toasts
 export const useToast = () => {
   const dispatch = useDispatch()
@@ -235,6 +240,9 @@ export const useAchievements = () => {
   return achievements
 }
 
+export const usePriceTimeBusd = (): BigNumber => {
+  return new BigNumber(1);
+}
 
 export const usePriceMoneyBusd = (): BigNumber => {
   const pid = 19 // CAKE-BNB LP
@@ -246,8 +254,41 @@ export const usePriceMoneyBusd = (): BigNumber => {
 export const usePriceBnbBusd = (): BigNumber => {
   const pid = 0 // BUSD-BNB LP
   const farm = useFarmFromPid(pid)
-  return farm.tokenPriceVsQuote ? new BigNumber(1).div(farm.tokenPriceVsQuote) : ZERO
+  return farm.tokenPriceVsQuote ? new BigNumber(1).times(farm.tokenPriceVsQuote) : ZERO
 }
+
+export const usePricePool = (id: number): BigNumber => {
+  const pool = usePoolFromUuid(id);
+  const bnbPriceUSD = usePriceBnbBusd();
+  const lpSymbol = pool.stakingToken.symbol.concat("-BNB LP");
+  const farm = useFarmFromSymbol(lpSymbol);
+  if(pool.stakingToken.symbol === "WBNB"){
+    return bnbPriceUSD;
+  }
+
+  if(pool.stableCoin) {
+    return new BigNumber(1);
+  }
+  
+  return farm.tokenPriceVsQuote ? bnbPriceUSD.times(farm.tokenPriceVsQuote) : ZERO
+}
+
+// export const usePriceListPool = (id: number): BigNumber => {
+//   const pools = useSelector((state: State) => state.pools.data);
+//   pools.forEach
+//   const bnbPriceUSD = usePriceBnbBusd();
+//   const lpSymbol = pool.stakingToken.symbol.concat("-BNB LP");
+//   const farm = useFarmFromSymbol(lpSymbol);
+//   if(pool.stakingToken.symbol === "WBNB"){
+//     return bnbPriceUSD;
+//   }
+
+//   if(pool.stableCoin) {
+//     return new BigNumber(1);
+//   }
+  
+//   return farm.tokenPriceVsQuote ? bnbPriceUSD.times(farm.tokenPriceVsQuote) : ZERO
+// }
 
 // Block
 export const useBlock = (): Block => {

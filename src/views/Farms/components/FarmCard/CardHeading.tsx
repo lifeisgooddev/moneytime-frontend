@@ -35,7 +35,7 @@ const CardHeading: React.FC<ExpandableSectionProps> = ({
         {lpLabel === "MONEY-BNB LP" || lpLabel === "MONEY-BUSD LP" ? (
           <Text style={{textAlign : "right"}}>ℹ️ Money LP stakers in this pool are eligible to a BUSD & MONEY token airdrop from fees.AirDrop every 72h at random hours.</Text>
         ) : (<></>) }
-        <Heading mb="4px"size='xl'>{lpLabel.split(' ')[0]}</Heading>
+        <Heading mb="4px"size='xl'>{lpLabel.replace(' LP', '')}</Heading>
         <Flex justifyContent="center">
           <MultiplierTag variant="backgroundRed">{multiplier}</MultiplierTag>
         </Flex>

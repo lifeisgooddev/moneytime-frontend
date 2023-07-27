@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Tag, Flex, Heading, Image } from '@pancakeswap-libs/uikit'
+import { Tag, Flex, Heading, Image, Text } from '@pancakeswap-libs/uikit'
 import { CommunityTag, CoreTag } from 'components/Tags'
 
 export interface ExpandableSectionProps {
@@ -9,6 +9,7 @@ export interface ExpandableSectionProps {
   isCommunityFarm?: boolean
   farmImage?: string
   tokenSymbol?: string
+  isFinished?: boolean
 }
 
 const Wrapper = styled(Flex)`
@@ -27,15 +28,30 @@ const CardHeading: React.FC<ExpandableSectionProps> = ({
   isCommunityFarm,
   farmImage,
   tokenSymbol,
+  isFinished
 }) => {
   return (
     <Wrapper justifyContent="space-between" alignItems="center" mb="12px">
       <Image src={`/images/farms/${farmImage}.svg`} alt={tokenSymbol} width={150} height={150} />
       <Flex flexDirection="column" alignItems="flex-end">
-        <Heading mb="4px"size='xl'>{lpLabel.split(' ')[0]}</Heading>
-        <Flex justifyContent="center">
-          <MultiplierTag variant="backgroundRed">{multiplier}</MultiplierTag>
-        </Flex>
+        { lpLabel === "MONEY" ? (
+          <>
+          <Heading mb="4px"size='xl'>{lpLabel.split(' ')[0]}</Heading>
+          <Flex justifyContent="center">
+            <MultiplierTag variant="backgroundRed">{multiplier}</MultiplierTag>
+          </Flex>
+          </>
+        ) : (
+          <>
+          <Heading mb="4px"size='lg'>Stake Money earn {lpLabel.split(' ')[0]}</Heading>
+          { !isFinished ? (
+            <Flex justifyContent="center">
+              <Text textAlign="right">For 2 weeks only <br/> 6300 {lpLabel.split(' ')[0]} to be distributed </Text>
+            </Flex>
+            ) : (<></>) }
+          </>
+        )
+        }
       </Flex>
     </Wrapper>
   )

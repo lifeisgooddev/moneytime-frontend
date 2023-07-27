@@ -9,7 +9,7 @@ import {
   fetchTimepoolUserDataAsync,
   fetchMoneypoolUserDataAsync
 } from 'state/actions'
-import { unstake, sousUnstake, sousEmegencyUnstake } from 'utils/callHelpers'
+import { unstake, sousUnstake, sousEmegencyUnstake, unstakeSphn } from 'utils/callHelpers'
 import { getMasterChefMoneyAddress } from 'utils/addressHelpers'
 import { useMasterchefTime, useMasterchefMoney, useSousChef } from './useContract'
 
@@ -50,6 +50,22 @@ export const useUnstakeMoney = (pid: number, token: string) => {
   return { onUnstake: handleUnstake }
 }
 
+export const useUnstakeSphn = (masterchefAddress: string, token: string) => {
+  const dispatch = useDispatch()
+  const { account } = useWeb3React()
+  const masterChefContract = useSousChef(masterchefAddress)
+
+  const handleUnstake = useCallback(
+    async (amount: string) => {
+      const txHash = await unstakeSphn(masterChefContract, amount, account)
+        dispatch(fetchMoneypoolUserDataAsync(account))
+      console.info(txHash)
+    },
+    [account, dispatch, masterChefContract],
+  )
+
+  return { onUnstake: handleUnstake }
+}
 export const useUnstake = (pId: number, masterchefAddress: string, uuid) => {
   const dispatch = useDispatch()
   const { account } = useWeb3React()

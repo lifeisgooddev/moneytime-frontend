@@ -54,6 +54,7 @@ export interface Pool extends PoolConfig {
   startBlock?: number
   multiplier?: BigNumber
   endBlock?: number
+  poolWeight?: BigNumber
   userData?: {
     allowance: BigNumber
     stakingTokenBalance: BigNumber

@@ -101,7 +101,7 @@ const CTACards = styled(BaseLayout)`
 
   ${({ theme }) => theme.mediaQueries.lg} {
     & > div {
-      grid-column: span 12;
+      grid-column: span 6;
     }
   }
 `

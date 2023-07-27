@@ -34,7 +34,7 @@ const EarnAPYCard = () => {
         if (farm.lpTotalInQuoteToken ) {
           const quoteTokenPriceUsd = 1;
           const totalLiquidity = new BigNumber(farm.lpTotalInQuoteToken).times(quoteTokenPriceUsd)
-          return getFarmApy(farm.poolWeight, moneyPrice, totalLiquidity)
+          return getFarmApy(farm.poolWeight, moneyPrice, totalLiquidity, 0.5)
         }
         return null
       })

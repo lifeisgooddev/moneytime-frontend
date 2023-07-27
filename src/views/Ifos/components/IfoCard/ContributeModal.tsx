@@ -39,7 +39,7 @@ const ContributeModal: React.FC<Props> = ({ currency, contract, currencyAddress,
         const response = await raisingTokenContract.methods.allowance(account, contract.options.address).call()
         const currentAllowance = new BigNumber(response)
         return currentAllowance.gt(0)
-      } catch (error) {
+      } catch (error: any) {
         return false
       }
     },

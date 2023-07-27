@@ -51,7 +51,7 @@ export const fetchTeam = (teamId: number) => async (dispatch) => {
     dispatch(fetchStart())
     const team = await getTeam(teamId)
     dispatch(teamFetchSucceeded(team))
-  } catch (error) {
+  } catch (error: any) {
     dispatch(fetchFailed())
   }
 }
@@ -61,7 +61,7 @@ export const fetchTeams = () => async (dispatch) => {
     dispatch(fetchStart())
     const teams = await getTeams()
     dispatch(teamsFetchSucceeded(teams))
-  } catch (error) {
+  } catch (error: any) {
     dispatch(fetchFailed())
   }
 }

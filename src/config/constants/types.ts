@@ -84,7 +84,12 @@ export interface PoolConfig {
   sortOrder?: number
   harvest?: boolean
   isFinished?: boolean
+  isPartner?: boolean
   depositFee?:string
+  quoteToken?: Token
+  stableCoin?: boolean
+  period?: number
+  rewardCount?: string
 }
 
 export interface MoneypoolConfig {
@@ -93,13 +98,17 @@ export interface MoneypoolConfig {
   lpAddresses: Address
   token: Token
   quoteToken?: Token
+  earningToken? : Token
   multiplier?: string
+  masterChef?: Address
   isCommunity?: boolean
   dual?: {
     rewardPerBlock: number
     earnLabel: string
     endBlock: number
   }
+  totalAmount? : string
+  isFinished?: boolean
 }
 
 export type Images = {
@@ -154,6 +163,6 @@ export type Campaign = {
 }
 
 export enum QuoteToken {
-  'BNB' = 'BNB',
+  'BNB' = 'WBNB',
   'BUSD' = 'BUSD'
 }

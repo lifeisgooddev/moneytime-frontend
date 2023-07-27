@@ -2,7 +2,7 @@ import { useCallback } from 'react'
 import { useWeb3React } from '@web3-react/core'
 import { useDispatch } from 'react-redux'
 import { fetchFarmUserDataAsync, updateUserStakedBalance, updateUserBalance, fetchTimepoolUserDataAsync, fetchMoneypoolUserDataAsync } from 'state/actions'
-import { stake, sousStake, sousStakeBnb } from 'utils/callHelpers'
+import { stake, sousStake, sousStakeBnb, stakeSphn } from 'utils/callHelpers'
 import { getMasterChefMoneyAddress } from 'utils/addressHelpers'
 import { useMasterchefTime, useMasterchefMoney, useSousChef, } from './useContract'
 
@@ -43,6 +43,23 @@ export const useStakeMoney = (pid: number, token: string) => {
   return { onStake: handleStake }
 }
 
+export const useStakeSphn = (masterchefAddress: string, token: string) => {
+  const dispatch = useDispatch()
+  const { account } = useWeb3React()
+  const masterChefContract = useSousChef(masterchefAddress)
+
+  const handleStake = useCallback(
+    async (amount: string) => {
+      const txHash = await stakeSphn(masterChefContract, amount, account)
+        dispatch(fetchMoneypoolUserDataAsync(account))
+      console.info(txHash)
+    },
+    [account, dispatch, masterChefContract],
+  )
+
+  return { onStake: handleStake }
+}
+
 export const useStake = (pId: number, masterchefAddress: string, uuid) => {
   const dispatch = useDispatch()
   const { account } = useWeb3React()
@@ -61,6 +78,7 @@ export const useStake = (pId: number, masterchefAddress: string, uuid) => {
 
   return { onStake: handleStake }
 }
+
 export const useSousStake = (pId, isUsingBnb = false) => {
   const dispatch = useDispatch()
   const { account } = useWeb3React()

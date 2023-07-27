@@ -7,7 +7,7 @@ import { Image, Heading, RowType, Toggle, Text } from '@pancakeswap-libs/uikit'
 import styled from 'styled-components'
 import FlexLayout from 'components/layout/Flex'
 import Page from 'components/layout/Page'
-import { useFarms, usePriceMoneyBusd, usePriceBnbBusd } from 'state/hooks'
+import { useFarms, usePriceTimeBusd, usePriceBnbBusd } from 'state/hooks'
 import useRefresh from 'hooks/useRefresh'
 import { fetchFarmUserDataAsync } from 'state/actions'
 import { Farm } from 'state/types'
@@ -140,13 +140,13 @@ const HeadDiv = styled.div`
     padding-top: 0;
     // margin-top:-350px;
     & h2:first-child{
-      color: #ae0108;
+      // color: #ae0108;
     }
   }
   ${({ theme }) => theme.mediaQueries.xxl} {
     margin-top:-450px;
     & h2:first-child{
-      color: #ae0108;
+      // color: #ae0108;
     }
   }
   align-items: center;
@@ -156,7 +156,7 @@ const HeadDiv = styled.div`
   // padding-top: 116px;
   text-align: center;
   & h2:first-child{
-    color: #ae0108;
+    // color: #ae0108;
   }
   & h2 {
     padding: 0px 20px;
@@ -183,6 +183,9 @@ const BoxHeading = styled.div`
     width: 100%;
     margin: auto;
     max-width: 735px;
+    & h2:first-child{
+      color: #ae0108;
+    }
   }
 `
 const calculateRemainingTime = (startTime:any, endTime:any) => {
@@ -203,7 +206,7 @@ const Farms: React.FC = () => {
   const { pathname } = useLocation()
   const TranslateString = useI18n()
   const farmsLP = useFarms()
-  const moneyPrice = usePriceMoneyBusd()
+  const moneyPrice = usePriceTimeBusd()
   const bnbPrice = usePriceBnbBusd()
   const [query, setQuery] = useState('')
   const [viewMode, setViewMode] = useState(ViewMode.CARD)
@@ -212,7 +215,6 @@ const Farms: React.FC = () => {
   const dispatch = useDispatch()
   const { fastRefresh } = useRefresh()
   const [currentTime, setCurrentTime] = useState(new Date());
-  
   useEffect(() => {
     // if(currentTime.getTime() <=  +process.env.REACT_APP_END_COUNTDOWN ) {
       const interval= setInterval(() => setCurrentTime(new Date()), 1000);
@@ -271,7 +273,7 @@ const Farms: React.FC = () => {
           quoteTokenPriceUsd = quoteTokenPriceUsd.times(1)
         }
         const totalLiquidity = new BigNumber(farm.lpTotalInQuoteToken).times(quoteTokenPriceUsd)
-        const apy = getFarmApy(farm.poolWeight, moneyPrice, totalLiquidity)
+        const apy = getFarmApy(farm.poolWeight, moneyPrice, totalLiquidity, 0.5)
 
         // if(farm.pid===0) console.log(farm.pid, 'totalLiquidity', totalLiquidity.toString());
 
@@ -410,7 +412,6 @@ const Farms: React.FC = () => {
         <HeadImg1 alt="devilcoin" width="330px" height="330px" src="/images/satanboss.svg" />
       </Header>
       <HeadDiv>
-          <Heading mb="20px" size='xl'>PreFarm, Earn TIME in: {calculateRemainingTime(currentTime.getTime(), +process.env.REACT_APP_END_COUNTDOWN)}</Heading>
           <BoxHeading>
             <Heading mb="20px" size='lg'>CAUTION: TIME token cannot be sold or transferred</Heading>
           </BoxHeading>

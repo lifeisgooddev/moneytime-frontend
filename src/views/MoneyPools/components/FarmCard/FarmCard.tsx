@@ -3,7 +3,7 @@ import BigNumber from 'bignumber.js'
 import styled, { keyframes } from 'styled-components'
 import { Flex, Text, Skeleton } from '@pancakeswap-libs/uikit'
 import { communityFarms } from 'config/constants'
-import { Farm } from 'state/types'
+import { Moneypool } from 'state/types'
 import { provider as ProviderType } from 'web3-core'
 import useI18n from 'hooks/useI18n'
 import ExpandableSectionButton from 'components/ExpandableSectionButton'
@@ -16,9 +16,9 @@ import CardHeading from './CardHeading'
 import CardActionsContainer from './CardActionsContainer'
 import ApyButton from './ApyButton'
 
-export interface FarmWithStakedValue extends Farm {
+export interface FarmWithStakedValue extends Moneypool {
   apy?: number
-  liquidity?: BigNumber,
+  liquidity?: BigNumber
 }
 
 const RainbowLight = keyframes`
@@ -126,7 +126,7 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm, removed, moneyPrice, account 
   const farmImage = farm.lpSymbol.split(' ')[0].toLocaleLowerCase()
 
   const totalValueFormated = farm.liquidity
-    ? `$${farm.liquidity.toNumber().toLocaleString(undefined, { maximumFractionDigits: 0 })}`
+    ? `$${farm.liquidity.times(moneyPrice).toNumber().toLocaleString(undefined, { maximumFractionDigits: 0 })}`
     : '-'
 
   const lpLabel = farm.lpSymbol && farm.lpSymbol.toUpperCase().replace('PANCAKE', '')
@@ -150,11 +150,18 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm, removed, moneyPrice, account 
         isCommunityFarm={isCommunityFarm}
         farmImage={farmImage}
         tokenSymbol={farm.token.symbol}
+        isFinished={farm.isFinished}
       />
       <Flex justifyContent="space-between">
         <Text>{TranslateString(318, 'Deposit Fee')}:</Text>
-        <Text>5%</Text>
+        <Text>{farm.earningToken.symbol === "MONEY" ? '5%' : '2%' }</Text>
       </Flex>
+      {farm.earningToken.symbol !== "MONEY" ? (
+        <Flex justifyContent="space-between">
+        <Text>{TranslateString(318, 'Withdraw Fee')}:</Text>
+        <Text>2%</Text>
+        </Flex>
+      ) : (<></>)}
       {!removed && (
         <Flex justifyContent="space-between" alignItems="center">
           <Text>{TranslateString(736, 'APR')}:</Text>
@@ -172,12 +179,14 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm, removed, moneyPrice, account 
       )}
       <Flex justifyContent="space-between">
         <Text>{TranslateString(318, 'Your stake')}:</Text>
-        <Text>{displayBalance} {farm.lpSymbol}</Text>
+        <Text>{displayBalance} {farm.token.symbol}</Text>
       </Flex>
-      <Flex justifyContent="space-between">
-        <Text>{TranslateString(318, 'Remaining lock period')}:</Text>
-        <Text>{farm.userData ? calculateRemainingTime(farm.userData.depositTime, farm.lockTime) : "--/--/--"}</Text>
-      </Flex>
+      { farm.earningToken.symbol === "MONEY" ? (
+        <Flex justifyContent="space-between">
+          <Text>{TranslateString(318, 'Remaining lock period')}:</Text>
+          <Text>{farm.userData ? calculateRemainingTime(farm.userData.depositTime, farm.lockTime) : "--/--/--"}</Text>
+        </Flex> ) : ( <></>)
+      }
       <CardActionsContainer farm={farm} account={account} addLiquidityUrl={addLiquidityUrl} />
       <Divider />
       <ExpandableSectionButton
@@ -189,7 +198,7 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm, removed, moneyPrice, account 
           removed={removed}
           bscScanAddress={`https://bscscan.com/address/${farm.lpAddresses[process.env.REACT_APP_CHAIN_ID]}`}
           totalValueFormated={totalValueFormated}
-          lpLabel={lpLabel}
+          lpLabel={farm.token.symbol}
           addLiquidityUrl={addLiquidityUrl}
         />
       </ExpandingWrapper>

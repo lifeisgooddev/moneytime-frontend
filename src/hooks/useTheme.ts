@@ -4,7 +4,6 @@ import { ThemeContext } from 'contexts/ThemeContext'
 
 const useTheme = () => {
   const { isDark, toggleTheme } = useContext(ThemeContext)
-  console.log('isDark', isDark);
   const theme = useContext(StyledThemeContext)
   return { isDark, toggleTheme, theme }
 }

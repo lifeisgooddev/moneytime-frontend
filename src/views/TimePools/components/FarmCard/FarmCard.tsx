@@ -111,7 +111,7 @@ const calculateRemainingTime = (time:any, lockPeriod:any) => {
   const hours   = totalHours - ( totalDays * 24 );
   const minutes = totalMinutes - ( totalDays * 24 * 60 ) - ( hours * 60 );
 
-  return `${totalDays}d ${hours}h ${minutes}m`;
+  return `${totalDays}d ${hours}h ${minutes + 1}m`;
 }
 const FarmCard: React.FC<FarmCardProps> = ({ farm, removed, moneyPrice, account }) => {
   const TranslateString = useI18n()
@@ -129,7 +129,6 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm, removed, moneyPrice, account 
   const totalValueFormated = farm.liquidity
     ? `${farm.liquidity.toNumber().toLocaleString(undefined, { maximumFractionDigits: 0 })}`
     : '-'
-  console.log('totalValueFormated', totalValueFormated);
   const lpLabel = farm.lockPeriod;
   const earnLabel = farm.dual ? farm.dual.earnLabel : 'TIME'
 

@@ -39,7 +39,7 @@ const Mint: React.FC = () => {
         const response = await cakeContract.methods.allowance(account, bunnyFactoryContract.options.address).call()
         const currentAllowance = new BigNumber(response)
         return currentAllowance.gte(minimumCakeRequired)
-      } catch (error) {
+      } catch (error: any) {
         return false
       }
     },

@@ -1,6 +1,7 @@
 import BigNumber from 'bignumber.js'
 import erc20 from 'config/abi/erc20.json'
 import masterchefMoneyABI from 'config/abi/MasterChefMoney.json'
+import sousChefABI from 'config/abi/sousChef.json'
 import multicall from 'utils/multicall'
 import { getAddress,  getMasterChefMoneyAddress } from 'utils/addressHelpers'
 import moneypoolsConfig from 'config/constants/moneypools'
@@ -9,6 +10,7 @@ const fetchMoneypools = async () => {
   const data = await Promise.all(
     moneypoolsConfig.map(async (moneypoolConfig) => {
       const lpAddress = getAddress(moneypoolConfig.lpAddresses)
+      const masterChefAddress = moneypoolConfig.earningToken.symbol === "MONEY" ? getMasterChefMoneyAddress() : getAddress(moneypoolConfig.masterChef);
       const calls = [
         // Balance of token in the LP contract
         {
@@ -26,7 +28,7 @@ const fetchMoneypools = async () => {
         {
           address: lpAddress,
           name: 'balanceOf',
-          params: [getMasterChefMoneyAddress()],
+          params: [masterChefAddress],
         },
         // Total supply of LP tokens
         {
@@ -66,26 +68,43 @@ const fetchMoneypools = async () => {
       const quoteTokenAmount = new BigNumber(quoteTokenBlanceLP)
         .div(new BigNumber(10).pow(quoteTokenDecimals))
         .times(lpTokenRatio)
-      const [info, totalAllocPoint, _poolDeposit] = await multicall(masterchefMoneyABI, [
-        {
-          address: getMasterChefMoneyAddress(),
-          name: 'poolInfo',
-          params: [moneypoolConfig.pid],
-        },
-        {
-          address: getMasterChefMoneyAddress(),
-          name: 'totalAllocPoint',
-        },
-        {
-          address: getMasterChefMoneyAddress(),
-          name: 'poolDeposit',
-          params: [moneypoolConfig.pid],
-        },
-      ])
-      const allocPoint = new BigNumber(info.allocPoint._hex)
-      const poolWeight = allocPoint.div(new BigNumber(totalAllocPoint))
-      const lockTime = new BigNumber(info.lockPeriod._hex);
-      const poolDeposit = new BigNumber(_poolDeposit[0]._hex).div(new BigNumber(10).pow(tokenDecimals));
+      if(moneypoolConfig.earningToken.symbol === "MONEY") {
+        const [info, totalAllocPoint, _poolDeposit] = await multicall(masterchefMoneyABI, [
+          {
+            address: getMasterChefMoneyAddress(),
+            name: 'poolInfo',
+            params: [moneypoolConfig.pid],
+          },
+          {
+            address: getMasterChefMoneyAddress(),
+            name: 'totalAllocPoint',
+          },
+          {
+            address: getMasterChefMoneyAddress(),
+            name: 'poolDeposit',
+            params: [moneypoolConfig.pid],
+          },
+        ])
+        const allocPoint = new BigNumber(info.allocPoint._hex)
+        const poolWeight = allocPoint.div(new BigNumber(totalAllocPoint))
+        const lockTime = new BigNumber(info.lockPeriod._hex);
+        const poolDeposit = new BigNumber(_poolDeposit[0]._hex).div(new BigNumber(10).pow(tokenDecimals));
+        return {
+          ...moneypoolConfig,
+          tokenAmount: tokenAmount.toJSON(),
+          quoteTokenAmount: quoteTokenAmount.toJSON(),
+          lpTotalInQuoteToken: lpTotalInQuoteToken.toJSON(),
+          tokenPriceVsQuote: quoteTokenAmount.div(tokenAmount).toJSON(),
+          poolWeight: poolWeight.toJSON(),
+          multiplier: `${allocPoint.div(100).toString()}X`,
+          poolDeposit: poolDeposit.toJSON(),
+          lockTime: lockTime.toJSON()
+        }
+      }
+
+      const poolWeight = new BigNumber('1');
+      const lockTime = new BigNumber('0');
+      const poolDeposit = new BigNumber(lpTokenBalanceMC).div(new BigNumber(10).pow(tokenDecimals));
       return {
         ...moneypoolConfig,
         tokenAmount: tokenAmount.toJSON(),
@@ -93,7 +112,7 @@ const fetchMoneypools = async () => {
         lpTotalInQuoteToken: lpTotalInQuoteToken.toJSON(),
         tokenPriceVsQuote: quoteTokenAmount.div(tokenAmount).toJSON(),
         poolWeight: poolWeight.toJSON(),
-        multiplier: `${allocPoint.div(100).toString()}X`,
+        multiplier: `X`,
         poolDeposit: poolDeposit.toJSON(),
         lockTime: lockTime.toJSON()
       }
